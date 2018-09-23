@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+/*
 import {addLocaleData, IntlProvider} from 'react-intl';
 
 import en from "react-intl/locale-data/en";
@@ -20,10 +21,9 @@ var messages = {
     "de": translations_de,
     "ru": translations_ru
 };
+*/
 
 ReactDOM.render(
-    <IntlProvider locale="de" messages={messages["de"]}>
-        <App />
-    </IntlProvider>, 
+    <App />,
     document.getElementById('root'));
 registerServiceWorker();

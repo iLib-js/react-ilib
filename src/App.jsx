@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import PropTypes from 'prop-types';
-import { FormattedHTMLMessage } from 'react-intl';
+// import { FormattedHTMLMessage } from 'react-intl';
 
 //eslint-disable-next-line
 import ilib from 'ilib/lib/ilib-getdata';
@@ -31,11 +31,6 @@ class App extends Component {
                     <Translate id="test.id" description="this is a test">
                         This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <AddressFmt locale="en-US" address={address}/>.
                     </Translate>
-                    <Translate
-                        id="unique.id"
-                        description="required description"
-                        defaultMessage={<span>This is <b>text</b> with <AddressFmt> subcomponents </AddressFmt> in it.</span>}
-                    />
                 </p>
                 <p>
                     This is an address in the US formatted using AddressFmt: 
