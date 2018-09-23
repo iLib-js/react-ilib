@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const IlibWebpackPlugin = require("ilib-webpack-plugin");
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -21,6 +22,14 @@ const publicPath = '/';
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+
+const ilibOptions = {
+    locales: ["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-Hans-CN"],
+    assembly: 'dynamicdata',
+    compilation: 'uncompiled',
+    size: 'custom',
+    target: 'web'
+};
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -121,6 +130,13 @@ module.exports = {
           },
         ],
         include: paths.appSrc,
+      },
+      {
+          test: /.js$/,
+          use: {
+              loader: 'ilib-webpack-loader',
+              options: ilibOptions
+          }
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -243,6 +259,10 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.DefinePlugin({
+        __VERSION__: JSON.stringify(require('ilib/package.json').version)
+    }),
+    new IlibWebpackPlugin(ilibOptions)
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

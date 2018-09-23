@@ -3,12 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import PropTypes from 'prop-types';
 // import { FormattedHTMLMessage } from 'react-intl';
-
-//eslint-disable-next-line
-import ilib from 'ilib/lib/ilib-getdata';
-import Address from 'ilib/lib/Address';
 import AddressFmt from './components/AddressFmt';
 import Translate from './components/Translate';
+
+//eslint-disable-next-line
+const ilib = require('ilib/lib/ilib-getdata');
+const Address = require('ilib/lib/Address');
 
 var address = new Address({
     streetAddress: "900 Jefferson Ave.",
@@ -29,7 +29,7 @@ class App extends Component {
                 </header>
                 <p className="App-intro">
                     <Translate id="test.id" description="this is a test">
-                        This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <AddressFmt locale="en-US" address={address}/>.
+                        This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <AddressFmt locale="de-DE" address={address}/>.
                     </Translate>
                 </p>
                 <p>

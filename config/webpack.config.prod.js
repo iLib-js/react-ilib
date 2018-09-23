@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const IlibWebpackPlugin = require("ilib-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -45,6 +46,15 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
+
+const ilibOptions = {
+    locales: ["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-Hans-CN"],
+    assembly: 'dynamicdata',
+    compilation: 'compiled',
+    size: 'custom',
+    target: 'web'
+};
+
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -127,6 +137,13 @@ module.exports = {
           },
         ],
         include: paths.appSrc,
+      },
+      {
+          test: /.js$/,
+          use: {
+              loader: 'ilib-webpack-loader',
+              options: ilibOptions
+          }
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -329,6 +346,10 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.DefinePlugin({
+        __VERSION__: JSON.stringify(require('ilib/package.json').version)
+    }),
+    new IlibWebpackPlugin(ilibOptions)
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

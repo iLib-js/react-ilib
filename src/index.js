@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+//eslint-disable-next-line
+const ilib = require('ilib/lib/ilib-getdata');
+
 /*
 import {addLocaleData, IntlProvider} from 'react-intl';
 

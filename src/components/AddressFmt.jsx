@@ -1,18 +1,32 @@
 import * as React from 'react';
 
-//eslint-disable-next-line
-import ilib from 'ilib/lib/ilib-getdata';
+const Address = require('ilib/lib/Address');
+const AddressFormatter = require('ilib/lib/AddressFmt');
 
 class AddressFmt extends React.Component {
+    constructor(props) {
+        super(props);
+        const {
+            locale,
+            style
+        } = props;
+        
+        this.fmt = new AddressFormatter({
+            locale: locale,
+            style: style
+        });
+    }
+    
     render() {
         const {
             locale,
             style,
             address,
-            ...rest
         } = this.props;
 
-        return "Sun Jun 1, 2018";
+        let a = new Address(address);
+        
+        return this.fmt.format(a);
     }
 }
 
