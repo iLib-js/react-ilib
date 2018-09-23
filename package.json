@@ -1,0 +1,68 @@
+{
+    "name": "react-ilib",
+    "version": "1.0.0",
+    "main": "react-ilib.js",
+    "description": "A set of React components that wrap iLib classes",
+    "keywords": [
+        "internationalization",
+        "i18n",
+        "localization",
+        "l10n",
+        "globalization",
+        "g11n",
+        "date",
+        "time",
+        "format",
+        "locale",
+        "translation",
+        "react",
+        "component"
+    ],
+    "homepage": "https://github.com/iLib-js/react-ilib",
+    "bugs": "https://github.com/iLib-js/react-ilib/issues",
+    "email": "marketing@translationcircle.com",
+    "license": "Apache-2.0",
+    "author": {
+        "name": "Edwin Hoogerbeets",
+        "web": "http://www.translationcircle.com/",
+        "email": "edwin@translationcircle.com"
+    },
+    "contributors": [
+        {
+            "name": "Edwin Hoogerbeets",
+            "email": "ehoogerbeets@gmail.com"
+        }
+    ],
+    "files": [
+        "src",
+        "README.md"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:iLib-js/react-ilib.git"
+    },
+    "engines": {
+        "ringojs": ">=0.9",
+        "nodejs": ">= 0.10"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "dependencies": {
+        "ilib": "file:../ilib/dist/ilib.tgz",
+        "ilib-webpack-loader": "^1.0.1",
+        "ilib-webpack-plugin": "^1.0.1",
+        "react": "^16.5.1",
+        "react-dom": "^16.5.1",
+        "react-intl": "^2.5.0",
+        "react-scripts": "1.1.4"
+    },
+    "devDependencies": {
+        "http-server": "^0.11.1",
+        "nodeunit": "0.11.0",
+        "esm": "^3.0.0"
+    }
+}

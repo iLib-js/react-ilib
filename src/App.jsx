@@ -1,0 +1,53 @@
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import PropTypes from 'prop-types';
+import { FormattedHTMLMessage } from 'react-intl';
+
+//eslint-disable-next-line
+import ilib from 'ilib/lib/ilib-getdata';
+import Address from 'ilib/lib/Address';
+import AddressFmt from './components/AddressFmt';
+import Translate from './components/Translate';
+
+var address = new Address({
+    streetAddress: "900 Jefferson Ave.",
+    postalCode: "94063",
+    locality: "Redwood City",
+    region: "California",
+    country: "United States of America",
+    locale: "en-US"
+});
+
+class App extends Component {
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">React-ilib Test App</h1>
+                </header>
+                <p className="App-intro">
+                    <Translate id="test.id" description="this is a test">
+                        This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <AddressFmt locale="en-US" address={address}/>.
+                    </Translate>
+                    <Translate
+                        id="unique.id"
+                        description="required description"
+                        defaultMessage={<span>This is <b>text</b> with <AddressFmt> subcomponents </AddressFmt> in it.</span>}
+                    />
+                </p>
+                <p>
+                    This is an address in the US formatted using AddressFmt: 
+                    <AddressFmt locale="en-US" address={address}/>
+                </p>
+            </div>
+        );
+    }
+}
+
+App.contextTypes = {
+    intl: PropTypes.object
+};
+
+export default App;
