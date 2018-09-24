@@ -25,10 +25,11 @@ const env = getClientEnvironment(publicUrl);
 
 const ilibOptions = {
     locales: ["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-Hans-CN"],
-    assembly: 'dynamicdata',
+    assembly: 'assembled',
     compilation: 'uncompiled',
     size: 'custom',
-    target: 'web'
+    target: 'web',
+    debug: true
 };
 
 // This is the development configuration.

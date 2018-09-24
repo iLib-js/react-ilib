@@ -1,5 +1,5 @@
 /*
- * AddressFmt.jsx - component to format a mailing address
+ * NameFmt.jsx - component to format a person's name
  *
  * Copyright © 2018, JEDLSoft
  *
@@ -20,14 +20,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Address = require('ilib/lib/Address');
-const AddressFormatter = require('ilib/lib/AddressFmt');
+const Name = require('ilib/lib/Name');
+const NameFormatter = require('ilib/lib/NameFmt');
 
-class AddressFmt extends React.Component {
+class NameFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         style: PropTypes.string,
-        address: PropTypes["object"].isRequired,
+        components: PropTypes.string,
+        name: PropTypes["object"].isRequired,
         children: PropTypes.any
     };
 
@@ -39,7 +40,7 @@ class AddressFmt extends React.Component {
         } = props;
         
         this.state = {
-            formatter: new AddressFormatter({
+            formatter: new NameFormatter({
                 locale: locale,
                 style: style
             })
@@ -49,7 +50,7 @@ class AddressFmt extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
             this.setState({
-                formatter: new AddressFormatter({
+                formatter: new NameFormatter({
                     locale: this.props.locale,
                     style: this.props.style
                 }) 
@@ -58,11 +59,11 @@ class AddressFmt extends React.Component {
     }
     
     render() {
-        var address = typeof(this.props.address) === "string" ?
-            new Address(this.props.address, {locale: this.props.locale}) :
-            this.props.address;
-        return this.state.formatter.format(address);
+        var name = typeof(this.props.name) === "string" ?
+            new Name(this.props.name, {locale: this.props.locale}) :
+            this.props.name;
+        return this.state.formatter.format(name);
     }
 }
 
-export default AddressFmt;
+export default NameFmt;

@@ -52,7 +52,8 @@ const ilibOptions = {
     assembly: 'dynamicdata',
     compilation: 'compiled',
     size: 'custom',
-    target: 'web'
+    target: 'web',
+    debug: true
 };
 
 

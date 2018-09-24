@@ -1,5 +1,5 @@
 /*
- * AddressFmt.jsx - component to format a mailing address
+ * ListFmt.jsx - component to format a list number
  *
  * Copyright © 2018, JEDLSoft
  *
@@ -20,14 +20,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Address = require('ilib/lib/Address');
-const AddressFormatter = require('ilib/lib/AddressFmt');
+const ListFormatter = require('ilib/lib/ListFmt');
 
-class AddressFmt extends React.Component {
+class ListFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
+        length: PropTypes.string,
         style: PropTypes.string,
-        address: PropTypes["object"].isRequired,
+        list: PropTypes["object"].isRequired,
         children: PropTypes.any
     };
 
@@ -35,34 +35,34 @@ class AddressFmt extends React.Component {
         super(props);
         const {
             locale,
-            style
+            style,
+            length
         } = props;
         
         this.state = {
-            formatter: new AddressFormatter({
+            formatter: new ListFormatter({
                 locale: locale,
-                style: style
+                style: style,
+                length: length
             })
         };
     }
     
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
+        if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
             this.setState({
-                formatter: new AddressFormatter({
+                formatter: new ListFormatter({
                     locale: this.props.locale,
-                    style: this.props.style
+                    style: this.props.style,
+                    length: this.props.length
                 }) 
             });
         }
     }
     
     render() {
-        var address = typeof(this.props.address) === "string" ?
-            new Address(this.props.address, {locale: this.props.locale}) :
-            this.props.address;
-        return this.state.formatter.format(address);
+        return this.state.formatter.format(this.props.list);
     }
 }
 
-export default AddressFmt;
+export default ListFmt;

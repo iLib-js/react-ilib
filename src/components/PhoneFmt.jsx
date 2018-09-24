@@ -1,5 +1,5 @@
 /*
- * AddressFmt.jsx - component to format a mailing address
+ * PhoneFmt.jsx - component to format a phone number
  *
  * Copyright © 2018, JEDLSoft
  *
@@ -20,14 +20,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Address = require('ilib/lib/Address');
-const AddressFormatter = require('ilib/lib/AddressFmt');
+const Phone = require('ilib/lib/Phone');
+const PhoneFormatter = require('ilib/lib/PhoneFmt');
 
-class AddressFmt extends React.Component {
+class PhoneFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         style: PropTypes.string,
-        address: PropTypes["object"].isRequired,
+        phone: PropTypes["object"].isRequired,
         children: PropTypes.any
     };
 
@@ -39,7 +39,7 @@ class AddressFmt extends React.Component {
         } = props;
         
         this.state = {
-            formatter: new AddressFormatter({
+            formatter: new PhoneFormatter({
                 locale: locale,
                 style: style
             })
@@ -49,20 +49,20 @@ class AddressFmt extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
             this.setState({
-                formatter: new AddressFormatter({
+                formatter: new PhoneFormatter({
                     locale: this.props.locale,
                     style: this.props.style
-                }) 
+                })
             });
         }
     }
     
     render() {
-        var address = typeof(this.props.address) === "string" ?
-            new Address(this.props.address, {locale: this.props.locale}) :
-            this.props.address;
-        return this.state.formatter.format(address);
+        var phone = typeof(this.props.phone) === "string" ?
+            new Phone(this.props.phone, {locale: this.props.locale}) :
+            this.props.phone;
+        return this.state.formatter.format(phone);
     }
 }
 
-export default AddressFmt;
+export default PhoneFmt;
