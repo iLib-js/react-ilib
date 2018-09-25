@@ -47,7 +47,7 @@ class ListFmt extends React.Component {
             })
         };
     }
-    
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
             this.setState({

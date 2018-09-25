@@ -26,8 +26,7 @@ const ilib = require('ilib/lib/ilib-getdata');
 class LocaleDataProvider extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        translationsDir: PropTypes.string,
-        children: PropTypes.element.isRequired
+        translationsDir: PropTypes.string
     };
     
     constructor(props) {
@@ -39,23 +38,34 @@ class LocaleDataProvider extends React.Component {
         };
     }
 
-    componentDidMount() {
-        let webpackLoader = ilib._load;
-        let locale = this.props.locale || ilib.getLocale();
-        
-        webpackLoader.ensureLocale(locale, "./locale", function(results) {
-            if (results) {
-                //  eslint-disable-next-line
-                System.import(this.props.mainApp, () => {
-                    console.log(`Locale data for locale ${locale} and main App both loaded asynchronously.`);
-                    this.setState({
-                        mainApp: React.createElement(this.props.mainApp, {})
-                    });
-                });
-            } else {
-                console.log(`Locale date for locale ${locale} were NOT loaded`);
-            }
+    loadMainApp() {
+        //  eslint-disable-next-line
+        System.import("../App.jsx").then(function(module) {
+            console.log(`Main App loaded.`);
+            this.setState({
+                mainApp: React.createElement(module.default, {})
+            });
         }.bind(this));
+    }
+    
+    componentDidMount() {
+        if (ilib.isDynData()) {
+            // under dynamic data, we have to ensure the data is loaded first before
+            // we load the main app
+            let webpackLoader = ilib._load;
+            let locale = this.props.locale || ilib.getLocale();
+            webpackLoader.ensureLocale(locale, "./locale", function(results) {
+                if (results) {
+                    console.log(`Locale data for locale ${this.props.locale} loaded.`);
+                    this.loadMainApp();
+                } else {
+                    console.log(`Locale date for locale ${locale} were NOT loaded`);
+                }
+            }.bind(this));
+        } else {
+            // data is already assembled and loaded, so just load the main app directly
+            this.loadMainApp();
+        }
     }
     
     render() {

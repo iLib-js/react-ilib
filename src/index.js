@@ -20,14 +20,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import LocaleDataProvider from './components/LocaleDataProvider';
 
-//eslint-disable-next-line
-const ilib = require('ilib/lib/ilib-getdata');
-
 ReactDOM.render(
-    <LocaleDataProvider locale="de-DE" mainApp="./App"/>,
+    <LocaleDataProvider locale="de-DE"/>,
     document.getElementById('root'));
 registerServiceWorker();
