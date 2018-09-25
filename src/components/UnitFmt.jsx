@@ -41,24 +41,39 @@ class UnitFmt extends React.Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             formatter: new UnitFormatter(props)
         };
     }
-    
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        let diff = ["locale", "autoScale", "autoConvert", "usage", "style", "length", 
+        let diff = ["locale", "autoScale", "autoConvert", "usage", "style", "length",
                     "maxFractionDigits", "minFractionDigits", "significantDigits", "roundingMode"].some(function(prop) {
             return prevProps[prop] !== this.props[prop];
         });
         if (diff) {
-            this.setState({
-                formatter: new UnitFormatter(this.props) 
+            new UnitFormatter({
+                locale: this.props.locale,
+                autoScale: this.props.autoScale,
+                autoConvert: this.props.autoConvert,
+                usage: this.props.usage,
+                style: this.props.style,
+                length: this.props.length,
+                maxFractionDigits: this.props.maxFractionDigits,
+                minFractionDigits: this.props.minFractionDigits,
+                significantDigits: this.props.significantDigits,
+                roundingMode: this.props.roundingMode,
+                sync: false,
+                onLoad: function(fmt) {
+                    this.setState({
+                        formatter: fmt
+                    });
+                }.bind(this)
             });
         }
     }
-    
+
     render() {
         var unit = typeof(this.props.unit) === "string" ?
             new Unit(this.props.unit, {locale: this.props.locale}) :

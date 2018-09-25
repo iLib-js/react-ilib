@@ -49,11 +49,15 @@ class NameFmt extends React.Component {
     
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
-            this.setState({
-                formatter: new NameFormatter({
-                    locale: this.props.locale,
-                    style: this.props.style
-                }) 
+            new NameFormatter({
+                locale: this.props.locale,
+                style: this.props.style,
+                sync: false,
+                onLoad: function(fmt) {
+                    this.setState({
+                        formatter: fmt
+                    });
+                }.bind(this)
             });
         }
     }

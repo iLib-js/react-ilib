@@ -50,12 +50,16 @@ class ListFmt extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
-            this.setState({
-                formatter: new ListFormatter({
-                    locale: this.props.locale,
-                    style: this.props.style,
-                    length: this.props.length
-                }) 
+            new ListFormatter({
+                locale: this.props.locale,
+                style: this.props.style,
+                length: this.props.length,
+                sync: false,
+                onLoad: function(fmt) {
+                    this.setState({
+                        formatter: fmt
+                    });
+                }.bind(this)
             });
         }
     }

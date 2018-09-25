@@ -48,7 +48,7 @@ class LocaleDataProvider extends React.Component {
         }.bind(this));
     }
 
-    componentDidMount() {
+    loadDataAndApp() {
         if (ilib.isDynData()) {
             // under dynamic data, we have to ensure the data is loaded first before
             // we load the main app
@@ -65,6 +65,16 @@ class LocaleDataProvider extends React.Component {
         } else {
             // data is already assembled and loaded, so just load the main app directly
             this.loadMainApp();
+        }
+    }
+
+    componentDidMount() {
+        this.loadDataAndApp()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.locale !== this.props.locale || prevProps.translationsDir !== this.props.translationsDir) {
+            this.loadDataAndApp();
         }
     }
 
