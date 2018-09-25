@@ -37,7 +37,8 @@ class AddressFmt extends React.Component {
             locale,
             style
         } = props;
-        
+        // data for the current locale should already be loaded, so we can create
+        // this formatter synchronously
         this.state = {
             formatter: new AddressFormatter({
                 locale: locale,
@@ -48,11 +49,17 @@ class AddressFmt extends React.Component {
     
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
-            this.setState({
-                formatter: new AddressFormatter({
-                    locale: this.props.locale,
-                    style: this.props.style
-                }) 
+            // the data for this may not be loaded yet, so we have to create the new
+            // formatter asynchronously, just in case, and then set it into the state
+            new AddressFormatter({
+                locale: this.props.locale,
+                style: this.props.style,
+                sync: false,
+                onLoad: function(fmt) {
+                    this.setState({
+                        formatter: fmt
+                    });
+                }.bind(this)
             });
         }
     }

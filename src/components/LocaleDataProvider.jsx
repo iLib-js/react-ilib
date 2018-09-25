@@ -28,7 +28,7 @@ class LocaleDataProvider extends React.Component {
         locale: PropTypes.string,
         translationsDir: PropTypes.string
     };
-    
+
     constructor(props) {
         super(props);
 
@@ -47,7 +47,7 @@ class LocaleDataProvider extends React.Component {
             });
         }.bind(this));
     }
-    
+
     componentDidMount() {
         if (ilib.isDynData()) {
             // under dynamic data, we have to ensure the data is loaded first before
@@ -59,7 +59,7 @@ class LocaleDataProvider extends React.Component {
                     console.log(`Locale data for locale ${this.props.locale} loaded.`);
                     this.loadMainApp();
                 } else {
-                    console.log(`Locale date for locale ${locale} were NOT loaded`);
+                    console.log(`Locale data for locale ${locale} were NOT loaded`);
                 }
             }.bind(this));
         } else {
@@ -67,7 +67,7 @@ class LocaleDataProvider extends React.Component {
             this.loadMainApp();
         }
     }
-    
+
     render() {
         return this.state.mainApp || <div>Loading...</div>;
     }
