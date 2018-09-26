@@ -37,28 +37,16 @@ class Translate extends React.Component {
             children        // the components within the body 
         } = this.props;
 
-        let sourceElements = children;
-        this.composition = new Composition(sourceElements);
-        this.str = this.composition.compose();
-
-        let resId;
-
-        if (!description) {
-            throw new Error(`Translate component found without the required description prop. Id: ${id} Approximate string: ${this.str}`);
-        }
-
-        if (sourceElements) {
-            const text = this.composition.compose();
-            resId = id || hash(text);
-            this.translation = text;
-        } else {
+        if (!children) {
             throw new Error("Translate component with no child elements. Can't translate 'nothing!'");
         }
+        
+        this.composition = new Composition(children);
+        const text = this.composition.compose();
 
         this.state = {
-            id: resId,
-            count: this.props.count,
-            values: this.props.values
+            id: id || hash(text),
+            translation: text
         };
     }
 
@@ -67,7 +55,7 @@ class Translate extends React.Component {
         return React.createElement("span", {
             key: this.state.id, 
             "x-resource-id": this.state.id
-        }, this.composition.decompose(this.translation));
+        }, this.composition.decompose(this.state.translation));
     }
 }
 

@@ -68,7 +68,9 @@ class AddressFmt extends React.Component {
         var address = typeof(this.props.address) === "string" ?
             new Address(this.props.address, {locale: this.props.locale}) :
             this.props.address;
-        return this.state.formatter.format(address);
+        return this.state.formatter.format(address).split(/\n/).map(function(line) {
+            return [line, <br/>];
+        });
     }
 }
 

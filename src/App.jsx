@@ -29,17 +29,39 @@ import Translate from './components/Translate';
 const ilib = require('ilib/lib/ilib-getdata');
 const Address = require('ilib/lib/Address');
 
-var address = new Address({
-    streetAddress: "900 Jefferson Ave.",
-    postalCode: "94063",
-    locality: "Redwood City",
-    region: "California",
-    country: "United States of America",
-    locale: "en-US"
-});
+var addresses = {
+    US: new Address({
+        streetAddress: "900 Jefferson Ave.",
+        postalCode: "94063",
+        locality: "Redwood City",
+        region: "California",
+        country: "United States of America",
+        locale: "en-US"
+    }),
+    DE: new Address({
+        streetAddress: "Erlenweg 7",
+        postalCode: "69181",
+        locality: "Leimen",
+        region: "Swabenland",
+        country: "Germany",
+        locale: "de-DE"
+    }),
+    JP: new Address({
+        streetAddress: "大手町１丁目７−２",
+        postalCode: "100-8077",
+        locality: "千代田区",
+        region: "東京都",
+        country: "日本",
+        locale: "ja-JP"
+    })
+};
 
 class App extends Component {
     render() {
+        var addressesFormatted = [];
+        for (var a in addresses) {
+            addressesFormatted.push(<li>{a}: <AddressFmt locale={addresses[a].locale} address={addresses[a]}/></li>);
+        }
         return (
             <div className="App">
                 <header className="App-header">
@@ -48,12 +70,16 @@ class App extends Component {
                 </header>
                 <p className="App-intro">
                     <Translate id="test.id" description="this is a test">
-                        This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <AddressFmt locale="de-DE" address={address}/>.
+                        This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <p/><AddressFmt locale="en-US" address={addresses.US}/>.
                     </Translate>
                 </p>
                 <p>
-                    This is an address in the US formatted using AddressFmt: 
-                    <AddressFmt locale="en-US" address={address}/>
+                        <h1><Translate>Addresses</Translate></h1>
+                        <ul>{addressesFormatted}</ul>
+                </p>
+                <p>
+                    <Translate comment="translator's comment">This is an address in the US formatted using AddressFmt:</Translate>
+                    <AddressFmt locale="en-US" address={addresses.US}/>
                 </p>
             </div>
         );
