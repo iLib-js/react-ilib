@@ -44,6 +44,55 @@ class Translate extends React.Component {
         this.composition = new Composition(children);
         const text = this.composition.compose();
 
+       // now do the substitutions in the post-translated string
+        let f = 0,
+            e = 0;
+
+        for (let p in values) {
+            let re = new RegExp(`\\[\\[${p}\\]\\]`, 'g');
+            switch (typeof values[p]) {
+                case 'function':
+                    let value = values[p]();
+                    let name = 'f' + f;
+                    this.composition.addElement(name, value);
+                    translation = translation.replace(
+                        re,
+                        '<' + name + '></' + name + '>',
+                    );
+                    f++;
+                    break;
+                case 'object':
+                    if (values[p] === null) {
+                        translation = translation.replace(re, '');
+                    } else if (
+                        values[p].$$typeof === Symbol.for('react.element')
+                    ) {
+                        let name = 'e' + e;
+                        this.composition.addElement(name, values[p]);
+                        translation = translation.replace(
+                            re,
+                            '<' + name + '></' + name + '>',
+                        );
+                        e++;
+                    } else {
+                        translation = translation.replace(
+                            re,
+                            values[p].toString(),
+                        );
+                    }
+                    break;
+                case 'string':
+                    translation = translation.replace(re, values[p]);
+                    break;
+                case 'undefined':
+                    translation = translation.replace(re, '');
+                    break;
+                default:
+                    translation = translation.replace(re, values[p].toString());
+                    break;
+            }
+        }
+
         this.state = {
             id: id || hash(text),
             translation: text

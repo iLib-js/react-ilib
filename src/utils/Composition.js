@@ -19,17 +19,6 @@
 
 import React from 'react';
 
-/*
-function getType(element) {
-    if (typeof(element.type) === "string") {
-        return element.type
-    } else if (typeof(element.type) === "function") {
-        return element.type.name;
-    }
-    return "";
-}
-*/
-
 /**
  * @class Compose a tree of React elements into a single string.
  *
@@ -38,6 +27,8 @@ function getType(element) {
 class Composition {
     constructor(element) {
         this.element = element;
+        this.composed = false;
+        this.mapping = {};
     }
 
     _recompose(element) {
@@ -85,18 +76,19 @@ class Composition {
 
     /**
      * Compose a tree of react elements to a string that can be translated.
-     * 
+     *
      * @return {string} a string representing the tree of react elements
      */
     compose() {
-        this.mapping = {};
         this.n = 0;
-        return this._recompose(this.element);
+        let ret = this._recompose(this.element);
+        this.composed = true;
+        return ret;
     }
 
     /**
      * Return the react element with the given name.
-     * 
+     *
      * @param {string} name the name of the element being sought
      * @return {React.Element} the element with the given name
      */
@@ -104,25 +96,41 @@ class Composition {
         return this.mapping[name];
     }
 
+    /**
+     * Add a mapping from a name to a react element.
+     *
+     * @param {string} name the name of the element being added
+     * @param {React.Element} value the react element being added
+     */
+    addElement(name, value) {
+        this.mapping[name] = value;
+    }
+
     _parse(string) {
         let match,
-            re = /(<c(\d+)>.*<\/c\2>)/g,
-            first = /^<c\d+>/;
-        
+            re = /(<([cef]\d+)>.*<\/\2>)/g,
+            first = /^<([cef]\d+)>/;
+
         var parts = string.split(re);
         let children = [];
 
         for (var i = 0; i < parts.length; i++) {
             first.lastIndex = 0;
-            if ((match = first.exec(parts[i])) !== null && !isNaN(Number(parts[i+1]))) {
-                var num = parts[i+1];
-                var len = match[0].length;
+            if ((match = first.exec(parts[i])) !== null) {
+                let name = match[1];
+                let len = match[0].length;
                 // strip off the outer tags before processing the stuff in the middle
-                var substr = parts[i].substring(len, parts[i].length - len - 1);
-                var subchildren = this._parse(substr);
-                var el = this.mapping['c' + num];
+                let substr = parts[i].substring(len, parts[i].length - len - 1);
+                let subchildren = this._parse(substr);
+                let el = this.mapping[name];
                 if (el) {
-                    children.push(React.cloneElement(el, {key: el.key || ('c' + num)}, subchildren));
+                    children.push(
+                        React.cloneElement(
+                            el,
+                            { key: el.key || name },
+                            subchildren || el.props.children,
+                        ),
+                    );
                 } else {
                     console.log("oops...");
                 }
@@ -147,12 +155,12 @@ class Composition {
      * @return {React.Element} a react element
      */
     decompose(string) {
-        if (!this.mapping) {
+        if (!this.composed) {
             // need to create the mapping first from names to react elements
             this.compose();
         }
         return this._parse(string);
     }
-};
+}
 
 export default Composition;
