@@ -123,16 +123,27 @@ class Composition {
                 let substr = parts[i].substring(len, parts[i].length - len - 1);
                 let subchildren = this._parse(substr);
                 let el = this.mapping[name];
-                if (el) {
-                    children.push(
-                        React.cloneElement(
-                            el,
-                            { key: el.key || name },
-                            subchildren || el.props.children,
-                        ),
-                    );
-                } else {
-                    console.log("oops...");
+                switch (typeof el) {
+                    case 'string':
+                        children.push(el);
+                        break;
+
+                    case 'number':
+                    case 'boolean':
+                        children.push(el.toString());
+                        break;
+
+                    case 'function':
+                    case 'object':
+                        children.push(
+                            React.cloneElement(el, { key: el.key || name },
+                                subchildren || (el.props && el.props.children))
+                        );
+                        break;
+
+                    default:
+                        console.log('oops... element is ' + JSON.stringify(el));
+                        break;
                 }
                 i++; // skip the number in the next iteration
             } else if (parts[i] && parts[i].length) {
@@ -145,10 +156,10 @@ class Composition {
     }
 
     /**
-     * Convert a composed string back into an array of React elements. The elements are clones of 
+     * Convert a composed string back into an array of React elements. The elements are clones of
      * the same ones that this composition was created with, so that they have the same type and
-     * props and such as the originals. The elements may be re-ordered from the original, however, 
-     * if the grammar of the target language requires moving around text, HTML tags, or 
+     * props and such as the originals. The elements may be re-ordered from the original, however,
+     * if the grammar of the target language requires moving around text, HTML tags, or
      * subcomponents.
      *
      * @param {string} string the string to decompose into a tree of React elements.

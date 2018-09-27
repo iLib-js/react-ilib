@@ -102,7 +102,7 @@ class Translate extends React.Component {
     render() {
         // always wrap the translated string in a span tag to contain everything and to give us a spot to put the id
         return React.createElement("span", {
-            key: this.state.id, 
+            key: this.state.id,
             "x-resource-id": this.state.id
         }, this.composition.decompose(this.state.translation));
     }
