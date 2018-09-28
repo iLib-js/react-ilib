@@ -65,7 +65,7 @@ module.exports = {
         let el = React.createElement("span", {key: "a"});
         var c = new Composition(el);
         
-        test.equal(c.compose(), "<s0><e0>");
+        test.equal(c.compose(), "<c0></c0>");
 
         test.done();
     },
@@ -75,7 +75,7 @@ module.exports = {
 
         let el = React.createElement("span", {key: "a"}, "foo");
         var c = new Composition(el);
-        test.equal(c.compose(), "<s0>foo<e0>");
+        test.equal(c.compose(), "<c0>foo</c0>");
 
         test.done();
     },
@@ -89,7 +89,7 @@ module.exports = {
         ]);
         var c = new Composition(el);
         
-        test.equal(c.compose(), "<s0>foo bar<e0>");
+        test.equal(c.compose(), "<c0>foo bar</c0>");
 
         test.done();
     },
@@ -103,7 +103,7 @@ module.exports = {
             ". This is only a test."
         ]);
         var c = new Composition(el);
-        test.equal(c.compose(), "<s0>This is a test of the <s1>emergency broadcast system<e1>. This is only a test.<e0>");
+        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency broadcast system</c1>. This is only a test.</c0>");
 
         test.done();
     },
@@ -119,7 +119,7 @@ module.exports = {
             " a test.",
         ]);
         var c = new Composition(el);
-        test.equal(c.compose(), "<s0>This is a test of the <s1>emergency broadcast system<e1>. This is <s2>only<e2> a test.<e0>");
+        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency broadcast system</c1>. This is <c2>only</c2> a test.</c0>");
 
         test.done();
     },
@@ -138,7 +138,7 @@ module.exports = {
         ]);
         
         var c = new Composition(el);
-        test.equal(c.compose(), "<s0>This is a test of the <s1>emergency <s2>broadcast<e2> system<e1>. This is only a test.<e0>");
+        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency <c2>broadcast</c2> system</c1>. This is only a test.</c0>");
 
         test.done();
     },
@@ -160,7 +160,7 @@ module.exports = {
         let expected = React.createElement("span", {key: "a"}, "einfache Zeichenfolge");
         
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<s0>einfache Zeichenfolge<e0>"), expected);
+        test.deepEqual(c.decompose("<c0>einfache Zeichenfolge</c0>"), expected);
 
         test.done();
     },
@@ -181,7 +181,7 @@ module.exports = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<s0>Dies ist ein Test des <s1>Notfall-Broadcast-Systems<e1>. Dies ist nur ein Test.<e0>"), expected);
+        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-Broadcast-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
 
         test.done();
     },
@@ -210,7 +210,7 @@ module.exports = {
         ]);
         
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<s0>Dies ist ein Test des <s1>Notfall-<s2>Broadcast<e2>-Systems<e1>. Dies ist nur ein Test.<e0>"), expected);
+        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
 
         test.done();
     },
@@ -239,7 +239,7 @@ module.exports = {
         ]);
         
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<s0>Dies ist ein Test des <s1>Notfall-<s2>Broadcast<e2>-Systems<e1>. Dies ist nur ein Test.<e0>"), expected);
+        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
 
         test.done();
     },
@@ -264,7 +264,7 @@ module.exports = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<s0>Dieser Text ist <s2>kursiv<e2> und dieser Text ist <s1>fett<e1>.<e0>"), expected);
+        test.deepEqual(c.decompose("<c0>Dieser Text ist <c2>kursiv</c2> und dieser Text ist <c1>fett</c1>.</c0>"), expected);
 
         test.done();
     }

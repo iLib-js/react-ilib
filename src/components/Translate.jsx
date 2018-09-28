@@ -26,85 +26,90 @@ import Composition from '../utils/Composition';
 class Translate extends React.Component {
     constructor(props) {
         super(props);
-        
+
         // these parameters echo the ones in react-intl's FormattedMessage component, plus a few extra
         const {
             id,             // the unique id of the string
             description,    // a note for translators to describe to them the context of this string
             values,         // object containing values to substitute into the translated string
             //eslint-disable-next-line
-            count,          // used with plurals. This is the value to switch upon
             children        // the components within the body 
         } = this.props;
+
+        const sourceElements = children;
+        const composition = new Composition(sourceElements);
+        const str = composition.compose();
 
         if (!children) {
             throw new Error("Translate component with no child elements. Can't translate 'nothing!'");
         }
-        
-        this.composition = new Composition(children);
-        const text = this.composition.compose();
-
-       // now do the substitutions in the post-translated string
-        let f = 0,
-            e = 0;
-
-        for (let p in values) {
-            let re = new RegExp(`\\[\\[${p}\\]\\]`, 'g');
-            switch (typeof values[p]) {
-                case 'function':
-                    let value = values[p]();
-                    let name = 'f' + f;
-                    this.composition.addElement(name, value);
-                    translation = translation.replace(
-                        re,
-                        '<' + name + '></' + name + '>',
-                    );
-                    f++;
-                    break;
-                case 'object':
-                    if (values[p] === null) {
-                        translation = translation.replace(re, '');
-                    } else if (
-                        values[p].$$typeof === Symbol.for('react.element')
-                    ) {
-                        let name = 'e' + e;
-                        this.composition.addElement(name, values[p]);
-                        translation = translation.replace(
-                            re,
-                            '<' + name + '></' + name + '>',
-                        );
-                        e++;
-                    } else {
-                        translation = translation.replace(
-                            re,
-                            values[p].toString(),
-                        );
-                    }
-                    break;
-                case 'string':
-                    translation = translation.replace(re, values[p]);
-                    break;
-                case 'undefined':
-                    translation = translation.replace(re, '');
-                    break;
-                default:
-                    translation = translation.replace(re, values[p].toString());
-                    break;
-            }
-        }
 
         this.state = {
-            id: id || hash(text),
-            translation: text
+            id: id,
+            translation: str,
+            composition: composition,
         };
     }
 
+    emptyTag(name) {
+        return `<${name}></${name}>`;
+    }
+
+    /**
+     * Substitute the values into a composed translation.
+     * @param {string} translation the string to substitute values into
+     * @param {Object} values an object containing values to substitute
+     * into the string
+     * @return {string} the updated string
+     */
+    substitute(translation, values) {
+        // now do the substitutions in the post-translated string
+        let functionIndex = 0,
+            elementIndex = 0;
+
+        if (values) {
+            for (let p in values) {
+                let re = new RegExp(`\\[\\[${p}\\]\\]`, 'g');
+                switch (typeof values[p]) {
+                    case 'function':
+                        const value = values[p]();
+                        // "f" for "function" result
+                        const name = 'f' + functionIndex++;
+                        this.state.composition.addElement(name, value);
+                        translation = translation.replace(re, this.emptyTag(name));
+                        break;
+                    case 'object':
+                        if (values[p] === null) {
+                            translation = translation.replace(re, '');
+                        } else if (values[p].$$typeof === Symbol.for('react.element')) {
+                            // "e" for react "element"
+                            const name = 'e' + elementIndex++;
+                            this.state.composition.addElement(name, values[p]);
+                            translation = translation.replace(re, this.emptyTag(name));
+                        } else {
+                            translation = translation.replace(re, values[p].toString());
+                        }
+                        break;
+                    default:
+                        translation = translation.replace(re, typeof values[p] !== 'undefined' ? values[p].toString() : '');
+                        break;
+                }
+            }
+        }
+
+        return translation;
+    }
+
     render() {
+        const { values, tagName } = this.props;
+        const { composition, id, translation } = this.state;
+        const translated = this.substitute(translation, values);
+
         // always wrap the translated string in a span tag to contain everything and to give us a spot to put the id
-        return React.createElement("span", {
-            key: this.state.id,
-            "x-resource-id": this.state.id
-        }, this.composition.decompose(this.state.translation));
+        return React.createElement(tagName || 'span', {
+            key: id,
+            'x-resource-id': id,
+        }, composition.decompose(translated));
     }
 }
 
