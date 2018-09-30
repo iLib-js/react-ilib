@@ -22,6 +22,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 const ilib = require('ilib/lib/ilib-getdata');
+const ResBundle = require('ilib/lib/ResBundle');
 
 class LocaleDataProvider extends React.Component {
     static propTypes = {
@@ -64,6 +65,13 @@ class LocaleDataProvider extends React.Component {
             }.bind(this));
         } else {
             // data is already assembled and loaded, so just load the main app directly
+            this.setState({
+                rb: new ResBundle({
+                    locale: this.props.locale,
+                    name: this.props.name,
+                    type: "html"
+                })
+            });
             this.loadMainApp();
         }
     }
