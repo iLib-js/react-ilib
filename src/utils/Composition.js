@@ -38,7 +38,7 @@ class Composition {
                 if (element === null) {
                     value = '';
                 } else if (Array.isArray(element)) {
-                    value = element.map(subelement => this.recompose(subelement.join('')));
+                    value = element.map(subelement => this.recompose(subelement)).join('');
                 } else if (!element.type) {
                     value = "";
                 } else {

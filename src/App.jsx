@@ -73,14 +73,16 @@ class App extends Component {
                         This app <i>tests</i> the <b>components</b> in react-ilib at this date/time: <p/><AddressFmt locale="en-US" address={addresses.US}/>.
                     </Translate>
                 </p>
-                <p>
-                        <h1><Translate>Addresses</Translate></h1>
-                        <ul>{addressesFormatted}</ul>
-                </p>
-                <p>
-                    <Translate comment="translator's comment">This is an address in the US formatted using AddressFmt:</Translate>
-                    <AddressFmt locale="en-US" address={addresses.US}/>
-                </p>
+                <div className="App-body">
+                    <p>
+                            <h1><Translate>Addresses</Translate></h1>
+                            <ul>{addressesFormatted}</ul>
+                    </p>
+                    <p>
+                        <Translate comment="translator's comment">This is an address in the US formatted using AddressFmt:</Translate>
+                        <AddressFmt locale="en-US" address={addresses.US}/>
+                    </p>
+                </div>
             </div>
         );
     }

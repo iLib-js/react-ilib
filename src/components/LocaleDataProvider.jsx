@@ -20,6 +20,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import LocaleContext from './LocaleContext';
 
 const ilib = require('ilib/lib/ilib-getdata');
 const ResBundle = require('ilib/lib/ResBundle');
@@ -34,6 +35,7 @@ class LocaleDataProvider extends React.Component {
         super(props);
 
         this.state = {
+            locale: ilib.getLocale(),
             rb: null,
             mainApp: null
         };
@@ -44,21 +46,24 @@ class LocaleDataProvider extends React.Component {
         System.import("../App.jsx").then(function(module) {
             console.log(`Main App loaded.`);
             this.setState({
-                mainApp: React.createElement(module.default, {})
+                mainApp: 
+                    <LocaleContext.Provider locale={this.state.locale} rb={this.state.rb}>
+                        {React.createElement(module.default, {})}
+                    </LocaleContext.Provider>
             });
         }.bind(this));
     }
 
     loadDataAndApp() {
+        let locale = this.props.locale || ilib.getLocale();
         if (ilib.isDynData()) {
             // under dynamic data, we have to ensure the data is loaded first before
             // we load the main app
             let webpackLoader = ilib._load;
-            let locale = this.props.locale || ilib.getLocale();
             webpackLoader.ensureLocale(locale, "./locale", function(results) {
                 if (results) {
                     console.log(`Locale data for locale ${this.props.locale} loaded.`);
-                    this.loadMainApp();
+                    this.loadMainApp(locale);
                 } else {
                     console.log(`Locale data for locale ${locale} were NOT loaded`);
                 }
@@ -66,13 +71,14 @@ class LocaleDataProvider extends React.Component {
         } else {
             // data is already assembled and loaded, so just load the main app directly
             this.setState({
+                locale: locale,
                 rb: new ResBundle({
                     locale: this.props.locale,
                     name: this.props.name,
                     type: "html"
                 })
             });
-            this.loadMainApp();
+            this.loadMainApp(locale);
         }
     }
 

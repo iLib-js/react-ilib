@@ -20,7 +20,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import hash from '../utils/hash';
+//import hash from '../utils/hash';
 import Composition from '../utils/Composition';
 
 class Translate extends React.Component {
