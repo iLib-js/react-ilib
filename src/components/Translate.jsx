@@ -30,25 +30,60 @@ class Translate extends React.Component {
         // these parameters echo the ones in react-intl's FormattedMessage component, plus a few extra
         const {
             id,             // the unique id of the string
-            description,    // a note for translators to describe to them the context of this string
-            values,         // object containing values to substitute into the translated string
-            //eslint-disable-next-line
-            children        // the components within the body 
+            count,          // the pivot count to choose a plural form
+            children        // the components within the body
         } = this.props;
 
         const sourceElements = children;
-        const composition = new Composition(sourceElements);
-        const str = composition.compose();
 
         if (!children) {
             throw new Error("Translate component with no child elements. Can't translate 'nothing!'");
         }
 
-        this.state = {
-            id: id,
-            translation: str,
-            composition: composition,
-        };
+        if (sourceElements) {
+            const composition = new Composition(sourceElements);
+            let source = '';
+
+            if (typeof count === 'number') {
+                // Search for any Plural elements in the children, and then construct the English source string in the correct
+                // format for react-intl to use for pluralization
+                if (children) {
+                    let classes = {};
+                    React.Children.forEach(children, child => {
+                        if (typeof child === 'object' &&
+                            React.isValidElement(child) &&
+                            child.type.name === 'Plural') {
+                            var childComposition = new Composition(child.props.children);
+                            classes[child.props.class] = childComposition.compose();
+                        }
+                    });
+                    if (!classes.one && !classes.other) {
+                        throw new Error(`Cannot use count prop on a Translate component without giving a "one" and "other" Plural component in the children.`);
+                    }
+                    source = '{count, plural,';
+                    // add these in a particular order so that we always end up with the same string regardless of the order that the Plural
+                    // elements were specified in the source code
+                    ['zero', 'one', 'two', 'few', 'many', 'other'].forEach(
+                        clazz => {
+                            if (classes[clazz]) {
+                                source += ` ${clazz} {${classes[clazz]}}`;
+                            }
+                        }
+                    );
+                    source += '}';
+                } else {
+                    console.warn(`Cannot use count prop on a Translate component that has no children.`);
+                }
+            } else {
+                source = composition.compose();
+            }
+
+            this.state = {
+                id: id,
+                source: source,
+                composition: composition,
+            };
+        }
     }
 
     emptyTag(name) {
@@ -101,15 +136,26 @@ class Translate extends React.Component {
     }
 
     render() {
-        const { values, tagName } = this.props;
-        const { composition, id, translation } = this.state;
-        const translated = this.substitute(translation, values);
+        const { count, tagName, description } = this.props;
+        const { composition, id, source } = this.state;
+        let { values } = this.props || {};
+        if (typeof count === 'number') {
+            // make sure we can format in the count as well
+            values = { count, ...values };
+        }
 
-        // always wrap the translated string in a span tag to contain everything and to give us a spot to put the id
+        let translation = source; // TODO fix this
+
+        // finally, do the substitution of the values into the translated and post-pluralized string
+        if (values) {
+            translation = this.substitute(translation, values);
+        }
+
+        // always wrap the translated string in a tag to contain everything and to give us a spot to put the id
         return React.createElement(tagName || 'span', {
             key: id,
             'x-resource-id': id,
-        }, composition.decompose(translated));
+        }, composition.decompose(translation));
     }
 }
 
@@ -117,6 +163,7 @@ class Translate extends React.Component {
 Translate.propTypes = {
     id: PropTypes.string,
     description: PropTypes.string,
+    tagName: PropTypes.string,
     count: PropTypes.number,
     values: PropTypes["object"]
 };
