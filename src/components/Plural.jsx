@@ -18,7 +18,7 @@
  */
 
 import * as React from 'react';
-import Composition from './Composition';
+import Composition from '../utils/Composition';
 import PropTypes from 'prop-types';
 
 /**
