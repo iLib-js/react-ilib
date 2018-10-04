@@ -26,18 +26,11 @@ import Plural from '../../src/components/Plural';
  
 enzyme.configure({ adapter: new Adapter() });
 
-class Link extends React.Component {
-    render() {
-        return <a href={this.props.to}>{this.props.children}</a>;
-    }
+function Link (props) {
+    return <a href={props.to}>{props.children}</a>;
 }
 
-Link.propTypes = {
-    to: PropTypes.string,
-    children: PropTypes.Node,
-};
-
-export default {
+export let testPlural = {
     testSimplePlural: test => {
         test.expect(1);
 
@@ -51,18 +44,20 @@ export default {
         test.equal(span.prop('children'), 'This is the singular');
         
         test.done();
-    }
+    },
 
-    /*
-    test('should correctly compose simple contents', () => {
+    testComposeSimpleContents: test => {
+        test.expect(1);
         const wrapper = mount(
             <Plural class="one">This is the singular</Plural>,
         );
         const plural = wrapper.instance();
-        expect(plural.getSourceString()).toEqual('This is the singular');
-    });
+        test.equal(plural.getSourceString(), 'This is the singular');
+        test.done();
+    },
 
-    test('should correctly compose slightly more complex contents', () => {
+    testComposeSlightlyMoreComplex: test => {
+        test.expect(1);
         const wrapper = mount(
             <Plural class="one">
                 <span className="foo">This is the singular</span>
@@ -70,15 +65,14 @@ export default {
         );
 
         const plural = wrapper.instance();
-        expect(plural.getSourceString()).toEqual(
-            '<c0>This is the singular</c0>',
-        );
-    });
+        test.equal(plural.getSourceString(), '<c0>This is the singular</c0>');
+        test.done();
+    },
 
-    test('should correctly compose much more complex contents', () => {
-        debugger;
+    testComposeMuchMoreComplex: test => {
+        test.expect(1);
         const wrapper = mount(
-            <Plural className="one">
+            <Plural class="one">
                 <span className="foo">
                     This <b>is</b> the <Link to="singular.html">singular</Link>.
                 </span>
@@ -86,9 +80,7 @@ export default {
         );
 
         const plural = wrapper.instance();
-        expect(plural.getSourceString()).toEqual(
-            '<c0>This <c1>is</c1> the <c2>singular</c2>.</c0>',
-        );
-    });
-    */
+        test.equal(plural.getSourceString(), '<c0>This <c1>is</c1> the <c2>singular</c2>.</c0>');
+        test.done();
+    }
 };
