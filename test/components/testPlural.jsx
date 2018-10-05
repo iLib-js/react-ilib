@@ -20,7 +20,6 @@
 import React from 'react';
 import enzyme, { mount } from 'enzyme';
 import PropTypes from 'prop-types';
-import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Plural from '../../src/components/Plural';
  
@@ -35,7 +34,7 @@ export let testPlural = {
         test.expect(1);
 
         const wrapper = mount(
-            <Plural class="one">
+            <Plural category="one">
                 <span>This is the singular</span>
             </Plural>
         );
@@ -49,7 +48,7 @@ export let testPlural = {
     testComposeSimpleContents: test => {
         test.expect(1);
         const wrapper = mount(
-            <Plural class="one">This is the singular</Plural>,
+            <Plural category="one">This is the singular</Plural>,
         );
         const plural = wrapper.instance();
         test.equal(plural.getSourceString(), 'This is the singular');
@@ -59,7 +58,7 @@ export let testPlural = {
     testComposeSlightlyMoreComplex: test => {
         test.expect(1);
         const wrapper = mount(
-            <Plural class="one">
+            <Plural category="one">
                 <span className="foo">This is the singular</span>
             </Plural>,
         );
@@ -72,7 +71,7 @@ export let testPlural = {
     testComposeMuchMoreComplex: test => {
         test.expect(1);
         const wrapper = mount(
-            <Plural class="one">
+            <Plural category="one">
                 <span className="foo">
                     This <b>is</b> the <Link to="singular.html">singular</Link>.
                 </span>

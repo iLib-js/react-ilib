@@ -33,35 +33,29 @@ class Composition {
     recompose(element) {
         let value;
 
-        switch (typeof element) {
-            case 'object':
-                if (element === null) {
-                    value = '';
-                } else if (Array.isArray(element)) {
-                    value = element.map(subelement => this.recompose(subelement)).join('');
-                } else if (!element.type) {
-                    value = "";
+        if (typeof element === 'object') {
+            if (Array.isArray(element)) {
+                value = element
+                    .map(subelement => this.recompose(subelement))
+                    .join('');
+            } else if (element === null || !element.type) {
+                value = '';
+            } else {
+                // "c" is for "component", that's good enough for me
+                const name = `c${this.index++}`;
+                let { children } = element.props;
+                if (children) {
+                    children =
+                        typeof children === 'string' ? [children] : children;
+                    children = children.map(child => this.recompose(child));
                 } else {
-                    // "c" is for "component", that's good enough for me
-                    const name = 'c' + this.index++;
-                    let { children } = element.props;
-                    if (children) {
-                        children =
-                            typeof children === 'string'
-                                ? [children]
-                                : children;
-                        children = children.map(child => this.recompose(child));
-                    } else {
-                        children = '';
-                    }
-                    value = [`<${name}>`, ...children, `</${name}>`].join('');
-                    this.mapping[name] = element;
+                    children = '';
                 }
-                break;
-
-            default:
-                value = (typeof element !== 'undefined' && String(element)) || '';
-                break;
+                value = [`<${name}>`, ...children, `</${name}>`].join('');
+                this.mapping[name] = element;
+            }
+        } else {
+            value = (typeof element !== 'undefined' && String(element)) || '';
         }
         return value;
     }
@@ -117,9 +111,6 @@ class Composition {
                 const el = this.mapping[name];
                 switch (typeof el) {
                     case 'string':
-                        children.push(el);
-                        break;
-
                     case 'number':
                     case 'boolean':
                         children.push(el.toString());
