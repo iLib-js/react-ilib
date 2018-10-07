@@ -25,6 +25,8 @@ import Adapter from 'enzyme-adapter-react-16';
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 
+require("../assertExtras");
+
 function LinkButton(props) {
     return (
         <a className="btn" href={props.to}>
@@ -40,7 +42,7 @@ LinkButton.propTypes = {
 
 export let testTranslate = {
     testTranslateSimple: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -56,7 +58,7 @@ export let testTranslate = {
     },
 
     testTranslateWithChildren: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some text
@@ -70,7 +72,7 @@ export let testTranslate = {
     },
 
     testTranslateWithHTML: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some <b>bold</b> text
@@ -84,7 +86,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSubcomponents: test => {
-        test.expect(1);
+        test.expect(6);
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some <LinkButton to="foo">link</LinkButton> text
@@ -103,7 +105,7 @@ export let testTranslate = {
     },
 
     testTranslateWithStringReplacementParameters: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -121,7 +123,7 @@ export let testTranslate = {
     },
 
     testTranslateWithMultipleStringReplacementParameters: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -145,7 +147,7 @@ export let testTranslate = {
     },
 
     testTranslateWithEmptyStringReplacementParameters: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ name: '' }}>
                 some [[name]] text
@@ -159,7 +161,7 @@ export let testTranslate = {
     },
 
     testTranslateWithNoValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some [[name]] text
@@ -173,7 +175,7 @@ export let testTranslate = {
     },
 
     testTranslateWithValuesButNoStringReplacementParameters: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -191,7 +193,7 @@ export let testTranslate = {
     },
 
     testTranslateWithinCorrectSyntaxForStringReplacementParameters: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -212,7 +214,7 @@ export let testTranslate = {
     },
 
     testTranslateWithReplacementParametersWSubcomponents: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -233,7 +235,7 @@ export let testTranslate = {
     },
 
     testTranslateWithMissingReplacementParameterValues : test => {
-        test.expect(1);
+        test.expect(3);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -256,7 +258,7 @@ export let testTranslate = {
     },
 
     testTranslateWithHTMLJSXReplacementParameterValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -276,7 +278,7 @@ export let testTranslate = {
     },
 
     testTranslateWithComponentJSXReplacementParameterValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -296,7 +298,7 @@ export let testTranslate = {
     },
 
     testTranslateWithFunctionalReplacementParameterValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -321,7 +323,7 @@ export let testTranslate = {
     },
 
     testTranslateWithNumericReplacementParameterValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: 5.34 }}>
                 some <b>[[area]]</b>
@@ -337,7 +339,7 @@ export let testTranslate = {
     },
 
     testTranslateWithNumericReplacementParameterWithValueZero: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: 0 }}>
                 some <b>[[area]]</b>
@@ -353,7 +355,7 @@ export let testTranslate = {
     },
 
     testTranslateWithBooleanReplacementParameterValuesTrue: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: true }}>
                 some <b>[[area]]</b>
@@ -369,7 +371,7 @@ export let testTranslate = {
     },
 
     testTranslateWithBooleanReplacementParameterValuesFalse: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: false }}>
                 some <b>[[area]]</b>
@@ -385,7 +387,7 @@ export let testTranslate = {
     },
 
     testTranslateWithNullReplacementParameterValues : test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: null }}>
                 some <b>[[area]]</b>
@@ -402,7 +404,7 @@ export let testTranslate = {
     },
 
     testTranslateWithUndefinedReplacementParameterValues: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate
                 id="test"
@@ -423,7 +425,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInEnglishSingular: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" count={1}>
                 <Plural category="one">This is the singular.</Plural>
@@ -438,7 +440,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInEnglishPlural: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf" count={21}>
                 <Plural category="one">This is the singular.</Plural>
@@ -453,7 +455,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInRussianSingular: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf" count={1}>
                 <Plural category="one">This is the singular.</Plural>
@@ -468,7 +470,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInRussianOne: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf" count={21}>
                 <Plural category="one">This is the singular.</Plural>
@@ -487,7 +489,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInRussianFew: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf" count={24}>
                 <Plural category="one">This is the singular.</Plural>
@@ -506,7 +508,7 @@ export let testTranslate = {
     },
 
     testTranslateWithSimplePluralsInRussianMany: test => {
-        test.expect(1);
+        test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf" count={27}>
                 <Plural category="one">This is the singular.</Plural>

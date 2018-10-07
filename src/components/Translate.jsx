@@ -77,42 +77,28 @@ class Translate extends React.Component {
     /**
      * Search for any Plural elements in the children, and
      * then construct the English source string in the correct
-     * format for react-intl to use for pluralization
+     * format for ilib to use for pluralization
      * @param {React.Element} children the children of this node
      * @return {string} the composed plural string
      */
     composePluralString(children) {
         let categories = {};
         React.Children.forEach(children, child => {
-            if (
-                typeof child === 'object' &&
-                React.isValidElement(child) &&
-                child.type.name === 'Plural'
-            ) {
+            if (typeof child === 'object' && React.isValidElement(child) && child.type.name === 'Plural') {
                 var childComposition = new Composition(child.props.children);
                 categories[child.props.category] = childComposition.compose();
             }
         });
         if (!categories.one && !categories.other) {
-            console.warn(
-                'Cannot use count prop on a Translate component without giving both a "one" and "other" Plural component in the children.',
-            );
+            throw new Error('Cannot use count prop on a Translate component without giving both a "one" and "other" Plural component in the children.');
         }
         // add these to the string in a particular order so that
         // we always end up with the same string regardless of
         // the order that the Plural elements were specified in
         // the source code
-        let categoriesString = ['zero', 'one', 'two', 'few', 'many', 'other']
-            .map(
-                category =>
-                    categories[category]
-                        ? ` ${category} {${categories[category]}}`
-                        : '',
-            )
-            .join('');
-
-        // see the intl-messageformat project for an explanation of this syntax
-        return `{count, plural,${categoriesString}}`;
+        return Object.keys(categories).map(
+            category => `${category === "other" ? '' : category}#${categories[category]}`
+        ).join('|');
     }
 
     emptyTag(name) {
@@ -140,10 +126,7 @@ class Translate extends React.Component {
                         // "f" for "function" result
                         const name = `f${functionIndex++}`;
                         this.state.composition.addElement(name, value);
-                        translation = translation.replace(
-                            re,
-                            this.emptyTag(name),
-                        );
+                        translation = translation.replace(re, this.emptyTag(name));
                         break;
                     case 'object':
                         if (values[property] === null) {
@@ -151,28 +134,14 @@ class Translate extends React.Component {
                         } else if (React.isValidElement(values[property])) {
                             // "e" for react "element"
                             const name = `e${elementIndex++}`;
-                            this.state.composition.addElement(
-                                name,
-                                values[property],
-                            );
-                            translation = translation.replace(
-                                re,
-                                this.emptyTag(name),
-                            );
+                            this.state.composition.addElement(name, values[property]);
+                            translation = translation.replace(re, this.emptyTag(name));
                         } else {
-                            translation = translation.replace(
-                                re,
-                                values[property].toString(),
-                            );
+                            translation = translation.replace(re, values[property].toString());
                         }
                         break;
                     default:
-                        translation = translation.replace(
-                            re,
-                            typeof values[property] !== 'undefined'
-                                ? values[property].toString()
-                                : '',
-                        );
+                        translation = translation.replace(re, typeof values[property] !== 'undefined' ? values[property].toString() : '');
                         break;
                 }
             });
