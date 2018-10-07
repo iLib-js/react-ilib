@@ -47,7 +47,7 @@ class LocaleDataProvider extends React.Component {
             console.log(`Main App loaded.`);
             this.setState({
                 mainApp: 
-                    <LocaleContext.Provider locale={this.state.locale} rb={this.state.rb}>
+                    <LocaleContext.Provider value={{locale: this.state.locale, rb: this.state.rb}}>
                         {React.createElement(module.default, {})}
                     </LocaleContext.Provider>
             });

@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 
 //import hash from '../utils/hash';
 import Composition from '../utils/Composition';
+import {withLocale} from './LocaleContext';
 
 /**
  * Replace the text inside of this component with a translation. This
@@ -36,8 +37,6 @@ class Translate extends React.Component {
     constructor(props) {
         super(props);
 
-        // these parameters echo the ones in react-intl's FormattedMessage
-        // component, plus a few extra
         const {
             id,             // the unique id of the string
             count,          // the pivot count to choose a plural form
@@ -69,7 +68,7 @@ class Translate extends React.Component {
             this.state = {
                 id: id,
                 source: source,
-                composition: composition,
+                composition: composition
             };
         }
     }
@@ -151,7 +150,7 @@ class Translate extends React.Component {
     }
 
     render() {
-        const { count, tagName, description } = this.props;
+        const { count, tagName, description, rb } = this.props;
         const { composition, id, source } = this.state;
         let { values } = this.props || {};
         if (typeof count === 'number') {
@@ -159,7 +158,11 @@ class Translate extends React.Component {
             values = { count, ...values };
         }
 
-        let translation = source; // TODO fix this
+        let translation = rb.getString(source);
+
+        translation = (typeof(count) === 'number') ?
+            translation.formatChoice(count, values) :
+            translation.toString();
 
         // finally, do the substitution of the values into the translated
         // and post-pluralized string
@@ -185,4 +188,4 @@ Translate.propTypes = {
     values: PropTypes["object"]
 };
 
-export default Translate;
+export default withLocale(Translate);

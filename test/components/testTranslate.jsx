@@ -24,6 +24,10 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
+import LocaleContext from '../../src/components/LocaleContext';
+
+require("ilib");
+const ResBundle = require("ilib/lib/ResBundle");
 
 require("../assertExtras");
 
@@ -41,28 +45,12 @@ LinkButton.propTypes = {
 };
 
 export let testTranslate = {
-    testTranslateSimple: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                defaultMessage="some text"
-            />,
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.equal(span.prop('children'), 'some text');
-        test.done();
-    },
-
     testTranslateWithChildren: test => {
         test.expect(2);
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -76,7 +64,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some <b>bold</b> text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -90,7 +78,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some <LinkButton to="foo">link</LinkButton> text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -113,7 +101,7 @@ export let testTranslate = {
                 values={{ name: 'substituted' }}
             >
                 some [[name]] text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -135,7 +123,7 @@ export let testTranslate = {
                 }}
             >
                 some [[name]] [[text]] from user [[user]]
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -151,7 +139,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ name: '' }}>
                 some [[name]] text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -165,7 +153,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf">
                 some [[name]] text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -183,7 +171,7 @@ export let testTranslate = {
                 values={{ name: 'substituted' }}
             >
                 some sorta text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -204,7 +192,7 @@ export let testTranslate = {
                 }}
             >
                 some [name] [ [text]]
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -223,7 +211,7 @@ export let testTranslate = {
             >
                 some <LinkButton url="https://foo.com/a/b">[[name]]</LinkButton>
                 text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -245,7 +233,7 @@ export let testTranslate = {
                 some
                 <b>[[george]]</b>
                 text [[gertrude]]
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -266,7 +254,7 @@ export let testTranslate = {
                 values={{ name: <b>bold!</b> }}
             >
                 some <i>[[name]]</i>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -286,7 +274,7 @@ export let testTranslate = {
                 values={{ name: <LinkButton url="foo">bold!</LinkButton> }}
             >
                 some <i>[[name]]</i>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -311,7 +299,7 @@ export let testTranslate = {
                 }}
             >
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -327,7 +315,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: 5.34 }}>
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -343,7 +331,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: 0 }}>
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -359,7 +347,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: true }}>
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -375,7 +363,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: false }}>
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -391,7 +379,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate id="test" description="asdf" values={{ area: null }}>
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -412,7 +400,7 @@ export let testTranslate = {
                 values={{ area: undefined }}
             >
                 some <b>[[area]]</b>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -430,7 +418,7 @@ export let testTranslate = {
             <Translate id="test" description="asdf" count={1}>
                 <Plural category="one">This is the singular.</Plural>
                 <Plural category="other">These are the plurals.</Plural>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -445,7 +433,7 @@ export let testTranslate = {
             <Translate id="test" description="asdf" count={21}>
                 <Plural category="one">This is the singular.</Plural>
                 <Plural category="other">These are the plurals.</Plural>
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');
@@ -456,74 +444,106 @@ export let testTranslate = {
 
     testTranslateWithSimplePluralsInRussianSingular: test => {
         test.expect(2);
-        const wrapper = mount(
-            <Translate locale="ru-RU" id="test" description="asdf" count={1}>
-                <Plural category="one">This is the singular.</Plural>
-                <Plural category="other">These are the plurals.</Plural>
-            </Translate>,
-        );
+        new ResBundle({
+            locale: "ru-RU",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate locale="ru-RU" id="test" description="asdf" count={1}>
+                            <Plural category="one">This is the singular.</Plural>
+                            <Plural category="other">These are the plurals.</Plural>
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
 
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.equal(span.prop('children'), 'This is the singular.');
-        test.done();
+                let span = wrapper.find('span');
+                test.equal(span.prop('x-resource-id'), 'test');
+                test.equal(span.prop('children'), 'This is the singular.');
+                test.done();
+            }
+        });
     },
 
     testTranslateWithSimplePluralsInRussianOne: test => {
         test.expect(2);
-        const wrapper = mount(
-            <Translate locale="ru-RU" id="test" description="asdf" count={21}>
-                <Plural category="one">This is the singular.</Plural>
-                <Plural category="few">These are the few plurals.</Plural>
-                <Plural category="many">These are the many plurals.</Plural>
-                <Plural category="other">These are the other plurals.</Plural>
-            </Translate>,
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        // 21 is singular in Russian!
-        test.equal(span.prop('children'), 'This is the singular.');
-        test.done();
+        new ResBundle({
+            locale: "ru-RU",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate locale="ru-RU" id="test" description="asdf" count={21}>
+                            <Plural category="one">This is the singular.</Plural>
+                            <Plural category="few">These are the few plurals.</Plural>
+                            <Plural category="many">These are the many plurals.</Plural>
+                            <Plural category="other">These are the other plurals.</Plural>
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+                
+                let span = wrapper.find('span');
+                test.equal(span.prop('x-resource-id'), 'test');
+                
+                // 21 is singular in Russian!
+                test.equal(span.prop('children'), 'This is the singular.');
+                test.done();
+            }
+        });
     },
 
     testTranslateWithSimplePluralsInRussianFew: test => {
         test.expect(2);
-        const wrapper = mount(
-            <Translate locale="ru-RU" id="test" description="asdf" count={24}>
-                <Plural category="one">This is the singular.</Plural>
-                <Plural category="few">These are the few plurals.</Plural>
-                <Plural category="many">These are the many plurals.</Plural>
-                <Plural category="other">These are the other plurals.</Plural>
-            </Translate>,
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        // 24 is few in Russian!
-        test.equal(span.prop('children'), 'These are the few plurals.');
-        test.done();
+        new ResBundle({
+            locale: "ru-RU",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate locale="ru-RU" id="test" description="asdf" count={24}>
+                            <Plural category="one">This is the singular.</Plural>
+                            <Plural category="few">These are the few plurals.</Plural>
+                            <Plural category="many">These are the many plurals.</Plural>
+                            <Plural category="other">These are the other plurals.</Plural>
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+        
+                let span = wrapper.find('span');
+                test.equal(span.prop('x-resource-id'), 'test');
+        
+                // 24 is few in Russian!
+                test.equal(span.prop('children'), 'These are the few plurals.');
+                test.done();
+            }
+        });
     },
 
     testTranslateWithSimplePluralsInRussianMany: test => {
         test.expect(2);
-        const wrapper = mount(
-            <Translate locale="ru-RU" id="test" description="asdf" count={27}>
-                <Plural category="one">This is the singular.</Plural>
-                <Plural category="few">These are the few plurals.</Plural>
-                <Plural category="many">These are the many plurals.</Plural>
-                <Plural category="other">These are the other plurals.</Plural>
-            </Translate>,
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        // 27 is many in Russian!
-        test.equal(span.prop('children'), 'These are the many plurals.');
-        test.done();
+        new ResBundle({
+            locale: "ru-RU",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate locale="ru-RU" id="test" description="asdf" count={27}>
+                            <Plural category="one">This is the singular.</Plural>
+                            <Plural category="few">These are the few plurals.</Plural>
+                            <Plural category="many">These are the many plurals.</Plural>
+                            <Plural category="other">These are the other plurals.</Plural>
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+        
+                let span = wrapper.find('span');
+                test.equal(span.prop('x-resource-id'), 'test');
+        
+                // 27 is many in Russian!
+                test.equal(span.prop('children'), 'These are the many plurals.');
+                test.done();
+            }
+        });
     },
 
     /*
@@ -532,7 +552,7 @@ export let testTranslate = {
         const wrapper = mount(
             <Translate localeid="test" description="asdf">
                 some <b>bold</b> text
-            </Translate>,
+            </Translate>
         );
 
         let span = wrapper.find('span');

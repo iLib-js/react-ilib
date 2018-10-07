@@ -40,7 +40,7 @@ export function withLocale(Component) {
     return function LocalizedComponent(props) {
         return (
             <LocaleContext.Consumer>
-            {locale => <Component {...props} locale={locale} rb={rb}/>}
+            {value => <Component {...props} locale={value.locale} rb={value.rb}/>}
             </LocaleContext.Consumer>
         );
     };
