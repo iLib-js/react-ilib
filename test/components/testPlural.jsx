@@ -22,7 +22,7 @@ import enzyme, { mount } from 'enzyme';
 import PropTypes from 'prop-types';
 import Adapter from 'enzyme-adapter-react-16';
 import Plural from '../../src/components/Plural';
- 
+
 enzyme.configure({ adapter: new Adapter() });
 
 function Link (props) {
@@ -41,7 +41,7 @@ export let testPlural = {
 
         let span = wrapper.find('span');
         test.equal(span.prop('children'), 'This is the singular');
-        
+
         test.done();
     },
 

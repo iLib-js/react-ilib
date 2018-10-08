@@ -20,7 +20,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-//import hash from '../utils/hash';
+import hash from '../utils/hash';
 import Composition from '../utils/Composition';
 import {withLocale} from './LocaleContext';
 
@@ -36,9 +36,10 @@ import {withLocale} from './LocaleContext';
 class Translate extends React.Component {
     constructor(props) {
         super(props);
-
-        const {
+        let {
             id,             // the unique id of the string
+        } = this.props;
+        const {
             count,          // the pivot count to choose a plural form
             children        // the components within the body
         } = this.props;
@@ -64,6 +65,8 @@ class Translate extends React.Component {
             } else {
                 source = composition.compose();
             }
+
+            id = id || hash(source);
 
             this.state = {
                 id: id,
@@ -158,7 +161,7 @@ class Translate extends React.Component {
             values = { count, ...values };
         }
 
-        let translation = rb.getString(source);
+        let translation = rb.getString(source, id);
 
         translation = (typeof(count) === 'number') ?
             translation.formatChoice(count, values) :

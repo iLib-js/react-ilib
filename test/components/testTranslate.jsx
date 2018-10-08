@@ -26,7 +26,7 @@ import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 import LocaleContext from '../../src/components/LocaleContext';
 
-require("ilib");
+var ilib = require("ilib");
 const ResBundle = require("ilib/lib/ResBundle");
 
 require("../assertExtras");
@@ -42,6 +42,15 @@ function LinkButton(props) {
 LinkButton.propTypes = {
     to: PropTypes.string,
     children: PropTypes.any,
+};
+
+//set up mock data
+ilib.data.translate_ru_RU = {
+    "this.is.a.test": "Это тест",
+    "plural.test": "one#Это единственное.|few#Это несколько множественных числа.|many#Это многочисленные множественных чисел.|#Это другие множественных чисел."
+};
+ilib.data.translate_fr = {
+    "this.is.a.test": "Ceci est un test"
 };
 
 export let testTranslate = {
@@ -128,7 +137,7 @@ export let testTranslate = {
 
         let span = wrapper.find('span');
         test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 
+        test.contains(span.prop('children'),
             'some substituted text from user James Earl Jones',
         );
         test.done();
@@ -415,14 +424,14 @@ export let testTranslate = {
     testTranslateWithSimplePluralsInEnglishSingular: test => {
         test.expect(2);
         const wrapper = mount(
-            <Translate id="test" description="asdf" count={1}>
+            <Translate count={1}>
                 <Plural category="one">This is the singular.</Plural>
                 <Plural category="other">These are the plurals.</Plural>
             </Translate>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
+        test.equal(span.prop('x-resource-id'), 'r355131985');
         test.equal(span.prop('children'), 'This is the singular.');
         test.done();
     },
@@ -430,14 +439,14 @@ export let testTranslate = {
     testTranslateWithSimplePluralsInEnglishPlural: test => {
         test.expect(2);
         const wrapper = mount(
-            <Translate id="test" description="asdf" count={21}>
+            <Translate count={21}>
                 <Plural category="one">This is the singular.</Plural>
                 <Plural category="other">These are the plurals.</Plural>
             </Translate>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
+        test.equal(span.prop('x-resource-id'), 'r355131985');
         test.equal(span.prop('children'), 'These are the plurals.');
         test.done();
     },
@@ -446,11 +455,12 @@ export let testTranslate = {
         test.expect(2);
         new ResBundle({
             locale: "ru-RU",
+            name: "translate",
             sync: false,
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Translate locale="ru-RU" id="test" description="asdf" count={1}>
+                        <Translate count={1}>
                             <Plural category="one">This is the singular.</Plural>
                             <Plural category="other">These are the plurals.</Plural>
                         </Translate>
@@ -458,7 +468,7 @@ export let testTranslate = {
                 );
 
                 let span = wrapper.find('span');
-                test.equal(span.prop('x-resource-id'), 'test');
+                test.equal(span.prop('x-resource-id'), 'r355131985');
                 test.equal(span.prop('children'), 'This is the singular.');
                 test.done();
             }
@@ -469,11 +479,12 @@ export let testTranslate = {
         test.expect(2);
         new ResBundle({
             locale: "ru-RU",
+            name: "translate",
             sync: false,
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Translate locale="ru-RU" id="test" description="asdf" count={21}>
+                        <Translate count={21}>
                             <Plural category="one">This is the singular.</Plural>
                             <Plural category="few">These are the few plurals.</Plural>
                             <Plural category="many">These are the many plurals.</Plural>
@@ -481,10 +492,10 @@ export let testTranslate = {
                         </Translate>
                     </LocaleContext.Provider>
                 );
-                
+
                 let span = wrapper.find('span');
-                test.equal(span.prop('x-resource-id'), 'test');
-                
+                test.equal(span.prop('x-resource-id'), 'r74165631');
+
                 // 21 is singular in Russian!
                 test.equal(span.prop('children'), 'This is the singular.');
                 test.done();
@@ -496,11 +507,12 @@ export let testTranslate = {
         test.expect(2);
         new ResBundle({
             locale: "ru-RU",
+            name: "translate",
             sync: false,
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Translate locale="ru-RU" id="test" description="asdf" count={24}>
+                        <Translate count={24}>
                             <Plural category="one">This is the singular.</Plural>
                             <Plural category="few">These are the few plurals.</Plural>
                             <Plural category="many">These are the many plurals.</Plural>
@@ -508,10 +520,10 @@ export let testTranslate = {
                         </Translate>
                     </LocaleContext.Provider>
                 );
-        
+
                 let span = wrapper.find('span');
-                test.equal(span.prop('x-resource-id'), 'test');
-        
+                test.equal(span.prop('x-resource-id'), 'r74165631');
+
                 // 24 is few in Russian!
                 test.equal(span.prop('children'), 'These are the few plurals.');
                 test.done();
@@ -523,11 +535,12 @@ export let testTranslate = {
         test.expect(2);
         new ResBundle({
             locale: "ru-RU",
+            name: "translate",
             sync: false,
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Translate locale="ru-RU" id="test" description="asdf" count={27}>
+                        <Translate count={27}>
                             <Plural category="one">This is the singular.</Plural>
                             <Plural category="few">These are the few plurals.</Plural>
                             <Plural category="many">These are the many plurals.</Plural>
@@ -535,10 +548,10 @@ export let testTranslate = {
                         </Translate>
                     </LocaleContext.Provider>
                 );
-        
+
                 let span = wrapper.find('span');
-                test.equal(span.prop('x-resource-id'), 'test');
-        
+                test.equal(span.prop('x-resource-id'), 'r74165631');
+
                 // 27 is many in Russian!
                 test.equal(span.prop('children'), 'These are the many plurals.');
                 test.done();
@@ -546,37 +559,114 @@ export let testTranslate = {
         });
     },
 
-    /*
-    testTranslateWithTranslations: test => {
+    testTranslateWithTranslationsRU: test => {
+        test.expect(1);
+        new ResBundle({
+            locale: "ru-RU",
+            name: "translate",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate id="this.is.a.test">
+                            This is a test
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+
+                let span = wrapper.find('span');
+                test.contains(span.prop('children'), 'Это тест');
+                test.done();
+            }
+        });
+    },
+
+    testTranslateWithTranslationsFR: test => {
+        test.expect(1);
+        new ResBundle({
+            locale: "fr",
+            name: "translate",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "fr", rb: rb}}>
+                        <Translate id="this.is.a.test">
+                            This is a test
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+
+                let span = wrapper.find('span');
+                test.contains(span.prop('children'), 'Ceci est un test');
+                test.done();
+            }
+        });
+    },
+
+    testTranslateWithTranslationsWithFallbacks: test => {
+        test.expect(1);
+        new ResBundle({
+            locale: "fr-FR",
+            name: "translate",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "fr", rb: rb}}>
+                        <Translate id="this.is.a.test">
+                            This is a test
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+
+                let span = wrapper.find('span');
+                test.contains(span.prop('children'), 'Ceci est un test');
+                test.done();
+            }
+        });
+    },
+
+    testTranslateWithPluralsInRussianWithTranslations: test => {
+        test.expect(2);
+        new ResBundle({
+            locale: "ru-RU",
+            name: "translate",
+            sync: false,
+            onLoad: rb => {
+                const wrapper = mount(
+                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
+                        <Translate id="plural.test" count={27}>
+                            <Plural category="one">This is the singular.</Plural>
+                            <Plural category="few">These are the few plurals.</Plural>
+                            <Plural category="many">These are the many plurals.</Plural>
+                            <Plural category="other">These are the other plurals.</Plural>
+                        </Translate>
+                    </LocaleContext.Provider>
+                );
+
+                let span = wrapper.find('span');
+                test.equal(span.prop('x-resource-id'), 'plural.test');
+
+                // 27 is many in Russian!
+                test.equal(span.prop('children'), 'Это многочисленные множественных чисел.');
+                test.done();
+            }
+        });
+    },
+
+    testTranslateGenerateId: test => {
         test.expect(1);
         const wrapper = mount(
-            <Translate localeid="test" description="asdf">
-                some <b>bold</b> text
+            <Translate description="asdf">
+            some <b>bold</b> text
             </Translate>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'etwas ');
-        test.contains(span.prop('children'), ' Texte');
+        test.equal(span.prop('x-resource-id'), 'r425815508');
         test.done();
     },
 
-    testTranslateThrowWhenMissingId: test => {
-        test.expect(1);
-        function testId() {
-            const wrapper = mount(
-                <Translate description="asdf">
-                some <b>bold</b> text
-                </Translate>
-            );
-        }
-
-        test.throws(testId);
-        test.done();
-    },
-
-    testTranslateThrowWhenMissingDescription: test => {
+    testTranslateDoNotThrowWhenMissingDescription: test => {
         test.expect(1);
         function testDescription() {
             const wrapper = mount(
@@ -585,8 +675,7 @@ export let testTranslate = {
                 </Translate>
             );
         }
-        test.throws(testDescription);
+        test.doesNotThrow(testDescription);
         test.done();
-    },
-    */
+    }
 };

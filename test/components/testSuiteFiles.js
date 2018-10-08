@@ -19,5 +19,6 @@
 
 module.exports.files = [
     "testPlural.jsx",
-    "testTranslate.jsx"
+    "testTranslate.jsx",
+    "testLocaleContext.jsx"
 ];
