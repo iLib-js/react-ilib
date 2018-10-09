@@ -45,7 +45,7 @@ class Span extends React.Component {
     }
 
     render() {
-        return <span locale={this.props.locale}>{this.props.children}</span>;
+        return <span x-locale={this.props.locale}>{this.props.children}</span>;
     }
 }
 
@@ -60,13 +60,12 @@ export let testLocaleContext = {
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "en-US", rb: rb}}>
-                        <Lspan x-locale={this.props.locale}>{props.rb.getStringJS("This is a test")}</Lspan>
+                        <Lspan>{rb.getStringJS("This is a test")}</Lspan>
                     </LocaleContext.Provider>
                 );
 
                 let span = wrapper.find('span');
                 test.equal(span.prop('x-locale'), 'en-US');
-                test.equal(span.prop('x-resource-id'), 'en-US');
                 test.equal(span.prop('children'), 'This is a test');
                 test.done();
             }
@@ -82,16 +81,14 @@ export let testLocaleContext = {
             onLoad: rb => {
                 const wrapper = mount(
                     <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Lspan x-locale={props.locale}>{props.rb.getStringJS("This is a test")}</Lspan>
+                        <Lspan>{rb.getStringJS("This is a test")}</Lspan>
                     </LocaleContext.Provider>
                 );
 
                 let span = wrapper.find('span');
                 test.equal(span.prop('x-locale'), 'ru-RU');
-                test.equal(span.prop('x-resource-id'), 'en-US');
                 test.equal(span.prop('children'), 'Это тест');
                 test.done();
             }
         });
-    }
-};
+    }};
