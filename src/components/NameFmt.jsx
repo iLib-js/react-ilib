@@ -1,5 +1,5 @@
 /*
- * AddressFmt.jsx - component to format a mailing address
+ * NameFmt.jsx - component to format a person's name
  *
  * Copyright © 2018, JEDLSoft
  *
@@ -20,14 +20,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Address = require('ilib/lib/Address');
-const AddressFormatter = require('ilib/lib/AddressFmt');
+const Name = require('ilib/lib/Name');
+const NameFormatter = require('ilib/lib/NameFmt');
 
-class AddressFmt extends React.Component {
+class NameFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         style: PropTypes.string,
-        address: PropTypes["object"].isRequired,
+        components: PropTypes.string,
+        name: PropTypes["object"].isRequired,
         children: PropTypes.any
     };
 
@@ -37,10 +38,9 @@ class AddressFmt extends React.Component {
             locale,
             style
         } = props;
-        // data for the current locale should already be loaded, so we can create
-        // this formatter synchronously
+        
         this.state = {
-            formatter: new AddressFormatter({
+            formatter: new NameFormatter({
                 locale: locale,
                 style: style
             })
@@ -49,9 +49,7 @@ class AddressFmt extends React.Component {
     
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
-            // the data for this may not be loaded yet, so we have to create the new
-            // formatter asynchronously, just in case, and then set it into the state
-            new AddressFormatter({
+            new NameFormatter({
                 locale: this.props.locale,
                 style: this.props.style,
                 sync: false,
@@ -65,13 +63,11 @@ class AddressFmt extends React.Component {
     }
     
     render() {
-        var address = typeof(this.props.address) === "string" ?
-            new Address(this.props.address, {locale: this.props.locale}) :
-            this.props.address;
-        return this.state.formatter.format(address).split(/\n/).map(function(line) {
-            return [line, <br/>];
-        });
+        var name = typeof(this.props.name) === "string" ?
+            new Name(this.props.name, {locale: this.props.locale}) :
+            this.props.name;
+        return this.state.formatter.format(name);
     }
 }
 
-export default AddressFmt;
+export default NameFmt;

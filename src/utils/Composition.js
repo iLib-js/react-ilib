@@ -16,19 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import React from 'react';
-
-/*
-function getType(element) {
-    if (typeof(element.type) === "string") {
-        return element.type
-    } else if (typeof(element.type) === "function") {
-        return element.type.name;
-    }
-    return "";
-}
-*/
 
 /**
  * @class Compose a tree of React elements into a single string.
@@ -38,65 +26,55 @@ function getType(element) {
 class Composition {
     constructor(element) {
         this.element = element;
+        this.isComposed = false;
+        this.mapping = {};
     }
 
-    _recompose(element) {
+    recompose(element) {
         let value;
 
-        switch (typeof(element)) {
-            case "string":
-                value = element;
-                break;
-
-            case "number":
-                value = String(element);
-                break;
-
-            case 'boolean':
-                value = element ? 'true' : 'false';
-                break;
-
-            case "object":
-                if (element === null) {
-                    value = '';
-                } else if (Array.isArray(element)) {
-                    value = element.map(subelement => this._recompose(subelement)).join('');
-                } else if (!element.type) {
-                    value = "";
-                } else {
-                    let num = this.n++;
-                    if (element.props && element.props.children) {
-                        let children = (typeof(element.props.children) === "string") ? [element.props.children] : element.props.children;
-                        var ret = children.map(child => this._recompose(child));
-                        value = [`<c${num}>`, ...ret, `</c${num}>`].join('');
-                    } else {
-                        value = `<c${num}></c${num}>`;
-                    }
-                    this.mapping['c' + num] = element;
-                }
-                break;
-
-            default:
+        if (typeof element === 'object') {
+            if (Array.isArray(element)) {
+                value = element
+                    .map(subelement => this.recompose(subelement))
+                    .join('');
+            } else if (element === null || !element.type) {
                 value = '';
-                break;
+            } else {
+                // "c" is for "component", that's good enough for me
+                const name = `c${this.index++}`;
+                let { children } = element.props;
+                if (children) {
+                    children =
+                        typeof children === 'string' ? [children] : children;
+                    children = children.map(child => this.recompose(child));
+                } else {
+                    children = '';
+                }
+                value = [`<${name}>`, ...children, `</${name}>`].join('');
+                this.mapping[name] = element;
+            }
+        } else {
+            value = (typeof element !== 'undefined' && String(element)) || '';
         }
         return value;
     }
 
     /**
      * Compose a tree of react elements to a string that can be translated.
-     * 
+     *
      * @return {string} a string representing the tree of react elements
      */
     compose() {
-        this.mapping = {};
-        this.n = 0;
-        return this._recompose(this.element);
+        this.index = 0;
+        const ret = this.recompose(this.element);
+        this.isComposed = true;
+        return ret;
     }
 
     /**
      * Return the react element with the given name.
-     * 
+     *
      * @param {string} name the name of the element being sought
      * @return {React.Element} the element with the given name
      */
@@ -104,27 +82,51 @@ class Composition {
         return this.mapping[name];
     }
 
-    _parse(string) {
+    /**
+     * Add a mapping from a name to a react element.
+     *
+     * @param {string} name the name of the element being added
+     * @param {React.Element} value the react element being added
+     */
+    addElement(name, value) {
+        this.mapping[name] = value;
+    }
+
+    parse(string) {
         let match,
-            re = /(<c(\d+)>.*<\/c\2>)/g,
-            first = /^<c\d+>/;
-        
-        var parts = string.split(re);
+            re = /(<([cef]\d+)>.*<\/\2>)/g,
+            first = /^<([cef]\d+)>/;
+
+        const parts = string.split(re);
         let children = [];
 
         for (var i = 0; i < parts.length; i++) {
             first.lastIndex = 0;
-            if ((match = first.exec(parts[i])) !== null && !isNaN(Number(parts[i+1]))) {
-                var num = parts[i+1];
-                var len = match[0].length;
+            if ((match = first.exec(parts[i])) !== null) {
+                const name = match[1];
+                const len = match[0].length;
                 // strip off the outer tags before processing the stuff in the middle
-                var substr = parts[i].substring(len, parts[i].length - len - 1);
-                var subchildren = this._parse(substr);
-                var el = this.mapping['c' + num];
-                if (el) {
-                    children.push(React.cloneElement(el, {key: el.key || ('c' + num)}, subchildren));
-                } else {
-                    console.log("oops...");
+                const substr = parts[i].substring(len, parts[i].length - len - 1);
+                const subchildren = this.parse(substr);
+                const el = this.mapping[name];
+                switch (typeof el) {
+                    case 'string':
+                    case 'number':
+                    case 'boolean':
+                        children.push(el.toString());
+                        break;
+
+                    case 'function':
+                    case 'object':
+                        children.push(
+                            React.cloneElement(el, { key: el.key || name },
+                                subchildren || (el.props && el.props.children))
+                        );
+                        break;
+
+                    default:
+                        // ignore null or undefined elements
+                        break;
                 }
                 i++; // skip the number in the next iteration
             } else if (parts[i] && parts[i].length) {
@@ -137,22 +139,22 @@ class Composition {
     }
 
     /**
-     * Convert a composed string back into an array of React elements. The elements are clones of 
+     * Convert a composed string back into an array of React elements. The elements are clones of
      * the same ones that this composition was created with, so that they have the same type and
-     * props and such as the originals. The elements may be re-ordered from the original, however, 
-     * if the grammar of the target language requires moving around text, HTML tags, or 
+     * props and such as the originals. The elements may be re-ordered from the original, however,
+     * if the grammar of the target language requires moving around text, HTML tags, or
      * subcomponents.
      *
      * @param {string} string the string to decompose into a tree of React elements.
      * @return {React.Element} a react element
      */
     decompose(string) {
-        if (!this.mapping) {
+        if (!this.isComposed) {
             // need to create the mapping first from names to react elements
             this.compose();
         }
-        return this._parse(string);
+        return this.parse(string);
     }
-};
+}
 
 export default Composition;

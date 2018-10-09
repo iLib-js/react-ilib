@@ -1,6 +1,6 @@
 /*
- * index.css - formatting rules for the main js file of react-ilib
- *
+ * testSuiteFiles.js - list the test files in this directory
+ * 
  * Copyright © 2018, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,8 @@
  * limitations under the License.
  */
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+module.exports.files = [
+    "testPlural.jsx",
+    "testTranslate.jsx",
+    "testLocaleContext.jsx"
+];

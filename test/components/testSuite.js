@@ -1,6 +1,6 @@
 /*
- * index.css - formatting rules for the main js file of react-ilib
- *
+ * testSuite.js - test suite for this directory
+ * 
  * Copyright © 2018, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,23 @@
  * limitations under the License.
  */
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+var nodeunit = require("nodeunit");
+var reporter = nodeunit.reporters.minimal;
+var modules = {};
+var suites = require("./testSuiteFiles.js").files;
+
+// this processes all subsequent requires using babel
+process.env.BABEL_ENV = "test";
+require("babel-register");
+
+// set up the testing environment
+require("../setup.jsx");
+
+suites.forEach(function (path) {
+    var test = require("./" + path);
+    for (var suite in test) {
+        modules[suite] = test[suite];
+    }
+});
+
+reporter.run(modules);
