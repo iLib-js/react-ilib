@@ -26,6 +26,8 @@ import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 import LocaleContext from '../../src/components/LocaleContext';
 
+enzyme.configure({ adapter: new Adapter() });
+
 var ilib = require("ilib");
 const ResBundle = require("ilib/lib/ResBundle");
 

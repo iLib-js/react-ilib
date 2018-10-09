@@ -46,7 +46,7 @@ class AddressFmt extends React.Component {
             })
         };
     }
-    
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
             // the data for this may not be loaded yet, so we have to create the new
@@ -63,14 +63,17 @@ class AddressFmt extends React.Component {
             });
         }
     }
-    
+
     render() {
-        var address = typeof(this.props.address) === "string" ?
+        let address = typeof(this.props.address) === "string" ?
             new Address(this.props.address, {locale: this.props.locale}) :
             this.props.address;
-        return this.state.formatter.format(address).split(/\n/).map(function(line) {
-            return [line, <br/>];
+        let ret = [];
+        this.state.formatter.format(address).split(/\n/).forEach(line => {
+            ret.push(line);
+            ret.push(<br/>);
         });
+        return ret;
     }
 }
 
