@@ -22,7 +22,7 @@
  * @param {string} source the source text to hash
  * @return {string} a hash identifier of the source text
  */
-let hashKey = function hashKey(source) {
+export default function hashKey(source) {
     if (!source) return undefined;
     var hash = 0;
     // these two numbers together = 46 bits so it won't blow out the precision of an integer in javascript
@@ -43,5 +43,3 @@ let hashKey = function hashKey(source) {
 
     return value;
 };
-
-export default hashKey;

@@ -23,7 +23,7 @@ import React from 'react';
  *
  * @param {React.Element} element the element to compose
  */
-class Composition {
+export default class Composition {
     constructor(element) {
         this.element = element;
         this.isComposed = false;
@@ -156,5 +156,3 @@ class Composition {
         return this.parse(string);
     }
 }
-
-export default Composition;

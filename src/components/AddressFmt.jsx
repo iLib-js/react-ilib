@@ -20,8 +20,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Address = require('ilib/lib/Address');
-const AddressFormatter = require('ilib/lib/AddressFmt');
+import Address from 'ilib-es6/lib/Address';
+import AddressFormatter from 'ilib-es6/lib/AddressFmt';
 
 class AddressFmt extends React.Component {
     static propTypes = {
@@ -65,13 +65,17 @@ class AddressFmt extends React.Component {
     }
 
     render() {
+        const {
+            separator
+        } = this.props;
+
         let address = typeof(this.props.address) === "string" ?
             new Address(this.props.address, {locale: this.props.locale}) :
             this.props.address;
         let ret = [];
         this.state.formatter.format(address).split(/\n/).forEach(line => {
             ret.push(line);
-            ret.push(<br/>);
+            ret.push(separator);
         });
         return ret;
     }

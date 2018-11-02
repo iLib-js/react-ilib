@@ -22,8 +22,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import LocaleContext from './LocaleContext';
 
-const ilib = require('ilib/lib/ilib-getdata');
-const ResBundle = require('ilib/lib/ResBundle');
+import ilib from 'ilib-es6';
+import ResBundle from 'ilib-es6/lib/ResBundle';
 
 class LocaleDataProvider extends React.Component {
     static propTypes = {

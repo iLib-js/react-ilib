@@ -17,14 +17,14 @@
  * limitations under the License.
  */
 
+// this processes all subsequent requires using babel
+process.env.BABEL_ENV = "test";
+require("babel-register");
+
 var nodeunit = require("nodeunit");
 var reporter = nodeunit.reporters.minimal;
 var modules = {};
 var suites = require("./testSuiteFiles.js").files;
-
-// this processes all subsequent requires using babel
-process.env.BABEL_ENV = "test";
-require("babel-register");
 
 // set up the testing environment
 require("../setup.jsx");

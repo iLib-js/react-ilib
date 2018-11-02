@@ -20,7 +20,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const ListFormatter = require('ilib/lib/ListFmt');
+import ListFormatter from 'ilib-es6/lib/ListFmt';
 
 class ListFmt extends React.Component {
     static propTypes = {

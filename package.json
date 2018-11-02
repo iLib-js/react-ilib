@@ -49,9 +49,12 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-dev": "node scripts/buildDev.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node test/components/testSuite.js --env=jsdom"
   },
   "dependencies": {
+    "ilib-es6": "^1.0.0"
+  },
+  "devDependencies": {
     "acorn": "^6.0.2",
     "acorn-jsx": "^5.0.0",
     "autoprefixer": "7.1.6",
@@ -80,7 +83,6 @@
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "^2.29.0",
-    "ilib": "file:../ilib/dist/ilib.tgz",
     "ilib-webpack-loader": "^1.0.4",
     "ilib-webpack-plugin": "^1.0.3",
     "jest": "20.0.4",
@@ -103,12 +105,9 @@
     "webpack-dev-server": "^2.9.4",
     "webpack-manifest-plugin": "^1.3.2",
     "whatwg-fetch": "2.0.3",
-    "yarn": "^1.9.4"
-  },
-  "devDependencies": {
+    "yarn": "^1.9.4",
     "http-server": "^0.11.1",
-    "nodeunit": "0.11.0",
-    "esm": "^3.0.0"
+    "nodeunit": "0.11.0"
   },
   "jest": {
     "collectCoverageFrom": [

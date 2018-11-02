@@ -17,7 +17,8 @@
  * limitations under the License.
  */
 
-const { JSDOM } = require('jsdom');
+
+import { JSDOM } from 'jsdom';
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;

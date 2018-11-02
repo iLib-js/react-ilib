@@ -20,8 +20,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const MeasurementFactory = require('ilib/lib/MeasurementFactory');
-const UnitFormatter = require('ilib/lib/UnitFmt');
+import MeasurementFactory from 'ilib-es6/lib/MeasurementFactory';
+import UnitFormatter from 'ilib-es6/lib/UnitFmt';
 
 class UnitFmt extends React.Component {
     static propTypes = {
