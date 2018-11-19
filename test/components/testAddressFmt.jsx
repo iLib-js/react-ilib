@@ -24,16 +24,14 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import LocaleContext from '../../src/components/LocaleContext';
 import AddressFmt from '../../src/components/AddressFmt';
+import ilib from 'ilib-es6';
 
 enzyme.configure({ adapter: new Adapter() });
-
-var ilib = require("ilib");
-
 require("../assertExtras");
 
 export let testAddressFmt = {
     testAddressFmtSimple: test => {
-        test.expect(2);
+        test.expect(1);
         const address = {
             streetAddress: "123 Any St.",
             locality: "Anytown",
@@ -46,13 +44,13 @@ export let testAddressFmt = {
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 The address is: <br/>
                 <span>
-                    <AddressFmt address={address}/>
+                    <AddressFmt address={address} separator={<br/>} />
                 </span>
             </LocaleContext.Provider>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.text(), '123 Any St.Anytown, CA 94065United States of America');
+        test.equal(span.html(), '123 Any St.<br/>Anytown, CA 94065<br/>United States of America');
         test.done();
     },
 };

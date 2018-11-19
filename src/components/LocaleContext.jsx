@@ -20,8 +20,8 @@
 
 import * as React from 'react';
 
-const ilib = require('ilib/lib/ilib-getdata');
-const ResBundle = require('ilib/lib/ResBundle');
+import ilib from 'ilib-es6';
+import ResBundle from 'ilib-es6/lib/ResBundle';
 
 var locale = ilib.getLocale();
 
@@ -34,8 +34,6 @@ const LocaleContext = React.createContext({
     rb: rb
 });
 
-export default LocaleContext;
-
 export function withLocale(Component) {
     return function LocalizedComponent(props) {
         return (
@@ -44,4 +42,6 @@ export function withLocale(Component) {
             </LocaleContext.Consumer>
         );
     };
-}
+};
+
+export default LocaleContext;

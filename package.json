@@ -34,24 +34,33 @@
     }
   ],
   "files": [
-    "src",
-    "README.md"
+    "src/components",
+    "src/utils",
+    "README.md",
+    "package.json",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:iLib-js/react-ilib.git"
   },
   "engines": {
-    "ringojs": ">=0.9",
-    "nodejs": ">= 0.10"
+    "node": ">= 4.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-dev": "node scripts/buildDev.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node test/components/testSuite.js --env=jsdom",
+    "debug": "node --inspect-brk test/components/testSuite.js --env=jsdom",
+    "clean": "git clean -f -d src test public config build",
+    "dist": "npm run build ; npm pack"
   },
   "dependencies": {
+    "ilib": "^14.1.1",
+    "ilib-es6": "^2.0.0"
+  },
+  "devDependencies": {
     "acorn": "^6.0.2",
     "acorn-jsx": "^5.0.0",
     "autoprefixer": "7.1.6",
@@ -80,9 +89,8 @@
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "^2.29.0",
-    "ilib": "^14.0.0",
-    "ilib-webpack-loader": "^1.0.4",
-    "ilib-webpack-plugin": "^1.0.3",
+    "ilib-webpack-loader": "^1.2.1",
+    "ilib-webpack-plugin": "^1.2.1",
     "jest": "20.0.4",
     "jsdom": "^12.1.0",
     "object-assign": "4.1.1",
@@ -103,12 +111,9 @@
     "webpack-dev-server": "^2.9.4",
     "webpack-manifest-plugin": "^1.3.2",
     "whatwg-fetch": "2.0.3",
-    "yarn": "^1.9.4"
-  },
-  "devDependencies": {
+    "yarn": "^1.9.4",
     "http-server": "^0.11.1",
-    "nodeunit": "0.11.0",
-    "esm": "^3.0.0"
+    "nodeunit": "0.11.0"
   },
   "jest": {
     "collectCoverageFrom": [

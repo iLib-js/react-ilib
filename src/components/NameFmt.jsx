@@ -20,8 +20,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Name = require('ilib/lib/Name');
-const NameFormatter = require('ilib/lib/NameFmt');
+import Name from 'ilib-es6/lib/Name';
+import NameFormatter from 'ilib-es6/lib/NameFmt';
 
 class NameFmt extends React.Component {
     static propTypes = {

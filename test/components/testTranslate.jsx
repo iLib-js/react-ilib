@@ -25,13 +25,11 @@ import Adapter from 'enzyme-adapter-react-16';
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 import LocaleContext from '../../src/components/LocaleContext';
+import ilib from 'ilib-es6';
+import ResBundle from "ilib-es6/lib/ResBundle";
+require("../assertExtras");
 
 enzyme.configure({ adapter: new Adapter() });
-
-var ilib = require("ilib");
-const ResBundle = require("ilib/lib/ResBundle");
-
-require("../assertExtras");
 
 function LinkButton(props) {
     return (
