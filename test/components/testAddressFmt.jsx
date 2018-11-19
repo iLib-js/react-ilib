@@ -31,7 +31,7 @@ require("../assertExtras");
 
 export let testAddressFmt = {
     testAddressFmtSimple: test => {
-        test.expect(2);
+        test.expect(1);
         const address = {
             streetAddress: "123 Any St.",
             locality: "Anytown",
@@ -50,7 +50,7 @@ export let testAddressFmt = {
         );
 
         let span = wrapper.find('span');
-        test.equal(span.text(), '123 Any St.<br/>Anytown, CA 94065<br/>United States of America');
+        test.equal(span.html(), '123 Any St.<br/>Anytown, CA 94065<br/>United States of America');
         test.done();
     },
 };

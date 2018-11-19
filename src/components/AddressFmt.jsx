@@ -51,29 +51,30 @@ class AddressFmt extends React.Component {
         if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
             // the data for this may not be loaded yet, so we have to create the new
             // formatter asynchronously, just in case, and then set it into the state
-            new AddressFormatter({
+            return AddressFormatter.create({
                 locale: this.props.locale,
-                style: this.props.style,
-                sync: false,
-                onLoad: function(fmt) {
-                    this.setState({
-                        formatter: fmt
-                    });
-                }.bind(this)
+                style: this.props.style
+            }).then(fmt => {
+                this.setState({
+                    formatter: fmt
+                });
             });
         }
     }
 
     render() {
-        const {
-            separator
+        let {
+            separator,
+            locale,
+            address
         } = this.props;
 
-        let address = typeof(this.props.address) === "string" ?
-            new Address(this.props.address, {locale: this.props.locale}) :
-            this.props.address;
+        separator = separator || (<br/>);
+        let add = typeof(address) === "string" ?
+            new Address(this.props.address, {locale: locale}) :
+            address;
         let ret = [];
-        this.state.formatter.format(address).split(/\n/).forEach(line => {
+        this.state.formatter.format(add).split(/\n/).forEach(line => {
             ret.push(line);
             ret.push(separator);
         });
