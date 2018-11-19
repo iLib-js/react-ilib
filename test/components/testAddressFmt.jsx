@@ -50,7 +50,31 @@ export let testAddressFmt = {
         );
 
         let span = wrapper.find('span');
-        test.equal(span.html(), '123 Any St.<br/>Anytown, CA 94065<br/>United States of America');
+        test.equal(span.html(), '<span>123 Any St.<br>Anytown CA 94065<br>United States of America<br></span>');
+        test.done();
+    },
+
+    testAddressFmtWithLocale: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "Achterberglaan 19",
+            locality: "Uithoorn",
+            region: "Nord Holland",
+            postalCode: "1234NH",
+            country: "Nederland",
+            countryCode: "NL"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <span>
+                    <AddressFmt locale="nl-NL" address={address} separator={<br/>} />
+                </span>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span>Achterberglaan 19<br>1234NH Uithoorn<br>Nederland<br></span>');
         test.done();
     },
 };
