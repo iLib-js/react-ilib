@@ -23,10 +23,14 @@ import PropTypes from 'prop-types';
 import Address from 'ilib-es6/lib/Address';
 import AddressFormatter from 'ilib-es6/lib/AddressFmt';
 
+import hashKey from '../utils/hash';
+
 class AddressFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         style: PropTypes.string,
+        id: PropTypes.string,
+        wrapper: PropTypes["object"],
         address: PropTypes["object"].isRequired,
         children: PropTypes.any
     };
@@ -35,7 +39,7 @@ class AddressFmt extends React.Component {
         super(props);
         const {
             locale,
-            style
+            style,
         } = props;
         // data for the current locale should already be loaded, so we can create
         // this formatter synchronously
@@ -66,19 +70,35 @@ class AddressFmt extends React.Component {
         let {
             separator,
             locale,
-            address
+            address,
+            id,
+            wrapper,
+            className
         } = this.props;
 
         separator = separator || (<br/>);
+        wrapper = wrapper || (<span/>);
         let add = typeof(address) === "string" ?
             new Address(this.props.address, {locale: locale}) :
             address;
-        let ret = [];
-        this.state.formatter.format(add).split(/\n/).forEach(line => {
-            ret.push(line);
-            ret.push(separator);
+        let ret = this.state.formatter.format(add).split(/\n/).filter(line => {
+            return line && line.trim() !== "";
         });
-        return ret;
+
+        if (ret.length > 1) {
+            var tmp = [], index = 0;
+            ret.slice(0, ret.length-1).forEach(line => {
+                tmp.push(line);
+                tmp.push(React.cloneElement(separator, { key: index++ }));
+            });
+            tmp.push(ret[ret.length-1]);
+            ret = tmp;
+        }
+        
+        id = id || hashKey(ret.join(" "));
+        let attrs = { key: id, id: id };
+        className && (attrs["className"] = className);
+        return React.cloneElement(wrapper, attrs, ret);
     }
 }
 
