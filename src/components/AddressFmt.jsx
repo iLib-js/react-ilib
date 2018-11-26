@@ -73,11 +73,19 @@ class AddressFmt extends React.Component {
         let add = typeof(address) === "string" ?
             new Address(this.props.address, {locale: locale}) :
             address;
-        let ret = [];
-        this.state.formatter.format(add).split(/\n/).forEach(line => {
-            ret.push(line);
-            ret.push(separator);
+        let ret = this.state.formatter.format(add).split(/\n/).filter(line => {
+            return line && line.trim() !== "";
         });
+        
+        if (ret.length > 1) {
+            var tmp = [], index = 0;
+            ret.slice(0, ret.length-1).forEach(line => {
+                tmp.push(line);
+                tmp.push(React.cloneElement(separator, { key: index++ }));
+            });
+            tmp.push(ret[ret.length-1]);
+            ret = tmp;
+        }
         return ret;
     }
 }

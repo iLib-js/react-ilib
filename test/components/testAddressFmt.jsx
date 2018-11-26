@@ -50,7 +50,7 @@ export let testAddressFmt = {
         );
 
         let span = wrapper.find('span');
-        test.equal(span.html(), '123 Any St.<br/>Anytown, CA 94065<br/>United States of America');
+        test.equal(span.html(), '<span>123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
         test.done();
     },
 };
