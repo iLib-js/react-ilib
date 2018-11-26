@@ -43,14 +43,124 @@ export let testAddressFmt = {
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 The address is: <br/>
-                <span>
-                    <AddressFmt address={address} separator={<br/>} />
-                </span>
+                <AddressFmt address={address} separator={<br/>} />
             </LocaleContext.Provider>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.html(), '<span>123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
+        test.equal(span.html(), '<span id="r337532118">123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
         test.done();
     },
+    
+    testAddressFmtSimpleWithId: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "123 Any St.",
+            locality: "Anytown",
+            region: "CA",
+            postalCode: "94065",
+            country: "United States of America",
+            countryCode: "US"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <AddressFmt address={address} separator={<br/>} id="foo.bar.asdf"/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="foo.bar.asdf">123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
+        test.done();
+    },
+
+    testAddressFmtSimpleWithWrapper: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "123 Any St.",
+            locality: "Anytown",
+            region: "CA",
+            postalCode: "94065",
+            country: "United States of America",
+            countryCode: "US"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <AddressFmt address={address} separator={<br/>} wrapper={<div/>}/>
+            </LocaleContext.Provider>
+        );
+
+        let div = wrapper.find('div');
+        test.equal(div.html(), '<div id="r337532118">123 Any St.<br>Anytown CA 94065<br>United States of America</div>');
+        test.done();
+    },
+
+    testAddressFmtSimpleWithWrapperAndId: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "123 Any St.",
+            locality: "Anytown",
+            region: "CA",
+            postalCode: "94065",
+            country: "United States of America",
+            countryCode: "US"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <AddressFmt address={address} separator={<br/>} wrapper={<div/>} id="asdf.asdf.asdf"/>
+            </LocaleContext.Provider>
+        );
+
+        let div = wrapper.find('div');
+        test.equal(div.html(), '<div id="asdf.asdf.asdf">123 Any St.<br>Anytown CA 94065<br>United States of America</div>');
+        test.done();
+    },
+
+    testAddressFmtSimpleWithClass: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "123 Any St.",
+            locality: "Anytown",
+            region: "CA",
+            postalCode: "94065",
+            country: "United States of America",
+            countryCode: "US"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <AddressFmt address={address} separator={<br/>} className="foobar"/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r337532118" class="foobar">123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
+        test.done();
+    },
+
+    testAddressFmtSimpleWithWrapperAndIdAndClass: test => {
+        test.expect(1);
+        const address = {
+            streetAddress: "123 Any St.",
+            locality: "Anytown",
+            region: "CA",
+            postalCode: "94065",
+            country: "United States of America",
+            countryCode: "US"
+        };
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The address is: <br/>
+                <AddressFmt address={address} separator={<br/>} wrapper={<div/>} id="asdf.asdf.asdf" className="foobar"/>
+            </LocaleContext.Provider>
+        );
+
+        let div = wrapper.find('div');
+        test.equal(div.html(), '<div id="asdf.asdf.asdf" class="foobar">123 Any St.<br>Anytown CA 94065<br>United States of America</div>');
+        test.done();
+    },
+
+
 };
