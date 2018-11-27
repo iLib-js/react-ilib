@@ -65,14 +65,12 @@ export let testAddressFmt = {
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 The address is: <br/>
-                <span>
-                    <AddressFmt locale="nl-NL" address={address} separator={<br/>} />
-                </span>
+                <AddressFmt locale="nl-NL" address={address} separator={<br/>} />
             </LocaleContext.Provider>
         );
 
         let span = wrapper.find('span');
-        test.equal(span.html(), '<span>Achterberglaan 19<br>1234NH Uithoorn<br>Nederland<br></span>');
+        test.equal(span.html(), '<span id="r229690728">Achterberglaan 19<br>1234NH Uithoorn<br>Nederland</span>');
         test.done();
     },
 
