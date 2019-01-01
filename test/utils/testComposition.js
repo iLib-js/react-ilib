@@ -20,7 +20,7 @@
 import Composition from "../../src/utils/Composition.js";
 import React from "react";
 
-module.exports = {
+module.exports.composition = {
     testComposeString: function(test) {
         test.expect(1);
         

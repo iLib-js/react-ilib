@@ -51,8 +51,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-dev": "node scripts/buildDev.js",
-    "test": "node test/components/testSuite.js --env=jsdom",
-    "debug": "node --inspect-brk test/components/testSuite.js --env=jsdom",
+    "test": "node test/testSuite.js --env=jsdom",
+    "debug": "node --inspect-brk test/testSuite.js --env=jsdom",
     "clean": "git clean -f -d src test public config build",
     "dist": "npm run build ; npm pack"
   },
