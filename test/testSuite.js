@@ -31,17 +31,18 @@ var modules = {};
 //set up the testing environment
 require("./setup.jsx");
 
-var files = fs.readdirSync("./test", {withFileTypes: true});
+var files = fs.readdirSync("./test");
 files.forEach(function(dir) {
-    var sub = path.join(dir.name, "testSuiteFiles.js");
-    if (dir.isDirectory() && fs.existsSync(path.join("test", sub))) {
+    var sub = path.join(dir, "testSuiteFiles.js");
+    var full = path.join("test", sub);
+    if (fs.existsSync(full)) {
         var suites = require("./" + sub).files;
 
-        modules[dir.name] = {};
+        modules[dir] = {};
         suites.forEach(function (file) {
-            var test = require("./" + path.join(dir.name, file));
+            var test = require("./" + path.join(dir, file));
             for (var suite in test) {
-                modules[dir.name][suite] = test[suite];
+                modules[dir][suite] = test[suite];
             }
         });
     }
