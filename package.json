@@ -34,41 +34,51 @@
     }
   ],
   "files": [
-    "src",
-    "README.md"
+    "src/components",
+    "src/utils",
+    "README.md",
+    "package.json",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:iLib-js/react-ilib.git"
   },
   "engines": {
-    "ringojs": ">=0.9",
-    "nodejs": ">= 0.10"
+    "node": ">= 4.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-dev": "node scripts/buildDev.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node test/testSuite.js --env=jsdom",
+    "debug": "node --inspect-brk test/testSuite.js --env=jsdom",
+    "clean": "git clean -f -d src test public config build",
+    "dist": "npm run build ; npm pack"
   },
   "dependencies": {
-    "acorn": "^6.0.2",
-    "acorn-jsx": "^5.0.0",
+    "ilib": "^14.1.2",
+    "ilib-es6": "^2.0.0",
+    "ndb": "^1.0.42"
+  },
+  "devDependencies": {
+    "acorn": "^6.0.4",
+    "acorn-jsx": "^5.0.1",
     "autoprefixer": "7.1.6",
-    "babel-core": "6.26.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
     "babel-preset-react-app": "^3.1.1",
     "babel-register": "^6.26.0",
     "babel-runtime": "6.26.0",
-    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chalk": "1.1.3",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -79,36 +89,32 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
-    "html-webpack-plugin": "^2.29.0",
-    "ilib": "file:../ilib/dist/ilib.tgz",
-    "ilib-webpack-loader": "^1.0.4",
-    "ilib-webpack-plugin": "^1.0.3",
+    "html-webpack-plugin": "^2.30.1",
+    "http-server": "^0.11.1",
+    "ilib-webpack-loader": "^1.2.2",
+    "ilib-webpack-plugin": "^1.2.2",
     "jest": "20.0.4",
-    "jsdom": "^12.1.0",
+    "jsdom": "^12.2.0",
+    "nodeunit": "0.11.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "raf": "3.4.0",
-    "react": "^16.5.1",
+    "react": "^16.6.3",
     "react-async-component": "^2.0.0",
-    "react-dev-utils": "^5.0.1",
-    "react-dom": "^16.5.1",
-    "react-intl": "^2.5.0",
+    "react-dev-utils": "^5.0.3",
+    "react-dom": "^16.6.3",
+    "react-intl": "^2.7.2",
     "resolve": "1.6.0",
     "style-loader": "0.19.0",
-    "sw-precache-webpack-plugin": "^0.11.4",
+    "sw-precache-webpack-plugin": "^0.11.5",
     "url-loader": "0.6.2",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.9.4",
+    "webpack-dev-server": "^2.11.3",
     "webpack-manifest-plugin": "^1.3.2",
     "whatwg-fetch": "2.0.3",
-    "yarn": "^1.9.4"
-  },
-  "devDependencies": {
-    "http-server": "^0.11.1",
-    "nodeunit": "0.11.0",
-    "esm": "^3.0.0"
+    "yarn": "^1.12.3"
   },
   "jest": {
     "collectCoverageFrom": [

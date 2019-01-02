@@ -25,11 +25,12 @@ import Adapter from 'enzyme-adapter-react-16';
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 import LocaleContext, { withLocale } from '../../src/components/LocaleContext';
-
-var ilib = require("ilib");
-const ResBundle = require("ilib/lib/ResBundle");
+import ilib from 'ilib-es6';
+import ResBundle from "ilib-es6/lib/ResBundle";
 
 require("../assertExtras");
+
+enzyme.configure({ adapter: new Adapter() });
 
 // set up mock data
 ilib.data.localecontext_ru_RU = {

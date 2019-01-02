@@ -17,10 +17,9 @@
  * limitations under the License.
  */
 
-var esmRequire = require("esm")(module);
-var hashKey = esmRequire("../../src/utils/hash.js")["default"];
+import hashKey from "../../src/utils/hash.js";
 
-module.exports = {
+module.exports.hash = {
     testHashKey: function(test) {
         test.expect(1);
 

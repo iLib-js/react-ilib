@@ -1,5 +1,5 @@
 /*
- * assertExtras.jsx - extra assertion types to use with nodeunit
+ * assertExtras.js - extra assertion types to use with nodeunit
  *
  * Copyright © 2018, JEDLSoft
  *
@@ -29,6 +29,55 @@ function fail(actual, expected, message, operator, stackStartFunction) {
         operator: operator,
         stackStartFunction: stackStartFunction
     });
+}
+
+function _deepEqual(actual, expected) {
+    // 7.1. All identical values are equivalent, as determined by ===.
+    if (actual === expected)
+        return true;
+
+    // Convert to primitives, if supported
+    actual = actual.valueOf ? actual.valueOf() : actual;
+    expected = expected.valueOf ? expected.valueOf() : expected;
+
+    // 7.2. If the expected value is a Date object, the actual value is
+    // equivalent if it is also a Date object that refers to the same time.
+    if (actual instanceof Date && expected instanceof Date) {
+        return actual.getTime() === expected.getTime();
+
+        // 7.2.1 If the expcted value is a RegExp object, the actual value is
+        // equivalent if it is also a RegExp object that refers to the same source and options
+    } else if (actual instanceof RegExp && expected instanceof RegExp) {
+        return actual.source === expected.source &&
+        actual.global === expected.global &&
+        actual.ignoreCase === expected.ignoreCase &&
+        actual.multiline === expected.multiline;
+
+    } else if (Buffer && actual instanceof Buffer && expected instanceof Buffer) {
+        return (function() {
+            var i, len;
+
+            for (i = 0, len = expected.length; i < len; i++) {
+                if (actual[i] !== expected[i]) {
+                    return false;
+                }
+            }
+            return actual.length === expected.length;
+        })();
+        // 7.3. Other pairs that do not both pass typeof value == "object",
+        // equivalence is determined by ==.
+    } else if (typeof actual != 'object' && typeof expected != 'object') {
+        return actual == expected;
+
+        // 7.4. For all other Object pairs, including Array objects, equivalence is
+        // determined by having the same number of owned properties (as verified
+        // with Object.prototype.hasOwnProperty.call), the same set of keys
+        // (although not necessarily the same order), equivalent values for every
+        // corresponding key, and an identical "prototype" property. Note: this
+        // accounts for both named and indexed properties on Arrays.
+    } else {
+        return objEquiv(actual, expected);
+    }
 }
 
 /**

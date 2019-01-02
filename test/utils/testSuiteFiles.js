@@ -18,8 +18,6 @@
  */
 
 module.exports.files = [
-    "testPlural.jsx",
-    "testTranslate.jsx",
-    "testLocaleContext.jsx",
-    "testAddressFmt.jsx"
+    "testComposition.js",
+    "testHash.js"
 ];

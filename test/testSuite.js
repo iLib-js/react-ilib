@@ -17,22 +17,34 @@
  * limitations under the License.
  */
 
-// this processes all subsequent requires using babel
+var path = require("path");
+var fs = require("fs");
+
+//this processes all subsequent requires using babel
 process.env.BABEL_ENV = "test";
 require("babel-register");
 
 var nodeunit = require("nodeunit");
 var reporter = nodeunit.reporters.minimal;
 var modules = {};
-var suites = require("./testSuiteFiles.js").files;
 
-// set up the testing environment
-require("../setup.jsx");
+//set up the testing environment
+require("./setup.jsx");
 
-suites.forEach(function (path) {
-    var test = require("./" + path);
-    for (var suite in test) {
-        modules[suite] = test[suite];
+var files = fs.readdirSync("./test");
+files.forEach(function(dir) {
+    var sub = path.join(dir, "testSuiteFiles.js");
+    var full = path.join("test", sub);
+    if (fs.existsSync(full)) {
+        var suites = require("./" + sub).files;
+
+        modules[dir] = {};
+        suites.forEach(function (file) {
+            var test = require("./" + path.join(dir, file));
+            for (var suite in test) {
+                modules[dir][suite] = test[suite];
+            }
+        });
     }
 });
 

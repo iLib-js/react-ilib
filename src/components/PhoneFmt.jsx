@@ -20,8 +20,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-const Phone = require('ilib/lib/Phone');
-const PhoneFormatter = require('ilib/lib/PhoneFmt');
+import Phone from 'ilib-es6/lib/Phone';
+import PhoneFormatter from 'ilib-es6/lib/PhoneFmt';
 
 class PhoneFmt extends React.Component {
     static propTypes = {

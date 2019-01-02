@@ -26,8 +26,7 @@ import AddressFmt from './components/AddressFmt';
 import Translate from './components/Translate';
 
 //eslint-disable-next-line
-const ilib = require('ilib/lib/ilib-getdata');
-const Address = require('ilib/lib/Address');
+import Address from 'ilib-es6/lib/Address';
 
 var addresses = {
     US: new Address({

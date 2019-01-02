@@ -17,12 +17,10 @@
  * limitations under the License.
  */
 
-var esmRequire = require("esm")(module);
-var Composition = esmRequire("../../src/utils/Composition.js")["default"];
+import Composition from "../../src/utils/Composition.js";
+import React from "react";
 
-var React = esmRequire("react");
-
-module.exports = {
+module.exports.composition = {
     testComposeString: function(test) {
         test.expect(1);
         
