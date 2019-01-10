@@ -44,6 +44,47 @@ export let testListFmt = {
         test.done();
     },
 
+    testListFmtOne: test => {
+        test.expect(1);
+        const list = ["Peter"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt list={list}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r907224573">Peter</span>');
+        test.done();
+    },
+
+    testListFmtTwo: test => {
+        test.expect(1);
+        const list = ["Peter", "Paul"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt list={list}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r491155901">Peter and Paul</span>');
+        test.done();
+    },
+
+    testListFmtFour: test => {
+        test.expect(1);
+        const list = ["Peter", "Paul", "Mary", "Joseph"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt list={list}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r858969903">Peter, Paul, Mary, and Joseph</span>');
+        test.done();
+    },
     testListFmtWithLocale: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Maria"];
@@ -58,7 +99,7 @@ export let testListFmt = {
         test.done();
     },
 
-    testListFmtSimpleWithId: test => {
+    testListFmtWithId: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
@@ -72,7 +113,7 @@ export let testListFmt = {
         test.done();
     },
 
-    testListFmtSimpleWithWrapper: test => {
+    testListFmtWithWrapper: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
@@ -86,7 +127,7 @@ export let testListFmt = {
         test.done();
     },
 
-    testListFmtSimpleWithWrapperAndId: test => {
+    testListFmtWithWrapperAndId: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
@@ -100,7 +141,7 @@ export let testListFmt = {
         test.done();
     },
 
-    testListFmtSimpleWithClass: test => {
+    testListFmtWithClass: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
@@ -114,7 +155,7 @@ export let testListFmt = {
         test.done();
     },
 
-    testListFmtSimpleWithWrapperAndIdAndClass: test => {
+    testListFmtWithWrapperAndIdAndClass: test => {
         test.expect(1);
         const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
@@ -128,5 +169,45 @@ export let testListFmt = {
         test.done();
     },
 
+    testListFmtWithWrapperAndIdAndClass: test => {
+        test.expect(1);
+        const list = ["Peter", "Paul", "Mary"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt list={list} wrapper={<div/>} id="asdf.asdf.asdf" className="foobar"/>
+            </LocaleContext.Provider>
+        );
 
+        let div = wrapper.find('div');
+        test.equal(div.html(), '<div id="asdf.asdf.asdf" class="foobar">Peter, Paul, and Mary</div>');
+        test.done();
+    },
+
+    testListFmtDEContext: test => {
+        test.expect(1);
+        const list = ["Peter", "Paul", "Maria"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt locale="de-DE" list={list} id="asdf.asdf.asdf" className="foobar"/>
+            </LocaleContext.Provider>
+        );
+
+        let div = wrapper.find('span');
+        test.equal(div.html(), '<span id="asdf.asdf.asdf" class="foobar">Peter, Paul und Maria</span>');
+        test.done();
+    },
+
+    testListFmtJAContext: test => {
+        test.expect(1);
+        const list = ["岡田さん", "鈴木さん", "横山さん"];
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                The list is: <ListFmt locale="ja-JP" list={list} id="asdf.asdf.asdf" className="foobar"/>
+            </LocaleContext.Provider>
+        );
+
+        let div = wrapper.find('span');
+        test.equal(div.html(), '<span id="asdf.asdf.asdf" class="foobar">岡田さん、鈴木さん、横山さん</span>');
+        test.done();
+    },
 };
