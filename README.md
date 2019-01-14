@@ -20,6 +20,8 @@ it does not cover them all yet.
 The address formatter component is called `AddressFmt`.
 
 ```
+import AddressFmt from 'react-ilib/src/AddressFmt';
+
 <AddressFmt
     address={Address}
     separator={<br/>}
@@ -47,6 +49,8 @@ Format an iLib Address as a string. Props can contain:
 The list formatting component is called `ListFmt`.
 
 ```
+import ListFmt from 'react-ilib/src/ListFmt';
+
 <ListFmt
     list={Array.<string>}
     locale="string"
@@ -73,3 +77,20 @@ Format an array of strings as a list. Props can contain:
 # Input Components
 
 TBD
+
+# Copyright and License
+
+Copyright &copy; 2018-2019, JEDLSoft
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this library except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+See the License for the specific language governing permissions and
+limitations under the License.
