@@ -1,37 +1,96 @@
-## Welcome to GitHub Pages
+# React-ilib - iLib Wrapper Components
 
-You can use the [editor on GitHub](https://github.com/iLib-js/react-ilib/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+React-ilib is a library of React components that wrap ilib classes to make it easy to use iLib within React apps.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+There are two types of components in this library:
 
-### Markdown
+1. Formatter components. These use the ilib formatter classes to format various things locale-sensitively.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. Input components. Components that implement various locale-sensitive widgets that allow users to input
+locale-sensitive information. These use the ilib formatter classes to glean information about the fields required
+to create a set of HTML form input elements.
 
-```markdown
-Syntax highlighted code block
+This library will eventually cover all of the ilib formatter classes, but currently it is in development, and
+it does not cover them all yet.
 
-# Header 1
-## Header 2
-### Header 3
+# Formatter Components
 
-- Bulleted
-- List
+## Address Formatter
 
-1. Numbered
-2. List
+The address formatter component is called `AddressFmt`.
 
-**Bold** and _Italic_ and `Code` text
+```
+import AddressFmt from 'react-ilib/src/AddressFmt';
 
-[Link](url) and ![Image](src)
+<AddressFmt
+    address={Address}
+    separator={<br/>}
+    locale="string"
+    wrapper={<span/>}
+    className="string"
+    id="string"
+    style="string">
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Format an iLib Address as a string. Props can contain:
 
-### Jekyll Themes
+* <i>address</i> - an iLib Address instance (or something that has the same fields)
+* <i>separator</i> - the HTML tag to use to separate lines of the formatted address. Default: a &lt;br&gt; tag
+* <i>locale</i> - the locale to use for this formatter in BCP-47 format
+* <i>wrapper</i> - the HTML tag ot use to wrap the entire output. Use null for no wrapper. Default: a &lt;span&gt; tag
+* <i>className</i> - the CSS classes to put on the HTML wrapper tag
+* <i>id</i> - the unique id to put on the HTML wrapper tag
+* <i>style</i> - The value of the style argument passed to the iLib AddressFmt constructor. This
+  gives the style of the formatter: "default" for the default style, and "nocountry" for
+  domestic addresses.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/iLib-js/react-ilib/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## List Formatter
 
-### Support or Contact
+The list formatting component is called `ListFmt`.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+```
+import ListFmt from 'react-ilib/src/ListFmt';
+
+<ListFmt
+    list={Array.<string>}
+    locale="string"
+    wrapper={<span/>}
+    className="string"
+    id="string"
+    length="string"
+    style="string">
+```
+
+Format an array of strings as a list. Props can contain:
+
+* <i>list</i> - an array of string to format as a list
+* <i>locale</i> - the locale to use for this formatter in BCP-47 format
+* <i>wrapper</i> - the HTML tag ot use to wrap the entire output. Use null for no wrapper. Default: a &lt;span&gt; tag
+* <i>className</i> - the CSS classes to put on the HTML wrapper tag
+* <i>id</i> - the unique id to put on the HTML wrapper tag
+* <i>length</i> - the length parameter to pass to the iLib list formatter constructor. This can be one of
+  "short", "medium", "long", or "full"
+* <i>style</i> - The value of the style argument passed to the iLib ListFmt constructor. The style
+  parameter can be "standard" for regular, grammatical text, and "units" for a list of measurements.
+  eg. "1 foot 3 inches"
+
+# Input Components
+
+TBD
+
+# Copyright and License
+
+Copyright &copy; 2018-2019, JEDLSoft
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this library except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+See the License for the specific language governing permissions and
+limitations under the License.
