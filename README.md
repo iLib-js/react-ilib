@@ -66,8 +66,8 @@ import DateFmt from 'react-ilib/src/DateFmt';
     timezone="string"
     type="string"
     length="string"
-    date="string"
-    time="string"
+    dateComponents="string"
+    timeComponents="string"
     clock="string"
     template="string"
     useNative=boolean
@@ -76,7 +76,7 @@ import DateFmt from 'react-ilib/src/DateFmt';
 
 Format an iLib Address as a string. Props can contain:
 
-* <i>address</i> - an iLib Address instance (or something that has the same fields)
+* <i>date</i> - an iLib IDate instance, or an intrisic JS Date object, or a string containing a date to parse
 * <i>locale</i> - the locale to use for this formatter in BCP-47 format
 * <i>wrapper</i> - the HTML tag ot use to wrap the entire output. Use null for no wrapper. Default: a &lt;span&gt; tag
 * <i>className</i> - the CSS classes to put on the HTML wrapper tag
@@ -85,8 +85,8 @@ Format an iLib Address as a string. Props can contain:
 * <i>timezone</i> - the value of the timezone parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
 * <i>type</i> - the value of the type parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
 * <i>length</i> - the value of the length parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
-* <i>date</i> - the value of the date parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
-* <i>time</i> - the value of the time parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
+* <i>dateComponents</i> - the value of the date parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
+* <i>timeComponents</i> - the value of the time parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
 * <i>clock</i> - the value of the clock parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
 * <i>template</i> - the value of the template parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
 * <i>useNative</i> - the value of the useNative parameter to the iLib DateFmt constructor. See the ilib [DateFmt](http://www.translationcircle.com/ilib/doc/jsdoc/symbols/DateFmt.html) docs for details.
