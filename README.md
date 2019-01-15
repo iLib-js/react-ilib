@@ -93,6 +93,9 @@ TBD
 
 ## Translate, Plural, and Variable
 
+To translate text to another language inside of your React app, you can use
+the `Translate` component.
+
 ```
 <Translate
     id="string"
@@ -116,10 +119,7 @@ TBD
 ```
 
 Translate a string using iLib's ResBundle class. The string to translate appears
-in the body of the component, and may contain HTML or other components in the
-middle of it. If the string contains HTML or subcomponents, then they will be
-replaced into the appropriate spot in the translated string before the final
-output is generated.
+in the body of the component.
 
 It is highly recommended that entire sentences and phrases are
 wrapped with a Translate component, rather than individual snippets of text
@@ -127,15 +127,65 @@ because it is difficult for the translators to know the grammatical context
 for those little snippets. Whole sentences and phrases are much easier to
 translate properly and produce much higher quality products.
 
+To this end,
+the body of the Translate component may contain HTML or other components in the
+middle of it to allow you to wrap the whole sentence. If the string
+contains HTML or subcomponents, then those tags will be
+copied into the appropriate spot in the translated string before the final
+translated output is generated.
+
+In order to allow translators to move these components around as required
+by the grammar of their target language, the components are hidden behind
+XML-like codes to create a coded string. This has a number of advantages:
+
+1. The translators cannot mess up the syntax of the component props or
+HTML attributes
+
+1. The translators are not tempted to translate things that they shouldn't,
+such as the names of CSS classes.
+
+1. The translators cannot inject nefarious javascript code into the middle
+of the translated string and thereby perform an injection attack.
+
+1. The engineers may change the contents of these tags at will without
+causing a retranslation.
+
+Here is an example string with subcomponents and the resulting source
+string to translate:
+
+```
+    var str = (
+        <Translate>
+            This is a <Link to={url}>link to another website</Link> in the middle of the string.
+        </Translate>
+    );
+```
+
+The extracted string would be:
+
+```
+This is a <c0>link to another website</c0> in the middle of the string.
+```
+
+The "c" stands for component (XML tags have to begin with a letter),
+and the number is the index of the component in the string. Translated
+to German, this might be:
+
+```
+Dies ist ein <c0>Link zu einer anderen Website</c0> in der Mitte der Zeichenfolge.
+```
+
 It is also highly recommended that engineers fill out the description prop
 for every string. The value of this prop is sent along with the string to the
 translators, and should contain a description of how the string is used in
-the UI and what the intent was. It should also give grammatical hints.
+the UI, what the intent was, any grammatical hints, and anything else that a
+translator may need to know about the string without seeing the UI for themselves.
 
 Examples of good descriptions:
 
 * "'Free' refers to no cost, rather than available."
 * "This is used as a command on a button label, not as an adjective in a description."
+* "This is the title of the dialog where users upload files."
 
 Plural components give a string to use for a particular plural category.
 The Translate component will pick the right plural string to use based on the
@@ -159,15 +209,25 @@ Russian translator will translate for the "one", "two",
 "few", and "other" categories, and the Translate component will
 choose the correct one given the value of its count prop.
 
-Variable components are placeholders for variables that will be substituted
-back into the string after the translated string is retrieved. They render
-the value of their value prop into the string.
+Variable components are placeholders for variables. The value of these
+variables will be substituted
+back into the string after the translated string is retrieved. The Variable
+component renders the value of its value prop into the appropriate spot
+in the string.
 
+Strings can be extracted from your application using the ilib
+[localization tool](https://github.com/iLib-js/loctool). The localization
+tool (loctool for short) can search through a project to find js and
+jsx files to extract strings from, and output the results into XLIFF
+format files that can be sent to translators. The resulting translated
+XLIFF files can then be used to generate ilib resource files in js
+format. These files can then be used along with the ResBundle class to
+load in translations.
 
 ### Translate Props
 
 * <i>id</i> - the explicit unique id of this string. If not given, an id
-is generated based on the string to translate
+is generated based on a hash of the string to translate.
 * <i>description</i> - a description of this string to give more context
 to the translators so that they can do a better job of translating. This
 prop is optional, but highly recommended for all strings
@@ -203,15 +263,30 @@ where this variable appears
 
 ### Examples
 
-Simple Example:
+#### Simple Example:
 
 ```
     <div class="mainbody fxcs">
-        <Header><Translate>Files to Upload</Translate></Header>
+        <Header>
+            <Translate description="Main body header">
+                Files to Upload
+            </Translate>
+        </Header>
     </div>
 ```
 
-Example with a placeholder variable:
+Notes:
+
+* no "id" prop is given, so the component will generate a
+unique id for the string based on a hash of the source string
+"Files to Upload". In this case, the hash turns out to be
+"r966069354".
+* the component preserves the whitespace before and after strings
+to translate so that indentation is preserved in the translated
+file
+
+
+#### Example with a placeholder variable:
 
 ```
     <div class="mainbody fxcs">
@@ -221,16 +296,35 @@ Example with a placeholder variable:
     </div>
 ```
 
-Example with plurals:
+Notes:
+
+* the id of the variable "num" must appear in the hash given in
+the "values" prop.
+* you may put multiple variables in the string if necessary
+
+#### Example with plurals:
 
 ```
     <div class="mainbody fxcs">
-        <Translate count={fileCache.cntReady}>
-            <Plural category="one">There is <Variable id="count"/> file in the cache.</Plural>
-            <Plural category="other">There are <Variable id="count"/> files in the cache.</Plural>
+        <Translate count={fileCache.cntReady} values={{cacheName: fileCache.cacheName}}>
+            <Plural category="one">There is <Variable id="count"/> file in the <Variable id="cacheName"/> cache.</Plural>
+            <Plural category="other">There are <Variable id="count"/> files in the <Variable id="cacheName"/> cache.</Plural>
         </Translate>
     </div>
 ```
+
+Notes:
+
+* the variable "count" does not need to appear in
+the values prop because it is explicitly given as the "count" prop. It is
+automatically available as a variable in the plural strings.
+* the value
+for all other variables, such as "cacheName", must be given in the values
+prop. If a value is not there, the Variable component has nothing to render there
+and the result will just appear as an empty string.
+* in English, only the "one" and "other" categories are necessary to cover all
+cases. In other languages, there are more or less cases. It is up to the translator
+to provide these cases.
 
 # Copyright and License
 
