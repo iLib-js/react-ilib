@@ -105,7 +105,7 @@ TBD
     translationsDir="string">
 ```
 
-## Translate, Plural, and Variable
+## Translate, Plural, and Parameter
 
 To translate text to another language inside of your React app, you can use
 the `Translate` component.
@@ -113,7 +113,7 @@ the `Translate` component.
 ```
 import Translate from 'react-ilib/src/Translate';
 import Plural from 'react-ilib/src/Plural';
-import Variable from 'react-ilib/src/Variable';
+import Parameter from 'react-ilib/src/Parameter';
 
 <Translate
     id="string"
@@ -128,8 +128,8 @@ import Variable from 'react-ilib/src/Variable';
     <Plural
         category="string">
 
-    <Variable
-        id="string"
+    <Parameter
+        name="string"
         description="string"
         value={any}
         wrapper={null}
@@ -227,10 +227,9 @@ Russian translator will translate for the "one", "two",
 "few", and "other" categories, and the Translate component will
 choose the correct one given the value of its count prop.
 
-Variable components are placeholders for variables. The value of these
-variables will be substituted
-back into the string after the translated string is retrieved. The Variable
-component renders the value of its value prop into the appropriate spot
+Parameter components are placeholders for values that get substituted
+into the string after the translated string is retrieved. The Parameter
+component renders the value of its value prop into the given spot
 in the string.
 
 Strings can be extracted from your application using the ilib
@@ -267,17 +266,18 @@ translations
 
 * <i>category</i> - the category of this plural
 
-### Variable Props
+### Parameter Props
 
-* <i>id</i> - (req) the explicit unique id of this variable.
-* <i>description</i> - a description of this variable to give more context
+* <i>name</i> - (req) the explicit unique name of this parameter.
+* <i>description</i> - a description of this parameter to give more context
 to the translators so that they can do a better job of translating. This
-prop is optional, but highly recommended for all variables
-* <i>wrapper</i> - the HTML tag ot use to wrap the output. Use null
+prop is optional, but highly recommended for all parameters
+* <i>wrapper</i> - the HTML tag to use to wrap the output. Use null
 for no wrapper. Default: a &lt;span&gt; tag
 * <i>className</i> - the CSS classes to put on the HTML wrapper tag
 * <i>value</i> - the value to substitute into the translated string
-where this variable appears
+where this variable appears. This can be of any Javascript type that can
+be converted to a string.
 
 ### Examples
 
@@ -301,7 +301,7 @@ unique id for the string based on a hash of the source string
 "r966069354".
 * the component preserves the whitespace before and after strings
 to translate so that indentation is preserved in the translated
-file
+file.
 
 
 #### Example with a placeholder variable:
@@ -309,24 +309,27 @@ file
 ```
     <div class="mainbody fxcs">
         <Translate values={{num: fileCache.cntReady}}>
-            Number of files in cache: <Variable id="num"/>
+            Number of files in cache: <Parameter name="num"/>
         </Translate>
     </div>
 ```
 
 Notes:
 
-* the id of the variable "num" must appear in the hash given in
+* the name of the parameter "num" must appear in the hash given in
 the "values" prop.
 * you may put multiple variables in the string if necessary
+* the value for the parameter may be specified in the values prop
+of the Translate component, or individually in the value prop
+of each parameter.
 
 #### Example with plurals:
 
 ```
     <div class="mainbody fxcs">
         <Translate count={fileCache.cntReady} values={{cacheName: fileCache.cacheName}}>
-            <Plural category="one">There is <Variable id="count"/> file in the <Variable id="cacheName"/> cache.</Plural>
-            <Plural category="other">There are <Variable id="count"/> files in the <Variable id="cacheName"/> cache.</Plural>
+            <Plural category="one">There is <Parameter name="count"/> file in the <Parameter name="cacheName"/> cache.</Plural>
+            <Plural category="other">There are <Parameter name="count"/> files in the <Parameter name="cacheName"/> cache.</Plural>
         </Translate>
     </div>
 ```
@@ -335,25 +338,31 @@ Notes:
 
 * the variable "count" does not need to appear in
 the values prop because it is explicitly given as the "count" prop. It is
-automatically available as a variable in the plural strings.
-* the value
-for all other variables, such as "cacheName", must be given in the values
-prop. If a value is not there, the Variable component has nothing to render there
+automatically available as a parameter in the plural strings.
+* the value for all other parameters, such as "cacheName", must be given in the values
+prop or as a value prop on the Parameter component itself. If a value is not there,
+the Parameter component has nothing to render in that spot in the string
 and the result will just appear as an empty string.
 * in English, only the "one" and "other" categories are necessary to cover all
-cases. In other languages, there are more or less cases. It is up to the translator
-to provide these cases.
+cases. In other languages, there may be more or less cases. It is up to the translator
+to provide these cases, and the Translate component will use the correct cases
+according to the grammar of the language.
 
 # Using this Library
 
-If you want to use this library, you must include ilib in your application's package.json with a version
-higher than 14.0.0.
+If you want to use this library, you must include ilib in your application's
+package.json with a version higher than 14.0.0. Ilib versions 13.X and earlier
+will not work.
 
 If you are using React with webpack as its bundler, you will need to use the
 [ilib webpack loader](https://github.com/iLib-js/ilib-webpack-loader) and
 [ilib webpack plugin](https://github.com/iLib-js/ilib-webpack-plugin) to
 ensure that all the locale data you need is available in your webpack bundle.
 See the documentation in the ilib webpack loader for more details.
+
+This library has not been tested with react-native yet, and there is no guarantee
+that any of it will work under react-native. If you do get it working for
+yourself, please let us know. Or better yet, send us a PR on github!
 
 # Copyright and License
 
