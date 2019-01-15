@@ -89,7 +89,21 @@ TBD
 
 ## LocaleContext
 
+```
+<LocaleContext
+    locale="string"
+    rb={ResBundle}>
+    <App/>
+</LocaleContext>
+```
+
 ## LocaleDataProvider
+
+```
+<LocaleDataProvider
+    locale="string"
+    translationsDir="string">
+```
 
 ## Translate, Plural, and Variable
 
@@ -97,6 +111,10 @@ To translate text to another language inside of your React app, you can use
 the `Translate` component.
 
 ```
+import Translate from 'react-ilib/src/Translate';
+import Plural from 'react-ilib/src/Plural';
+import Variable from 'react-ilib/src/Variable';
+
 <Translate
     id="string"
     description="string"
@@ -325,6 +343,17 @@ and the result will just appear as an empty string.
 * in English, only the "one" and "other" categories are necessary to cover all
 cases. In other languages, there are more or less cases. It is up to the translator
 to provide these cases.
+
+# Using this Library
+
+If you want to use this library, you must include ilib in your application's package.json with a version
+higher than 14.0.0.
+
+If you are using React with webpack as its bundler, you will need to use the
+[ilib webpack loader](https://github.com/iLib-js/ilib-webpack-loader) and
+[ilib webpack plugin](https://github.com/iLib-js/ilib-webpack-plugin) to
+ensure that all the locale data you need is available in your webpack bundle.
+See the documentation in the ilib webpack loader for more details.
 
 # Copyright and License
 
