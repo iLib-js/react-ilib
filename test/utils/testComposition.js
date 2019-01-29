@@ -1,7 +1,7 @@
 /*
  * testComposition.js - test the composition and decomposition functions.
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import React from "react";
 module.exports.composition = {
     testComposeString: function(test) {
         test.expect(1);
-        
+
         var c = new Composition("this is a test");
         test.equal(c.compose(), "this is a test");
 
@@ -62,7 +62,7 @@ module.exports.composition = {
 
         let el = React.createElement("span", {key: "a"});
         var c = new Composition(el);
-        
+
         test.equal(c.compose(), "<c0></c0>");
 
         test.done();
@@ -77,7 +77,7 @@ module.exports.composition = {
 
         test.done();
     },
-    
+
     testComposeElementTwoChildren: function(test) {
         test.expect(1);
 
@@ -86,7 +86,7 @@ module.exports.composition = {
             " bar"
         ]);
         var c = new Composition(el);
-        
+
         test.equal(c.compose(), "<c0>foo bar</c0>");
 
         test.done();
@@ -134,13 +134,31 @@ module.exports.composition = {
             ]),
             ". This is only a test."
         ]);
-        
+
         var c = new Composition(el);
         test.equal(c.compose(), "<c0>This is a test of the <c1>emergency <c2>broadcast</c2> system</c1>. This is only a test.</c0>");
 
         test.done();
     },
-    
+
+    testComposeElementWithParam: function(test) {
+        test.expect(1);
+
+        let el = React.createElement("span", {key: "x"}, [
+            "User ",
+            React.createElement("Param", {  // Param components are special
+                key: "y",
+                name: "username"
+            }),
+            " deleted the file."
+        ]);
+
+        var c = new Composition(el);
+        test.equal(c.compose(), "<c0>User {username} deleted the file.</c0>");
+
+        test.done();
+    },
+
     testDecomposeElementString: function(test) {
         test.expect(1);
 
@@ -149,14 +167,14 @@ module.exports.composition = {
 
         test.done();
     },
-    
+
     testDecomposeOneChild: function(test) {
         test.expect(1);
 
         let el = React.createElement("span", {key: "a"}, "simple string");
 
         let expected = React.createElement("span", {key: "a"}, "einfache Zeichenfolge");
-        
+
         var c = new Composition(el);
         test.deepEqual(c.decompose("<c0>einfache Zeichenfolge</c0>"), expected);
 
@@ -196,7 +214,7 @@ module.exports.composition = {
             ]),
             ". This is only a test."
         ]);
-        
+
         let expected = React.createElement("span", {key: "a"}, [
             "Dies ist ein Test des ",
             React.createElement("b", {key: "b"}, [
@@ -206,7 +224,7 @@ module.exports.composition = {
             ]),
             ". Dies ist nur ein Test."
         ]);
-        
+
         var c = new Composition(el);
         test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
 
@@ -225,7 +243,7 @@ module.exports.composition = {
             ]),
             ". This is only a test."
         ]);
-        
+
         let expected = React.createElement("span", {key: "a", "foo": "bar"}, [
             "Dies ist ein Test des ",
             React.createElement("b", {key: "b"}, [
@@ -235,7 +253,7 @@ module.exports.composition = {
             ]),
             ". Dies ist nur ein Test."
         ]);
-        
+
         var c = new Composition(el);
         test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
 
@@ -252,7 +270,7 @@ module.exports.composition = {
             React.createElement("i", {key: "c"}, "italic"),
             "."
         ]);
-        
+
         let expected = React.createElement("span", {key: "a", "foo": "bar"}, [
             "Dieser Text ist ",
             React.createElement("i", {key: "c"}, "kursiv"),
@@ -263,6 +281,27 @@ module.exports.composition = {
 
         var c = new Composition(el);
         test.deepEqual(c.decompose("<c0>Dieser Text ist <c2>kursiv</c2> und dieser Text ist <c1>fett</c1>.</c0>"), expected);
+
+        test.done();
+    },
+
+    testDecomposeWithParamComponent: function(test) {
+        test.expect(1);
+
+        let el = React.createElement("span", {key: "a"}, [
+            "User ",
+            React.createElement("Param", {key: "b", name: "username"}),
+            " deleted the file."
+        ]);
+
+        let expected = React.createElement("span", {key: "a"}, [
+            "Benutzer ",
+            React.createElement("Param", {key: "username", name: "username"}),
+            " hat die Datei gelöscht."
+        ]);
+
+        var c = new Composition(el);
+        test.deepEqual(c.decompose("<c0>Benutzer {username} hat die Datei gelöscht.</c0>"), expected);
 
         test.done();
     }

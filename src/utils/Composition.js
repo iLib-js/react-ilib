@@ -130,8 +130,17 @@ export default class Composition {
                 }
                 i++; // skip the number in the next iteration
             } else if (parts[i] && parts[i].length) {
-                // don't store empty strings
-                children.push(parts[i]);
+                // take care of replacement parameters
+                var paramRE = /(\{\w+\})/g;
+                var subparts = parts[i].split(paramRE);
+                for (var j = 0; j < subparts.length; j++) {
+                    if (subparts[j][0] === '{') {
+                        var name = subparts[j].substring(1, subparts[j].length-1);
+                        children.push(React.createElement("Param", { key: name, name }));
+                    } else {
+                        children.push(subparts[j]);
+                    }
+                }
             }
         }
 
