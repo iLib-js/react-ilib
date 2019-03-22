@@ -54,7 +54,8 @@ class Translate extends React.Component {
             const composition = new Composition(sourceElements);
             let source = '';
 
-            if (typeof count === 'number') {
+            // eslint-disable-next-line no-restricted-globals
+            if (!isNaN(Number(count))) {
                 if (children) {
                     source = this.composePluralString(children);
                 } else {
@@ -69,9 +70,9 @@ class Translate extends React.Component {
             id = id || hash(source);
 
             this.state = {
-                id: id,
-                source: source,
-                composition: composition
+                id,
+                source,
+                composition
             };
         }
     }
@@ -84,81 +85,36 @@ class Translate extends React.Component {
      * @return {string} the composed plural string
      */
     composePluralString(children) {
-        let categories = {};
+        const categories = {};
         React.Children.forEach(children, child => {
             if (typeof child === 'object' && React.isValidElement(child) && child.type.name === 'Plural') {
-                var childComposition = new Composition(child.props.children);
+                const childComposition = new Composition(child.props.children);
                 categories[child.props.category] = childComposition.compose();
             }
         });
-        if (!categories.one && !categories.other) {
+        if (!categories.one || !categories.other) {
             throw new Error('Cannot use count prop on a Translate component without giving both a "one" and "other" Plural component in the children.');
         }
         // add these to the string in a particular order so that
         // we always end up with the same string regardless of
         // the order that the Plural elements were specified in
         // the source code
-        return Object.keys(categories).map(
+        const categoriesString = ['zero', 'one', 'two', 'few', 'many', 'other'].filter(
+            category => !!categories[category]
+        ).map(
             category => `${category === "other" ? '' : category}#${categories[category]}`
         ).join('|');
-    }
 
-    emptyTag(name) {
-        return `<${name}></${name}>`;
-    }
-
-    /**
-     * Substitute the values into a composed translation.
-     * @param {string} translation the string to substitute values into
-     * @param {Object} values an object containing values to substitute
-     * into the string
-     * @return {string} the updated string
-     */
-    substitute(translation, values) {
-        // now do the substitutions in the post-translated string
-        let functionIndex = 0,
-            elementIndex = 0;
-
-        if (values) {
-            Object.keys(values).forEach(property => {
-                let re = new RegExp(`\\[\\[${property}\\]\\]`, 'g');
-                switch (typeof values[property]) {
-                    case 'function':
-                        const value = values[property]();
-                        // "f" for "function" result
-                        const name = `f${functionIndex++}`;
-                        this.state.composition.addElement(name, value);
-                        translation = translation.replace(re, this.emptyTag(name));
-                        break;
-                    case 'object':
-                        if (values[property] === null) {
-                            translation = translation.replace(re, '');
-                        } else if (React.isValidElement(values[property])) {
-                            // "e" for react "element"
-                            const name = `e${elementIndex++}`;
-                            this.state.composition.addElement(name, values[property]);
-                            translation = translation.replace(re, this.emptyTag(name));
-                        } else {
-                            translation = translation.replace(re, values[property].toString());
-                        }
-                        break;
-                    default:
-                        translation = translation.replace(re, typeof values[property] !== 'undefined' ? values[property].toString() : '');
-                        break;
-                }
-            });
-        }
-
-        return translation;
+        return categoriesString;
     }
 
     render() {
         const { count, tagName, description, rb } = this.props;
         const { composition, id, source } = this.state;
-        let { values } = this.props || {};
+        let values = {};
         if (typeof count === 'number') {
-            // make sure we can format in the count as well
-            values = { count, ...values };
+            // make sure intl.formatMessage switches properly on the count
+            values.count = count;
         }
 
         let translation = rb.getString(source, id);
@@ -167,11 +123,6 @@ class Translate extends React.Component {
             translation.formatChoice(count, values) :
             translation.toString();
 
-        // finally, do the substitution of the values into the translated
-        // and post-pluralized string
-        if (values) {
-            translation = this.substitute(translation, values);
-        }
 
         // always wrap the translated string in a tag to contain everything
         // and to give us a spot to record the id

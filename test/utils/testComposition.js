@@ -48,32 +48,38 @@ module.exports.composition = {
         test.done();
     },
 
-    testComposeBoolean: function(test) {
+    testComposeNumeric: function(test) {
         test.expect(1);
 
-        var c = new Composition(false);
-        test.equal(c.compose(), "false");
+        var c = new Composition(5.4);
+        test.equal(c.compose(), '5.4');
 
         test.done();
     },
 
-    testComposeElementNoChildren: function(test) {
-        test.expect(1);
+    testComposeNoChildren: function(test) {
+        const el = React.createElement('span', { key: 'a' });
+        const c = new Composition(el);
 
-        let el = React.createElement("span", {key: "a"});
-        var c = new Composition(el);
-
-        test.equal(c.compose(), "<c0></c0>");
+        // nothing to translate, so no composed string
+        test.equal(c.compose(), '');
 
         test.done();
     },
 
-    testComposeElementOneChild: function(test) {
-        test.expect(1);
+    testComposeOneChild: function(test) {
+        const el = React.createElement('span', { key: 'a' }, 'foo');
+        const c = new Composition(el);
+        test.equal(c.compose(), 'foo');
 
-        let el = React.createElement("span", {key: "a"}, "foo");
-        var c = new Composition(el);
-        test.equal(c.compose(), "<c0>foo</c0>");
+        test.done();
+    },
+
+    testComposeTwoChildren: function(test) {
+        const el = React.createElement('span', { key: 'a' }, ['foo', ' bar']);
+        const c = new Composition(el);
+        
+        test.equal(c.compose(), 'foo bar');
 
         test.done();
     },
@@ -87,7 +93,7 @@ module.exports.composition = {
         ]);
         var c = new Composition(el);
 
-        test.equal(c.compose(), "<c0>foo bar</c0>");
+        test.equal(c.compose(), "foo bar");
 
         test.done();
     },
@@ -101,7 +107,7 @@ module.exports.composition = {
             ". This is only a test."
         ]);
         var c = new Composition(el);
-        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency broadcast system</c1>. This is only a test.</c0>");
+        test.equal(c.compose(), "This is a test of the <c0>emergency broadcast system</c0>. This is only a test.");
 
         test.done();
     },
@@ -117,7 +123,7 @@ module.exports.composition = {
             " a test.",
         ]);
         var c = new Composition(el);
-        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency broadcast system</c1>. This is <c2>only</c2> a test.</c0>");
+        test.equal(c.compose(), "This is a test of the <c0>emergency broadcast system</c0>. This is <c1>only</c1> a test.");
 
         test.done();
     },
@@ -136,7 +142,7 @@ module.exports.composition = {
         ]);
 
         var c = new Composition(el);
-        test.equal(c.compose(), "<c0>This is a test of the <c1>emergency <c2>broadcast</c2> system</c1>. This is only a test.</c0>");
+        test.equal(c.compose(), "This is a test of the <c0>emergency <c1>broadcast</c1> system</c0>. This is only a test.");
 
         test.done();
     },
@@ -148,13 +154,13 @@ module.exports.composition = {
             "User ",
             React.createElement("Param", {  // Param components are special
                 key: "y",
-                name: "username"
+                value: "username"
             }),
             " deleted the file."
         ]);
 
         var c = new Composition(el);
-        test.equal(c.compose(), "<c0>User {username} deleted the file.</c0>");
+        test.equal(c.compose(), "User <p0/> deleted the file.");
 
         test.done();
     },
@@ -176,7 +182,7 @@ module.exports.composition = {
         let expected = React.createElement("span", {key: "a"}, "einfache Zeichenfolge");
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>einfache Zeichenfolge</c0>"), expected);
+        test.deepEqual(c.decompose("einfache Zeichenfolge"), expected);
 
         test.done();
     },
@@ -197,7 +203,7 @@ module.exports.composition = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-Broadcast-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
+        test.deepEqual(c.decompose("Dies ist ein Test des <c0>Notfall-Broadcast-Systems</c0>. Dies ist nur ein Test."), expected);
 
         test.done();
     },
@@ -226,7 +232,7 @@ module.exports.composition = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
+        test.deepEqual(c.decompose("Dies ist ein Test des <c0>Notfall-<c1>Broadcast</c1>-Systems</c0>. Dies ist nur ein Test."), expected);
 
         test.done();
     },
@@ -255,7 +261,7 @@ module.exports.composition = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>Dies ist ein Test des <c1>Notfall-<c2>Broadcast</c2>-Systems</c1>. Dies ist nur ein Test.</c0>"), expected);
+        test.deepEqual(c.decompose("Dies ist ein Test des <c0>Notfall-<c1>Broadcast</c1>-Systems</c0>. Dies ist nur ein Test."), expected);
 
         test.done();
     },
@@ -280,7 +286,7 @@ module.exports.composition = {
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>Dieser Text ist <c2>kursiv</c2> und dieser Text ist <c1>fett</c1>.</c0>"), expected);
+        test.deepEqual(c.decompose("Dieser Text ist <c1>kursiv</c1> und dieser Text ist <c0>fett</c0>."), expected);
 
         test.done();
     },
@@ -290,18 +296,18 @@ module.exports.composition = {
 
         let el = React.createElement("span", {key: "a"}, [
             "User ",
-            React.createElement("Param", {key: "b", name: "username"}),
+            React.createElement("Param", {key: "username", value: "username", description: "descriptive text"}),
             " deleted the file."
         ]);
 
         let expected = React.createElement("span", {key: "a"}, [
             "Benutzer ",
-            React.createElement("Param", {key: "username", name: "username"}),
+            React.createElement("Param", {key: "username", value: "username", description: "descriptive text"}),
             " hat die Datei gelöscht."
         ]);
 
         var c = new Composition(el);
-        test.deepEqual(c.decompose("<c0>Benutzer {username} hat die Datei gelöscht.</c0>"), expected);
+        test.deepEqual(c.decompose("Benutzer <p0/> hat die Datei gelöscht."), expected);
 
         test.done();
     }

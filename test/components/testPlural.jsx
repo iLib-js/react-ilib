@@ -1,7 +1,7 @@
 /*
  * testPlural.jsx - test the plural component.
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ export let testPlural = {
     testComposeSimpleContents: test => {
         test.expect(1);
         const wrapper = mount(
-            <Plural category="one">This is the singular</Plural>,
+            <Plural category="one">This is the singular</Plural>
         );
         const plural = wrapper.instance();
         test.equal(plural.getSourceString(), 'This is the singular');
@@ -60,11 +60,11 @@ export let testPlural = {
         const wrapper = mount(
             <Plural category="one">
                 <span className="foo">This is the singular</span>
-            </Plural>,
+            </Plural>
         );
 
         const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), '<c0>This is the singular</c0>');
+        test.equal(plural.getSourceString(), 'This is the singular');
         test.done();
     },
 
@@ -75,11 +75,11 @@ export let testPlural = {
                 <span className="foo">
                     This <b>is</b> the <Link to="singular.html">singular</Link>.
                 </span>
-            </Plural>,
+            </Plural>
         );
 
         const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), '<c0>This <c1>is</c1> the <c2>singular</c2>.</c0>');
+        test.equal(plural.getSourceString(), 'This <c0>is</c0> the <c1>singular</c1>.');
         test.done();
     }
 };

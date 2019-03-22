@@ -36,7 +36,7 @@ import PropTypes from 'prop-types';
 class Plural extends React.Component {
     // mostly for unit testing
     getSourceString() {
-        let composition = new Composition(this.props.children);
+        const composition = new Composition(this.props.children);
         return composition.compose();
     }
 
@@ -46,7 +46,7 @@ class Plural extends React.Component {
 }
 
 Plural.propTypes = {
-    "class": PropTypes.string
+    "className": PropTypes.string
 };
 
 export default Plural;
