@@ -17,11 +17,9 @@
  * limitations under the License.
  */
 import React from 'react';
-import * as MA from 'message-accumulator';
-import * as N from 'ilib-tree-node';
 
-const MessageAccumulator = MA.default;
-const Node = N.default;
+const MessageAccumulator = require('message-accumulator').default; // ES5 CommonJS module
+const Node = require('ilib-tree-node').default; // ES5 CommonJS module
 
 /**
  * @class Compose a tree of React elements into a single string.
@@ -46,12 +44,7 @@ export default class Composition {
                         this.ma.addParam(element);
                     } else {
                         this.ma.push(element);
-
-                        let { children } = element.props;
-                        if (children) {
-                            children = !Array.isArray(children) ? [children] : children;
-                            children.forEach(child => this.recompose(child));
-                        }
+                        React.Children.forEach(element.props.children, child => this.recompose(child));
                         this.ma.pop();
                     }
                 }

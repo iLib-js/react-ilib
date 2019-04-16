@@ -22,6 +22,7 @@ import enzyme, { mount } from 'enzyme';
 import PropTypes from 'prop-types';
 import Adapter from 'enzyme-adapter-react-16';
 import Plural from '../../src/components/Plural';
+import Composition from '../../src/utils/Composition';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -50,8 +51,8 @@ export let testPlural = {
         const wrapper = mount(
             <Plural category="one">This is the singular</Plural>
         );
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), 'This is the singular');
+        const composition = new Composition(wrapper.get(0));
+        test.equal(composition.compose(), 'This is the singular');
         test.done();
     },
 
@@ -63,8 +64,8 @@ export let testPlural = {
             </Plural>
         );
 
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), 'This is the singular');
+        const composition = new Composition(wrapper.get(0));
+        test.equal(composition.compose(), 'This is the singular');
         test.done();
     },
 
@@ -78,8 +79,8 @@ export let testPlural = {
             </Plural>
         );
 
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), 'This <c0>is</c0> the <c1>singular</c1>.');
+        const composition = new Composition(wrapper.get(0));
+        test.equal(composition.compose(), 'This <c0>is</c0> the <c1>singular</c1>.');
         test.done();
     }
 };

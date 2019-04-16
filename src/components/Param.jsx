@@ -25,7 +25,8 @@ import PropTypes from 'prop-types';
  * component.
  *
  * This component renders into the value of the named parameter to the FormattedCompMessage
- * component. Typically, this component is self-closing.
+ * component. Children are not allowed in this component and typically, it is used with
+ * the self-closing syntax.
  *
  * @example
  * <pre>
@@ -34,40 +35,31 @@ import PropTypes from 'prop-types';
  *   </FormattedCompMessage>
  * </pre>
  */
-class Param extends React.Component {
-    getValue() {
-        const { value } = this.props;
-        switch (typeof value) {
-            default:
-            case 'undefined':
+export default function Param(props) {
+    const { value } = props;
+    switch (typeof value) {
+        default:
+        case 'undefined':
+            return '';
+
+        case 'boolean':
+        case 'number':
+            return String(value);
+
+        case 'function':
+            return value();
+
+        case 'string':
+            return value;
+
+        case 'object':
+            if (value === null) {
                 return '';
-
-            case 'boolean':
-            case 'number':
-                return String(value);
-
-            case 'function':
-                return value();
-
-            case 'string':
+            }
+            if (React.isValidElement(value)) {
                 return value;
-
-            case 'object':
-                if (value === null) {
-                    return '';
-                }
-                if (React.isValidElement(value)) {
-                    return value;
-                }
-                return value.toString();
-        }
-    }
-
-    render() {
-        if (!this.props.description) {
-            throw new Error('The description property is required on a Param component.');
-        }
-        return this.getValue();
+            }
+            return value.toString();
     }
 }
 
@@ -78,5 +70,3 @@ Param.propTypes = {
     /** The value of this parameter */
     "value": PropTypes.any
 };
-
-export default Param;

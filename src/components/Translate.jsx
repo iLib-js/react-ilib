@@ -99,7 +99,33 @@ class Translate extends React.Component {
         // we always end up with the same string regardless of
         // the order that the Plural elements were specified in
         // the source code
-        const categoriesString = ['zero', 'one', 'two', 'few', 'many', 'other'].filter(
+        const categoriesString = [
+            'zero',
+            'one',
+            'two',
+            'few',
+            'many',
+            'other',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '16',
+            '17',
+            '18',
+            '19',
+            ].filter(
             category => !!categories[category]
         ).map(
             category => `${category === "other" ? '' : category}#${categories[category]}`
