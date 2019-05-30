@@ -165,13 +165,13 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} measure={m1}/>
+                <UnitFmt autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -181,14 +181,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithoutScale4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoScale={false} autoConvert={false} measure={m1}/>
+                <UnitFmt autoScale={false} autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -218,13 +218,13 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "watt hour",
             amount: 10000
         });
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} measure={m1}/>
+                <UnitFmt autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -234,14 +234,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithoutScale5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 1233453
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -251,7 +251,7 @@ export let testUnitFmt = {
 
     testUnitFormatWithMeasurementSystem5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 1233453
         });
@@ -262,7 +262,7 @@ export let testUnitFmt = {
                     autoScale={true}
                     autoConvert={false}
                     measurementSystem="metric"
-                    measure={m1}/>
+                    measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -305,7 +305,7 @@ export let testUnitFmt = {
 
     testUnitFormatWithMeasurementSystem6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet/sec",
             amount: 10
         });
@@ -316,7 +316,7 @@ export let testUnitFmt = {
                     autoScale={true}
                     autoConvert={false}
                     measurementSystem="imperial"
-                    measure={m1}/>
+                    measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -360,14 +360,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "Milliliter",
             amount: 1500
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={true} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -394,7 +394,7 @@ export let testUnitFmt = {
 
     testUnitFormatWithMeasurementSystem8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "ounce",
             amount: 100
         });
@@ -405,7 +405,7 @@ export let testUnitFmt = {
                     autoScale={true}
                     autoConvert={false}
                     measurementSystem="imperial"
-                    measure={m1}/>
+                    measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -415,14 +415,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km/liter",
             amount:5000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -432,14 +432,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -449,14 +449,14 @@ export let testUnitFmt = {
 
     testUnitFormatWithScale11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "krunghoonfoop",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -467,14 +467,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -484,14 +484,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -501,14 +501,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -518,14 +518,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -535,14 +535,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -552,14 +552,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="de-DE" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -569,14 +569,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "acre",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -586,14 +586,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -603,14 +603,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoScale={false} autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoScale={false} autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -620,14 +620,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square yard",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -637,14 +637,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square yard",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -655,14 +655,14 @@ export let testUnitFmt = {
     // DigitalStorage
     testUnitFormatDigitalStorage1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -672,14 +672,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -689,14 +689,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -706,14 +706,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoScale={false} autoConvert={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoScale={false} autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -723,14 +723,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoScale={false} autoConvert={false} measure={m1}/>
+                <UnitFmt locale="de-DE" autoScale={false} autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -740,14 +740,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gigabit",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -757,14 +757,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gigabit",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -774,14 +774,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "bit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -791,14 +791,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gigabit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -808,14 +808,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gigabit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -826,14 +826,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -843,14 +843,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -860,14 +860,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -877,14 +877,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -894,14 +894,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -911,14 +911,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -928,14 +928,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -945,14 +945,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "calorie",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -962,14 +962,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gigabit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -979,14 +979,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "joule",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -997,14 +997,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km/liter",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1014,14 +1014,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mpg",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1031,14 +1031,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mpg",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1048,14 +1048,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km/liter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1065,14 +1065,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mpg",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1082,14 +1082,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mpg",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1099,14 +1099,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "inch",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1116,14 +1116,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "inch",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1133,14 +1133,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1150,14 +1150,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1167,14 +1167,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1184,14 +1184,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1234.45
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1201,14 +1201,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mile",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1218,14 +1218,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "mile",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1235,14 +1235,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1252,14 +1252,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1269,14 +1269,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={false}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1286,14 +1286,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1303,14 +1303,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1320,14 +1320,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1337,14 +1337,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1354,14 +1354,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1371,14 +1371,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "pound",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1388,14 +1388,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "microgram",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1405,14 +1405,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass6DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "pound",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1422,14 +1422,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "stone",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1439,14 +1439,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "metric ton",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1456,14 +1456,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "metric ton",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1473,14 +1473,14 @@ export let testUnitFmt = {
 
     testUnitFormatMass10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gram",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1491,14 +1491,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilometer/hour",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1508,14 +1508,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilometer/hour",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1523,17 +1523,16 @@ export let testUnitFmt = {
         test.done();
     },
 
-    /*
     testUnitFormatSpeed3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilometer/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1543,14 +1542,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet/second",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1560,14 +1559,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1577,14 +1576,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed5DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="de-DE" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1594,14 +1593,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meters/second",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1611,14 +1610,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1628,14 +1627,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "knot",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1645,14 +1644,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1662,14 +1661,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1679,14 +1678,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed10DE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "miles/hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "de-DE"}}>
-                <UnitFmt locale="de-DE" autoConvert={true} autoScale:true,length="short"/>
+                <UnitFmt locale="de-DE" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1696,14 +1695,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "celsius",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1713,27 +1712,31 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature1a: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "celsius",
             amount: 2
         });
 
-        var uf = new UnitFmt({locale:"en-AU"});
-        var str = uf.format(m1);
-        test.equal(str, "2 degrees Celsius");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-AU"}}>
+                <UnitFmt locale="en-AU" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "2 degrees Celsius");
         test.done();
     },
 
     testUnitFormatTemperature2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "Celsius",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1743,14 +1746,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "Celsius",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="long"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1760,14 +1763,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1777,14 +1780,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt locale="en-US" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="en-US" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1794,30 +1797,31 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fahrenheit",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={true} autoScale:true,length:"short",maxFractionDigits: 9});
-        var str = uf.format(m1);
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" maxFractionDigits={9} measure={m}/>
+            </LocaleContext.Provider>
+        );
 
-        test.equal(str, "1 093,333333333 °C");
+        test.equal(wrapper.text(), "1 093,333333333 °C");
         test.done();
     },
 
     testUnitFormatTemperature7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fahrenheit",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1827,14 +1831,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1844,14 +1848,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fahrenheit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1861,14 +1865,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "celsius",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" length="long"/>
+                <UnitFmt locale="fr-FR" length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1878,14 +1882,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "nanosecond",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1895,14 +1899,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "nanoseconds",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1912,14 +1916,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "nanoseconds",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={true} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1929,14 +1933,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "millisecond",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1946,14 +1950,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "millisecond",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1963,14 +1967,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "week",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1980,14 +1984,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "year",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -1997,14 +2001,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "minute",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2014,14 +2018,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "minute",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2031,14 +2035,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "month",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" length:"long",autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="fr-FR" length="long" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2048,14 +2052,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "tsp",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2065,14 +2069,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "tsp",
             amount: 2
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2082,14 +2086,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "ounce",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2099,14 +2103,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "millisecond",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2116,14 +2120,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume5: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "liter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2133,14 +2137,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume6: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "liter",
             amount: 2000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt locale="fr-FR" autoConvert={true} autoScale={true} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2150,14 +2154,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume7: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gallon",
             amount: 1
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="long"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2167,14 +2171,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume8: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "gallon",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ru-RU"}}>
-                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short"/>
+                <UnitFmt locale="ru-RU" autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2184,14 +2188,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume9: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cubic foot",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "ko-KR"}}>
-                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false}/>
+                <UnitFmt locale="ko-KR" autoConvert={false} autoScale={false} measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2201,14 +2205,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume10: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cubic foot",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "fr-FR"}}>
-                <UnitFmt locale="fr-FR" length="long"/>
+                <UnitFmt locale="fr-FR" length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2218,12 +2222,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cubic foot",
             amount: 1000
         });
 
-        var uf = new UnitFmt({length="long"/>
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2233,12 +2239,14 @@ export let testUnitFmt = {
 
     testUnitFormatVolume12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cubic foot",
             amount: 1000
         });
 
-        var uf = new UnitFmt({length="short"/>
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2248,14 +2256,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2265,14 +2273,14 @@ export let testUnitFmt = {
 
     testUnitFormatArea12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "square centimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2282,14 +2290,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2299,14 +2307,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalStorage12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2316,14 +2324,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalSpeed1: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte/h",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2333,14 +2341,14 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalSpeed2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilobyte/h",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2350,53 +2358,65 @@ export let testUnitFmt = {
 
     testUnitFormatDigitalSpeed3: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "megabyte/s",
             amount: 1000
         });
 
-        var uf = new UnitFmt({locale: "fr-FR",length:"long",autoConvert={false} autoScale: false});
-        var str = uf.format(m1);
-        test.equal(str, "1 000 mégaoctets par seconde");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "fr-FR"}}>
+                <UnitFmt locale="fr-FR" length="long" autoConvert={false} autoScale={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1 000 mégaoctets par seconde");
         test.done();
     },
 
     testUnitFormatDigitalSpeed3short: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "megabyte/s",
             amount: 1000
         });
 
-        var uf = new UnitFmt({locale: "fr-FR",length:"short",autoConvert={false} autoScale: false});
-        var str = uf.format(m1);
-        test.equal(str, "1 000 Mo/s");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "fr-FR"}}>
+                <UnitFmt locale="fr-FR" length="short" autoConvert={false} autoScale={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1 000 Mo/s");
         test.done();
     },
 
     testUnitFormatDigitalSpeed4: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "megabyte/s",
             amount: 1000
         });
 
-        var uf = new UnitFmt({locale: "zh-Hans-CN",length:"long",autoConvert={false} autoScale: false});
-        var str = uf.format(m1);
-        test.equal(str, "1,000兆字节/秒");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-CN"}}>
+                <UnitFmt locale="zh-Hans-CN" length="long" autoConvert={false} autoScale={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000兆字节/秒");
         test.done();
     },
 
     testUnitFormatEnergy11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2406,14 +2426,14 @@ export let testUnitFmt = {
 
     testUnitFormatEnergy12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilowatt hour",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2423,14 +2443,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km/liter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2440,14 +2460,14 @@ export let testUnitFmt = {
 
     testUnitFormatFuelConsumption12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km/liter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2456,14 +2476,14 @@ export let testUnitFmt = {
     },
     testUnitFormatLength11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "decimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2473,14 +2493,14 @@ export let testUnitFmt = {
 
     testUnitFormatLength12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "decimeter",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2489,14 +2509,14 @@ export let testUnitFmt = {
     },
     testUnitFormatSpeed11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilometer/second",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2506,14 +2526,14 @@ export let testUnitFmt = {
 
     testUnitFormatSpeed12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kilometer/second",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2522,14 +2542,14 @@ export let testUnitFmt = {
     },
     testUnitFormatTemperature11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fahrenheit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2539,14 +2559,14 @@ export let testUnitFmt = {
 
     testUnitFormatTemperature12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fahrenheit",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2555,14 +2575,14 @@ export let testUnitFmt = {
     },
     testUnitFormatTime11: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "millisecond",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="long" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2572,14 +2592,14 @@ export let testUnitFmt = {
 
     testUnitFormatTime12: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "millisecond",
             amount: 1000
         });
 
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m1}/>
+                <UnitFmt autoConvert={false} autoScale={false} length="short" measure={m}/>
             </LocaleContext.Provider>
         );
 
@@ -2589,131 +2609,168 @@ export let testUnitFmt = {
 
     testUnitFormatLength13: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km",
             amount: 12345000000000000000000000000.0
         });
 
-        var uf = new UnitFmt({
-            length:"short",
-            autoConvert={false} 
-            autoScale: false,
-            maxFractionDigits: 3,
-            roundingMode: "halfdown"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1.2345e+28 km");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    length="short"
+                    autoConvert={false}
+                    autoScale={false}
+                    maxFractionDigits={3}
+                    roundingMode="halfdown"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1.2345e+28 km");
         test.done();
     },
 
     testUnitFormatLength14: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "km",
             amount: 1.7453
         });
 
-        var uf = new UnitFmt({
-            length:"short",
-            autoConvert={false} 
-            autoScale: false,
-            maxFractionDigits: 2
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1.75 km");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    length="short"
+                    autoConvert={false}
+                    autoScale={false}
+                    maxFractionDigits={2}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1.75 km");
         test.done();
     },
 
     testUnitFormatLength15: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "m",
             amount: 1.74475
         });
 
-        var uf = new UnitFmt({
-            autoConvert={false} 
-            autoScale: false,
-        maxFractionDigits: 2,
-        roundingMode: "up"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1.75 meters");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoConvert={false}
+                    autoScale={false}
+                    maxFractionDigits={2}
+                    roundingMode="up"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1.75 meters");
         test.done();
     },
 
     testUnitFormatLength16: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "m",
             amount: 1.74475
         });
 
-        var uf = new UnitFmt({
-            autoConvert={false} 
-            autoScale: false,
-            maxFractionDigits: 2,
-        roundingMode: "down"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1.74 meters");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoConvert={false}
+                    autoScale={false}
+                    maxFractionDigits={2}
+                    roundingMode="down"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1.74 meters");
         test.done();
     },
 
     testUnitFormatLength17: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "m",
             amount: 1.74475
         });
 
-        var uf = new UnitFmt({
-            autoConvert={false} 
-            autoScale: false,
-            minFractionDigits: 3,
-        maxFractionDigits: 3
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1.745 meters");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoConvert={false}
+                    autoScale={false}
+                    minFractionDigits={3}
+                    maxFractionDigits={3}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1.745 meters");
         test.done();
     },
 
     testUnitFormatUseNativeFalse: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "bn-IN",useNative:false});
-        var str = uf.format(m1);
-        test.equal(str, "1,000 সেন্টিমিটার");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "bn-IN"}}>
+                <UnitFmt autoScale={false} locale="bn-IN" useNative={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000 সেন্টিমিটার");
         test.done();
     },
 
     testUnitFormatUseNativeTrue: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "bn-IN",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "১,০০০ সেন্টিমিটার");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "bn-IN"}}>
+                <UnitFmt autoScale={false} locale="bn-IN" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "১,০০০ সেন্টিমিটার");
         test.done();
     },
 
     testUnitFormatUseNativeDefault: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "bn-IN"});
-        var str = uf.format(m1);
-        test.equal(str, "১,০০০ সেন্টিমিটার");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "bn-IN"}}>
+                <UnitFmt autoScale={false} locale="bn-IN" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "১,০০০ সেন্টিমিটার");
         test.done();
     },
 
@@ -2722,54 +2779,70 @@ export let testUnitFmt = {
 
     testUnitFormatzhHansCN: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-CN",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一,〇〇〇厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-CN"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-CN" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一,〇〇〇厘米");
         test.done();
     },
 
     testUnitFormatUseNativezhHansHK: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-HK"});
-        var str = uf.format(m1);
-        test.equal(str, "1,000厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-HK" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000厘米");
         test.done();
     },
 
 
     testUnitFormatzhHansSG: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-SG",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一,〇〇〇厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-SG"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-SG" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一,〇〇〇厘米");
         test.done();
     },
 
     testUnitFormatUseNativezhHansMO: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "1,000厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000厘米");
         test.done();
     },
 
@@ -2777,74 +2850,96 @@ export let testUnitFmt = {
 
     testUnitFormatzhHantHK: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-HK",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一,〇〇〇 厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-HK" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一,〇〇〇 厘米");
         test.done();
     },
 
     testUnitFormatUseNativezhHantMO: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "1,000 厘米");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000 厘米");
         test.done();
     },
 
 
     testUnitFormatzhHantMY: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MY",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一,〇〇〇 公分");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MY"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MY" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一,〇〇〇 公分");
         test.done();
     },
 
     testUnitFormatUseNativezhHantTW: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({
-            autoScale={false} 
-            locale: "zh-Hant-TW"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1,000 公分");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-TW"}}>
+                <UnitFmt
+                    autoScale={false}
+                    locale="zh-Hant-TW"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000 公分");
         test.done();
     },
 
     testUnitFormatUseNativezhHantUS: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "cm",
             amount: 1000
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            autoConvert: false,
-            locale: "zh-Hant-US"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1,000 公分");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    autoConvert={false}
+                    locale="zh-Hant-US"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,000 公分");
         test.done();
     },
 
@@ -2853,125 +2948,162 @@ export let testUnitFmt = {
 
     testUnitFormatzhHansCNKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
                unit: "kelvin",
                amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-CN",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "二八五.三开尔文");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-CN"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-CN" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "二八五.三开尔文");
         test.done();
     },
 
     testUnitFormatUseNativezhHansHKKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-HK"});
-        var str = uf.format(m1);
-        test.equal(str, "285.3开氏度");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-HK" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "285.3开氏度");
         test.done();
     },
 
 
     testUnitFormatzhHansSGKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-SG",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "二八五.三开氏度");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-SG"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-SG" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "二八五.三开氏度");
         test.done();
     },
 
     testUnitFormatUseNativezhHansMOKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "285.3开氏度");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "285.3开氏度");
         test.done();
     },
 
     testUnitFormatzhHantHKKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-HK",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "二八五.三 開爾文");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-HK" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "二八五.三 開爾文");
         test.done();
     },
 
     testUnitFormatUseNativezhHantMOKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "285.3 開爾文");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "285.3 開爾文");
         test.done();
     },
 
 
     testUnitFormatzhHantMYKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MY",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "二八五.三 克耳文");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MY"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MY" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "二八五.三 克耳文");
         test.done();
     },
 
     testUnitFormatUseNativezhHantTWKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-TW"});
-        var str = uf.format(m1);
-        test.equal(str, "285.3 克耳文");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-TW"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-TW" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "285.3 克耳文");
         test.done();
     },
 
     testUnitFormatUseNativezhHantUSKelvin: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "kelvin",
             amount: 285.3
         });
 
         // should convert to fahrenheit because it's in the US
-        var uf = new UnitFmt({
-            autoScale={false} 
-            locale: "zh-Hant-US",
-            maxFractionDigits: 4
-        });
-        var str = uf.format(m1);
-        test.equal(str, "華氏 53.87 度");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    locale="zh-Hant-US"
+                    maxFractionDigits={4}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "華氏 53.87 度");
         test.done();
     },
 
@@ -2979,290 +3111,371 @@ export let testUnitFmt = {
 
     testUnitFormatzhHansCNHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-CN",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一〇〇公顷");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-CN"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-CN" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一〇〇公顷");
         test.done();
     },
 
     testUnitFormatzhHansHKHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-HK"});
-        var str = uf.format(m1);
-        test.equal(str, "100公顷");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-HK" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100公顷");
         test.done();
     },
 
 
     testUnitFormatzhHansSGHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-SG",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一〇〇公顷");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-SG"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-SG" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一〇〇公顷");
         test.done();
     },
 
     testUnitFormatUseNativezhHansMOHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hans-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "100公顷");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hans-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hans-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100公顷");
         test.done();
     },
 
     testUnitFormatzhHantHKHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-HK",useNative:true});
-        var str = uf.format(m1);
-        test.equal(str, "一〇〇 公頃");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-HK"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-HK" useNative={true} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "一〇〇 公頃");
         test.done();
     },
 
     testUnitFormatUsezhHantMOHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MO"});
-        var str = uf.format(m1);
-        test.equal(str, "100 公頃");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MO"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MO" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100 公頃");
         test.done();
     },
 
 
     testUnitFormatUsezhHantMOHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-MY"});
-        var str = uf.format(m1);
-        test.equal(str, "100 公頃");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-MY"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-MY" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100 公頃");
         test.done();
     },
 
     testUnitFormatUseNativezhHantTWHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({autoScale={false} locale: "zh-Hant-TW"});
-        var str = uf.format(m1);
-        test.equal(str, "100 公頃");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "zh-Hant-TW"}}>
+                <UnitFmt autoScale={false} locale="zh-Hant-TW" measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100 公頃");
         test.done();
     },
 
     testUnitFormatUseNativezhHantUSHectare: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "hectare",
             amount: 100
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            autoConvert: false,
-            locale: "zh-Hant-US"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "100 公頃");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    autoConvert={false}
+                    locale="zh-Hant-US"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "100 公頃");
         test.done();
     },
 
     testUnitFormatWithNumericStyleUS: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet",
             amount: 6.2
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "numeric",
-            length: "long",
-            locale: "en-US"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "6.2 feet");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="numeric"
+                    length="long"
+                    locale="en-US"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "6.2 feet");
         test.done();
     },
 
     testUnitFormatWithListStyleUS: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet",
             amount: 6.2
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "list",
-            length: "long",
-            locale: "en-US",
-            maxFractionDigits: 4
-        });
-        var str = uf.format(m1);
-        test.equal(str, "6 feet 2.4 inches");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="list"
+                    length="long"
+                    locale="en-US"
+                    maxFractionDigits={4}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "6 feet 2.4 inches");
         test.done();
     },
 
     testUnitFormatWithNumericStyleUSshort: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet",
             amount: 6.2
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "numeric",
-            length: "short",
-            locale: "en-US",
-            maxFractionDigits: 4
-        });
-        var str = uf.format(m1);
-        test.equal(str, "6.2 ft");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="numeric"
+                    length="short"
+                    locale="en-US"
+                    maxFractionDigits={4}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "6.2 ft");
         test.done();
     },
 
     testUnitFormatWithListStyleUSshort: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "feet",
             amount: 6.2
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "list",
-            length: "short",
-            locale: "en-US",
-            maxFractionDigits: 4
-        });
-        var str = uf.format(m1);
-        test.equal(str, "6 ft 2.4 in");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="list"
+                    length="short"
+                    locale="en-US"
+                    maxFractionDigits={4}
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "6 ft 2.4 in");
         test.done();
     },
 
     testUnitFormatWithListStyleUS2: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "fluid ounces",
             amount: 143
         });
 
-        var uf = new UnitFmt({
-            autoScale: true,
-            style: "list",
-            length: "long",
-            locale: "en-US"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1 gallon 1 cup 7 fluid ounces");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt
+                    autoScale={true}
+                    style="list"
+                    length="long"
+                    locale="en-US"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1 gallon 1 cup 7 fluid ounces");
         test.done();
     },
 
     testUnitFormatWithNumericStyleDE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1.865
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "numeric",
-            length: "long",
-            locale: "de-DE"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1,865 Meter");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "de-DE"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="numeric"
+                    length="long"
+                    locale="de-DE"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,865 Meter");
         test.done();
     },
 
     testUnitFormatWithListStyleDE: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1.865
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "list",
-            length: "long",
-            locale: "de-DE"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1 Meter, 8 Dezimeter, 6 Zentimeter und 5 Millimeter");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "de-DE"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="list"
+                    length="long"
+                    locale="de-DE"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1 Meter, 8 Dezimeter, 6 Zentimeter und 5 Millimeter");
         test.done();
     },
 
     testUnitFormatWithNumericStyleDEshort: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1.865
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "numeric",
-            length: "short",
-            locale: "de-DE"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1,865 m");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "de-DE"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="numeric"
+                    length="short"
+                    locale="de-DE"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1,865 m");
         test.done();
     },
 
     testUnitFormatWithListStyleDEshort: test => {
         test.expect(1);
-        var m1 = MeasurementFactory({
+        var m = MeasurementFactory({
             unit: "meter",
             amount: 1.865
         });
 
-        var uf = new UnitFmt({
-            autoScale: false,
-            style: "list",
-            length: "short",
-            locale: "de-DE"
-        });
-        var str = uf.format(m1);
-        test.equal(str, "1 m, 8 dm, 6 cm und 5 mm");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "de-DE"}}>
+                <UnitFmt
+                    autoScale={false}
+                    style="list"
+                    length="short"
+                    locale="de-DE"
+                    measure={m}
+                />
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), "1 m, 8 dm, 6 cm und 5 mm");
         test.done();
     }
-*/
 };

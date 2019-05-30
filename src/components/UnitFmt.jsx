@@ -1,7 +1,7 @@
 /*
  * UnitFmt.jsx - component to format measurement units
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class UnitFmt extends React.Component {
         autoConvert: PropTypes.bool,
         usage: PropTypes.string,
         style: PropTypes.string,
-        length: PropTypes.number,
+        length: PropTypes.string,
         maxFractionDigits: PropTypes.number,
         minFractionDigits: PropTypes.number,
         significantDigits: PropTypes.number,
