@@ -26,8 +26,8 @@ import UnitFormatter from 'ilib-es6/lib/UnitFmt';
 class UnitFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        autoScale: PropTypes.boolean,
-        autoConvert: PropTypes.boolean,
+        autoScale: PropTypes.bool,
+        autoConvert: PropTypes.bool,
         usage: PropTypes.string,
         style: PropTypes.string,
         length: PropTypes.number,
@@ -75,10 +75,11 @@ class UnitFmt extends React.Component {
     }
 
     render() {
-        var unit = typeof(this.props.unit) === "string" ?
-            new Unit(this.props.unit, {locale: this.props.locale}) :
-            this.props.unit;
-        return this.state.formatter.format(unit);
+        let {
+            measure
+        } = this.props;
+
+        return this.state.formatter.format(measure);
     }
 }
 
