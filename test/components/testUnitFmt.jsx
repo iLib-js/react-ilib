@@ -3477,5 +3477,107 @@ export let testUnitFmt = {
 
         test.equal(wrapper.text(), "1 m, 8 dm, 6 cm und 5 mm");
         test.done();
+    },
+
+    testUnitFormatWithWrapperTag: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt wrapper={<span/>} autoConvert={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r277768735">3 kilometers</span>');
+        test.done();
+    },
+
+    testUnitFormatWithWrapperTagAndId: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt wrapper={<span/>} id="foobar" autoConvert={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="foobar">3 kilometers</span>');
+        test.done();
+    },
+
+    testUnitFormatWithWrapperTagAndClass: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt wrapper={<span/>} className="distance" autoConvert={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="r277768735" class="distance">3 kilometers</span>');
+        test.done();
+    },
+
+    testUnitFormatWithWrapperTagAndIdAndClass: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <UnitFmt wrapper={<span/>} id="asdf" className="distance" autoConvert={false} measure={m}/>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span id="asdf" class="distance">3 kilometers</span>');
+        test.done();
+    },
+
+    testUnitFormatWithWrapperNoTagAndClass: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <span><UnitFmt className="distance" autoConvert={false} measure={m}/></span>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span>3 kilometers</span>');
+        test.done();
+    },
+
+    testUnitFormatWithWrapperNoTagAndId: test => {
+        test.expect(1);
+        var m = MeasurementFactory({
+            amount: 3000,
+            unit: "meter"
+        });
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <span><UnitFmt id="asdf" className="distance" autoConvert={false} measure={m}/></span>
+            </LocaleContext.Provider>
+        );
+
+        let span = wrapper.find('span');
+        test.equal(span.html(), '<span>3 kilometers</span>');
+        test.done();
     }
 };

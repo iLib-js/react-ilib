@@ -23,6 +23,8 @@ import PropTypes from 'prop-types';
 import MeasurementFactory from 'ilib-es6/lib/MeasurementFactory';
 import UnitFormatter from 'ilib-es6/lib/UnitFmt';
 
+import hashKey from '../utils/hash';
+
 class UnitFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
@@ -31,6 +33,8 @@ class UnitFmt extends React.Component {
         usage: PropTypes.string,
         style: PropTypes.string,
         length: PropTypes.string,
+        id: PropTypes.string,
+        wrapper: PropTypes["object"],
         maxFractionDigits: PropTypes.number,
         minFractionDigits: PropTypes.number,
         significantDigits: PropTypes.number,
@@ -74,12 +78,28 @@ class UnitFmt extends React.Component {
         }
     }
 
+    measureHash(m) {
+        return hashKey([m.getMeasure(), m.getUnit(), m.getAmount().toString()].join('-'));
+    }
+
     render() {
         let {
-            measure
+            measure,
+            id,
+            wrapper,
+            className
         } = this.props;
 
-        return this.state.formatter.format(measure);
+        let ret = this.state.formatter.format(measure);
+
+        if (wrapper) {
+            id = id || this.measureHash(measure);
+            let attrs = { key: id, id: id };
+            className && (attrs["className"] = className);
+            return React.cloneElement(wrapper, attrs, ret);
+        } else {
+            return ret;
+        }
     }
 }
 
