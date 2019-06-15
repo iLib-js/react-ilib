@@ -24,6 +24,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
+import Param from '../../src/components/Param';
 import LocaleContext from '../../src/components/LocaleContext';
 import ilib from 'ilib-es6';
 import ResBundle from "ilib-es6/lib/ResBundle";
@@ -100,328 +101,7 @@ export let testTranslate = {
         test.equal(wrapper.find('a').prop('href'), 'foo');
         test.done();
     },
-
-    testTranslateWithStringReplacementParameters: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: 'substituted' }}
-            >
-                some [[name]] text
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'some substituted text');
-        test.done();
-    },
-
-    testTranslateWithMultipleStringReplacementParameters: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{
-                    name: 'substituted',
-                    text: 'text',
-                    user: 'James Earl Jones',
-                }}
-            >
-                some [[name]] [[text]] from user [[user]]
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'),
-            'some substituted text from user James Earl Jones',
-        );
-        test.done();
-    },
-
-    testTranslateWithEmptyStringReplacementParameters: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ name: '' }}>
-                some [[name]] text
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'some  text');
-        test.done();
-    },
-
-    testTranslateWithNoValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf">
-                some [[name]] text
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'some [[name]] text');
-        test.done();
-    },
-
-    testTranslateWithValuesButNoStringReplacementParameters: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: 'substituted' }}
-            >
-                some sorta text
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'some sorta text');
-        test.done();
-    },
-
-    testTranslateWithinCorrectSyntaxForStringReplacementParameters: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{
-                    name: 'substituted',
-                    text: 'asdf',
-                }}
-            >
-                some [name] [ [text]]
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'some [name] [ [text]]');
-        test.done();
-    },
-
-    testTranslateWithReplacementParametersWSubcomponents: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: 'substituted' }}
-            >
-                some <LinkButton url="https://foo.com/a/b">[[name]]</LinkButton>
-                text
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('a');
-        test.contains(a.prop('children'), 'substituted');
-        test.done();
-    },
-
-    testTranslateWithMissingReplacementParameterValues : test => {
-        test.expect(3);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: 'substituted' }}
-            >
-                some
-                <b>[[george]]</b>
-                text [[gertrude]]
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-        test.contains(span.prop('children'), 'text [[gertrude]]');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '[[george]]');
-        test.done();
-    },
-
-    testTranslateWithHTMLJSXReplacementParameterValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: <b>bold!</b> }}
-            >
-                some <i>[[name]]</i>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), 'bold!');
-        test.done();
-    },
-
-    testTranslateWithComponentJSXReplacementParameterValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ name: <LinkButton url="foo">bold!</LinkButton> }}
-            >
-                some <i>[[name]]</i>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('a');
-        test.contains(a.prop('children'), 'bold!');
-        test.done();
-    },
-
-    testTranslateWithFunctionalReplacementParameterValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{
-                    area: function() {
-                        let x = 2;
-                        return x * x * Math.PI;
-                    },
-                }}
-            >
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '12.566370614359172');
-        test.done();
-    },
-
-    testTranslateWithNumericReplacementParameterValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ area: 5.34 }}>
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '5.34');
-        test.done();
-    },
-
-    testTranslateWithNumericReplacementParameterWithValueZero: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ area: 0 }}>
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '0');
-        test.done();
-    },
-
-    testTranslateWithBooleanReplacementParameterValuesTrue: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ area: true }}>
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), 'true');
-        test.done();
-    },
-
-    testTranslateWithBooleanReplacementParameterValuesFalse: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ area: false }}>
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), 'false');
-        test.done();
-    },
-
-    testTranslateWithNullReplacementParameterValues : test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate id="test" description="asdf" values={{ area: null }}>
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        // should not replace the parameters with anything
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '[[area]]');
-        test.done();
-    },
-
-    testTranslateWithUndefinedReplacementParameterValues: test => {
-        test.expect(2);
-        const wrapper = mount(
-            <Translate
-                id="test"
-                description="asdf"
-                values={{ area: undefined }}
-            >
-                some <b>[[area]]</b>
-            </Translate>
-        );
-
-        let span = wrapper.find('span');
-        test.equal(span.prop('x-resource-id'), 'test');
-
-        // should not replace the parameters with anything
-        let a = wrapper.find('b');
-        test.contains(a.prop('children'), '[[area]]');
-        test.done();
-    },
-
-    testTranslateWithSimplePluralsInEnglishSingular: test => {
+    testTranslateWithSimplePluralsInEnglishPluralsSingular: test => {
         test.expect(2);
         const wrapper = mount(
             <Translate count={1}>
@@ -436,7 +116,7 @@ export let testTranslate = {
         test.done();
     },
 
-    testTranslateWithSimplePluralsInEnglishPlural: test => {
+    testTranslateWithSimplePluralsInEnglishPluralsPlural: test => {
         test.expect(2);
         const wrapper = mount(
             <Translate count={21}>
@@ -653,6 +333,181 @@ export let testTranslate = {
         });
     },
 
+    testTranslateWithParamSubcomponent: test => {
+        test.expect(2);
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value="asdf" description="asdf" />.
+            </Translate>
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        test.equal(span.text(), 'The string is asdf.');
+        test.done();
+    },
+
+    testTranslateWithMultipleParamSubcomponents: test => {
+        test.expect(2);
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value="asdf" description="foo" /> and the number is{' '}
+                <Param value={3} description="bar" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        test.equal(span.text(), 'The string is asdf and the number is 3.');
+        test.done();
+    },
+
+    testTranslateWithParamSubcomponentOwnValue: test => {
+        test.expect(2);
+        const str = 'a string';
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        test.equal(span.text(), 'The string is a string.');
+        test.done();
+    },
+
+    testTranslateWithUndefinedParamValue: test => {
+        test.expect(2);
+        const str = undefined;
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        // Should put an empty string and not "undefined" in the output.
+        test.equal(span.text(), 'The string is .');
+        test.done();
+    },
+
+    testTransalteWithNullParamValue: test => {
+        test.expect(2);
+        const str = null;
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        // Should put an empty string and not "null" in the output.
+        test.equal(span.text(), 'The string is .');
+        test.done();
+    },
+
+    testTranlateWithBooleanParamValue: test => {
+        test.expect(2);
+        const str = true;
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        // Should put an empty string and not "null" in the output.
+        test.equal(span.text(), 'The string is true.');
+        test.done();
+    },
+
+    testTranslateWithNumericParamValue: test => {
+        test.expect(2);
+        const str = 123.456;
+        const wrapper = mount(
+            <Translate locale="ru-RU" id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        // Should put an empty string and not "null" in the output.
+        test.equal(span.text(), 'The string is 123.456.');
+        test.done();
+    },
+
+    testTranslateWithFunctionalParamValue: test => {
+        test.expect(2);
+        const str = function str() {
+            return 'Hello!';
+        };
+        const wrapper = mount(
+            <Translate id="test" description="asdf">
+                The string is <Param value={str} description="foo" />.
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        // Should put an empty string and not "null" in the output.
+        test.equal(span.text(), 'The string is Hello!.');
+        test.done();
+    },
+
+    testTranslateWithReplacementParametersWithinSubcomponents: test => {
+        test.expect(2);
+        const name = 'substituted';
+        const wrapper = mount(
+            <Translate id="test" description="asdf">
+                some{' '}
+                <LinkButton url="https://foo.com/a/b">
+                    <Param value={name} description="foo" />
+                </LinkButton>
+                text
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        const a = wrapper.find('a');
+        test.contains(a.text(), 'substituted');
+        test.done();
+    },
+
+    testTranslateWithHTMLJsxReplacementParameterValues: test => {
+        test.expect(2);
+        const name = <b>bold!</b>;
+        const wrapper = mount(
+            <Translate id="test" description="asdf">
+                some{' '}
+                <i>
+                    <Param value={name} description="foo" />
+                </i>
+            </Translate>,
+        );
+
+        const span = wrapper.find('span');
+        test.equal(span.prop('x-resource-id'), 'test');
+
+        const a = wrapper.find('b');
+        test.contains(a.text(), 'bold!');
+        test.done();
+    },
+
     testTranslateGenerateId: test => {
         test.expect(1);
         const wrapper = mount(
@@ -676,6 +531,39 @@ export let testTranslate = {
             );
         }
         test.doesNotThrow(testDescription);
+        test.done();
+    },
+
+    testTranslateThrowWhenCountButNoOnePlural: test => {
+        test.expect(1);
+        function testPlural() {
+            mount(
+                <Translate id="asdf" description="asdf" count="23">
+                    <Plural category="other">
+                        some <b>bold</b> text
+                    </Plural>
+                </Translate>,
+            );
+        }
+
+        test.throws(testPlural);
+        
+        test.done();
+    },
+
+    testTranslateThrowWhenCountButNoOtherPlural: test => {
+        test.expect(1);
+        function testPlural() {
+            mount(
+                <Translate id="asdf" description="asdf" count="23">
+                    <Plural category="one">
+                        some <b>bold</b> text
+                    </Plural>
+                </Translate>,
+            );
+        }
+
+        test.throws(testPlural);
         test.done();
     }
 };

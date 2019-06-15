@@ -1,7 +1,7 @@
 /*
  * Plural.jsx - component to wrap plural cases inside of a Translate
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,20 +33,38 @@ import PropTypes from 'prop-types';
  * See the [Unicode CLDR description of plural category
  * rules](http://cldr.unicode.org/index/cldr-spec/plural-rules) for more details.
  */
-class Plural extends React.Component {
-    // mostly for unit testing
-    getSourceString() {
-        let composition = new Composition(this.props.children);
-        return composition.compose();
-    }
-
-    render() {
-        return this.props.children;
-    }
+export default function Plural(props) {
+    return props.children;
 }
 
 Plural.propTypes = {
-    "class": PropTypes.string
-};
+    "category": PropTypes.oneOf([
+        'zero',
+        'one',
+        'two',
+        'few',
+        'many',
+        'other',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16',
+        '17',
+        '18',
+        '19'
+    ]),
 
-export default Plural;
+    "className": PropTypes.string
+};
