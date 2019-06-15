@@ -164,7 +164,10 @@ Translate.propTypes = {
     id: PropTypes.string,
     description: PropTypes.string,
     tagName: PropTypes.string,
-    count: PropTypes.number,
+    count: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     values: PropTypes["object"]
 };
 
