@@ -36,49 +36,48 @@ import PropTypes from 'prop-types';
  *   </Translate>
  * </pre>
  */
-class Param extends React.Component {
-    render(props) {
-        const { value, name, wrapper } = props;
-        let ret;
-        switch (typeof value) {
-            default:
-            case 'undefined':
+export default function Param(props) {
+    const { value, name, wrapper, className } = props || {};
+    let ret;
+    switch (typeof value) {
+        default:
+        case 'undefined':
+            ret = '';
+            break;
+            
+        case 'boolean':
+        case 'number':
+            ret = String(value);
+            break;
+            
+        case 'function':
+            ret = value();
+            break;
+            
+        case 'string':
+            ret = value;
+            break;
+            
+        case 'object':
+            if (value === null) {
                 ret = '';
-                break;
-    
-            case 'boolean':
-            case 'number':
-                ret = String(value);
-                break;
-    
-            case 'function':
-                ret = value();
-                break;
-    
-            case 'string':
+            } else if (React.isValidElement(value)) {
                 ret = value;
-                break;
-    
-            case 'object':
-                if (value === null) {
-                    ret = '';
-                } else if (React.isValidElement(value)) {
-                    ret = value;
-                } else {
-                    ret = value.toString();
-                }
-                break;
-        }
-    
-        if (wrapper !== null) {
-            return React.createElement(wrapper, {
-                key: name,
-                name: name,
-                className: props.className
-            }, ret);
-        } else {
-            return ret;
-        }
+            } else {
+                ret = value.toString();
+            }
+            break;
+    }
+
+    if (wrapper) {
+        const wrapperName = name || wrapper;
+        return React.createElement(wrapper, {
+            key: wrapperName,
+            name: wrapperName,
+            className: className
+        }, ret);
+    } else {
+        return ret;
     }
 };
 
@@ -98,5 +97,3 @@ Param.propTypes = {
     /** Optional: if the output is wrapped in an html tag, use this as the CSS class name */
     "className": PropTypes.string
 };
-
-export default Param;

@@ -18,7 +18,7 @@
  */
 
 import React from 'react';
-import enzyme, { mount } from 'enzyme';
+import enzyme, { mount, render } from 'enzyme';
 import PropTypes from 'prop-types';
 import Adapter from 'enzyme-adapter-react-16';
 import Translate from '../../src/components/Translate';
@@ -31,91 +31,125 @@ function Link (props) {
 }
 
 export let testParam = {
-    testParamSimple: test => {
+    testParamString: test => {
         test.expect(1);
-
-        const wrapper = mount(
-            <Translate values={{filename: "asdf"}}>
-                The file name is <Param name="filename"/>.
-            </Translate>
+        const wrapper = render(
+            <span>
+                <Param value="asdf"/>
+            </span>,
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.prop('children'), 'The file name is asdf.');
-
+        test.equal(wrapper.text(), 'asdf');
         test.done();
     },
 
-    testParamMultiple: test => {
+    testParamStringWithVariables: test => {
         test.expect(1);
-
-        const wrapper = mount(
-            <Translate values={{filename: "asdf", user: "Joe Schmoe"}}>
-                The file <Param name="filename"/> was uploaded by user "<Param name="user"/>".
-            </Translate>
+        const name = 'asdf';
+        const wrapper = render(
+            <span>
+                <Param value={name}/>
+            </span>,
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.prop('children'), 'The file asdf was uploaded by user "Joe Schmoe".');
-
+        test.equal(wrapper.text(), 'asdf');
         test.done();
     },
 
-    testParamDirectValue: test => {
+    testParamNumeric: test => {
         test.expect(1);
-
-        let fname = "asdf";
-        let user = "Joe Schmoe";
-
-        const wrapper = mount(
-            <Translate>
-                The file <Param name="filename" value={fname}/> was uploaded by user "<Param name="user" value={user}/>".
-            </Translate>
+        const wrapper = render(
+            <span>
+                <Param value={3}/>
+            </span>,
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.prop('children'), 'The file asdf was uploaded by user "Joe Schmoe".');
-
+        test.equal(wrapper.text(), '3');
         test.done();
     },
 
-    /*
-    testComposeSimpleContents: test => {
+    testParamUndefined: test => {
         test.expect(1);
-        const wrapper = mount(
-            <Param category="one">This is the singular</Param>,
+        const wrapper = render(
+            <span>
+                <Param value={undefined}/>
+            </span>,
         );
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), 'This is the singular');
+
+        test.equal(wrapper.text(), '');
         test.done();
     },
 
-    testComposeSlightlyMoreComplex: test => {
+    testParamNull: test => {
         test.expect(1);
-        const wrapper = mount(
-            <Param category="one">
-                <span className="foo">This is the singular</span>
-            </Param>,
+        const wrapper = render(
+            <span>
+                <Param value={null}/>
+            </span>,
         );
 
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), '<c0>This is the singular</c0>');
+        test.equal(wrapper.text(), '');
         test.done();
     },
 
-    testComposeMuchMoreComplex: test => {
+    testParamJsx: test => {
         test.expect(1);
-        const wrapper = mount(
-            <Param category="one">
-                <span className="foo">
-                    This <b>is</b> the <Link to="singular.html">singular</Link>.
-                </span>
-            </Param>,
+        const tmp = <b>foo!</b>;
+        const wrapper = render(
+            <span>
+                <Param value={tmp}/>
+            </span>,
         );
 
-        const plural = wrapper.instance();
-        test.equal(plural.getSourceString(), '<c0>This <c1>is</c1> the <c2>singular</c2>.</c0>');
+        test.equal(wrapper.html(), '<b>foo!</b>');
         test.done();
-    }
-    */
+    },
+
+    testParamFunction: test => {
+        test.expect(1);
+        const f = function f() {
+            return 'asdf';
+        };
+        const wrapper = render(
+            <span>
+                <Param value={f}/>
+            </span>,
+        );
+
+        test.equal(wrapper.text(), 'asdf');
+        test.done();
+    },
+
+    testParamStringWithDescription: test => {
+        test.expect(1);
+        const wrapper = render(
+            <span>
+                <Param value="asdf" description="foo"/>
+            </span>,
+        );
+
+        test.equal(wrapper.text(), 'asdf');
+        test.done();
+    },
+
+    testParamWithWrapper: test => {
+        test.expect(1);
+        const wrapper = render(
+            <Param wrapper="span" name="foo" value="asdf"/>
+        );
+
+        test.equal(wrapper.text(), 'asdf');
+        test.done();
+    },
+
+    testParamWithWrapperAndClass: test => {
+        test.expect(1);
+        const wrapper = render(
+            <Param wrapper="span" name="foo" className="myclass" value="asdf"/>
+        );
+
+        test.equal(wrapper.text(), 'asdf');
+        test.done();
+    },
+
 };
