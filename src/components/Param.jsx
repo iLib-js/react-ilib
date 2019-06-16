@@ -1,5 +1,5 @@
 /*
- * Parameter.jsx - component to wrap replacement parameter values inside
+ * Param.jsx - component to wrap replacement parameter values inside
  * of a Translate component
  *
  * Copyright © 2019, JEDLSoft
@@ -44,20 +44,20 @@ export default function Param(props) {
         case 'undefined':
             ret = '';
             break;
-            
+
         case 'boolean':
         case 'number':
             ret = String(value);
             break;
-            
+
         case 'function':
             ret = value();
             break;
-            
+
         case 'string':
             ret = value;
             break;
-            
+
         case 'object':
             if (value === null) {
                 ret = '';
