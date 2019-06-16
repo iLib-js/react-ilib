@@ -22,12 +22,16 @@ import PropTypes from 'prop-types';
 
 import ListFormatter from 'ilib-es6/lib/ListFmt';
 
+import hashKey from '../utils/hash';
+
 class ListFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        length: PropTypes.string,
         style: PropTypes.string,
-        list: PropTypes["object"].isRequired,
+        length: PropTypes.string,
+        id: PropTypes.string,
+        wrapper: PropTypes["object"],
+        list: PropTypes.array.isRequired,
         children: PropTypes.any
     };
 
@@ -50,22 +54,34 @@ class ListFmt extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
-            new ListFormatter({
+            return ListFormatter.create({
                 locale: this.props.locale,
                 style: this.props.style,
-                length: this.props.length,
-                sync: false,
-                onLoad: function(fmt) {
-                    this.setState({
-                        formatter: fmt
-                    });
-                }.bind(this)
+                length: this.props.length
+            }).then(fmt => {
+                this.setState({
+                    formatter: fmt
+                });
             });
         }
     }
     
     render() {
-        return this.state.formatter.format(this.props.list);
+        let {
+            list,
+            id,
+            wrapper,
+            className
+        } = this.props;
+
+        wrapper = wrapper || (<span/>);
+        
+        let ret = this.state.formatter.format(list);
+
+        id = id || hashKey(list.join(" "));
+        let attrs = { key: id, id: id };
+        className && (attrs["className"] = className);
+        return React.cloneElement(wrapper, attrs, ret);
     }
 }
 

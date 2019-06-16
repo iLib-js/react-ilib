@@ -1,7 +1,7 @@
 /*
  * UnitFmt.jsx - component to format measurement units
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,18 @@ import PropTypes from 'prop-types';
 import MeasurementFactory from 'ilib-es6/lib/MeasurementFactory';
 import UnitFormatter from 'ilib-es6/lib/UnitFmt';
 
+import hashKey from '../utils/hash';
+
 class UnitFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        autoScale: PropTypes.boolean,
-        autoConvert: PropTypes.boolean,
+        autoScale: PropTypes.bool,
+        autoConvert: PropTypes.bool,
         usage: PropTypes.string,
         style: PropTypes.string,
-        length: PropTypes.number,
+        length: PropTypes.string,
+        id: PropTypes.string,
+        wrapper: PropTypes["object"],
         maxFractionDigits: PropTypes.number,
         minFractionDigits: PropTypes.number,
         significantDigits: PropTypes.number,
@@ -74,11 +78,28 @@ class UnitFmt extends React.Component {
         }
     }
 
+    measureHash(m) {
+        return hashKey([m.getMeasure(), m.getUnit(), m.getAmount().toString()].join('-'));
+    }
+
     render() {
-        var unit = typeof(this.props.unit) === "string" ?
-            new Unit(this.props.unit, {locale: this.props.locale}) :
-            this.props.unit;
-        return this.state.formatter.format(unit);
+        let {
+            measure,
+            id,
+            wrapper,
+            className
+        } = this.props;
+
+        let ret = this.state.formatter.format(measure);
+
+        if (wrapper) {
+            id = id || this.measureHash(measure);
+            let attrs = { key: id, id: id };
+            className && (attrs["className"] = className);
+            return React.cloneElement(wrapper, attrs, ret);
+        } else {
+            return ret;
+        }
     }
 }
 
