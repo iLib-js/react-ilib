@@ -59,6 +59,8 @@
   "dependencies": {
     "ilib": "^14.2.0",
     "ilib-es6": "^2.0.0",
+    "ilib-tree-node": "^1.2.0",
+    "message-accumulator": "^2.1.1",
     "ndb": "^1.0.42"
   },
   "devDependencies": {
