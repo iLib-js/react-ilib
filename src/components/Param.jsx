@@ -1,5 +1,6 @@
 /*
- * Param.jsx - component to wrap a replacement parameter
+ * Param.jsx - component to wrap replacement parameter values inside
+ * of a Translate component
  *
  * Copyright © 2019, JEDLSoft
  *
@@ -21,52 +22,78 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @class A placeholder for a replacement parameter in the body of a FormattedCompMessage
+ * @class A placeholder for a replacement parameter in the body of a Translate
  * component.
  *
- * This component renders into the value of the named parameter to the FormattedCompMessage
+ * This component renders into the value of the named parameter to the Translate
  * component. Children are not allowed in this component and typically, it is used with
  * the self-closing syntax.
  *
  * @example
  * <pre>
- *   <FormattedCompMessage id="x" description="y">
+ *   <Translate id="x" description="y">
  *     The file <Param value={filelist[i].path} description="Name of the file that was deleted."/> has been deleted.
- *   </FormattedCompMessage>
+ *   </Translate>
  * </pre>
  */
 export default function Param(props) {
-    const { value } = props;
+    const { value, name, wrapper, className } = props || {};
+    let ret;
     switch (typeof value) {
         default:
         case 'undefined':
-            return '';
+            ret = '';
+            break;
 
         case 'boolean':
         case 'number':
-            return String(value);
+            ret = String(value);
+            break;
 
         case 'function':
-            return value();
+            ret = value();
+            break;
 
         case 'string':
-            return value;
+            ret = value;
+            break;
 
         case 'object':
             if (value === null) {
-                return '';
+                ret = '';
+            } else if (React.isValidElement(value)) {
+                ret = value;
+            } else {
+                ret = value.toString();
             }
-            if (React.isValidElement(value)) {
-                return value;
-            }
-            return value.toString();
+            break;
     }
-}
+
+    if (wrapper) {
+        const wrapperName = name || wrapper;
+        return React.createElement(wrapper, {
+            key: wrapperName,
+            name: wrapperName,
+            className: className
+        }, ret);
+    } else {
+        return ret;
+    }
+};
 
 Param.propTypes = {
-    /** A description of this parameter to help the translators understand what it is */
-    "description": PropTypes.string,
+    /** The name of this parameter */
+    "name": PropTypes.string.isRequired,
 
     /** The value of this parameter */
-    "value": PropTypes.any
+    "value": PropTypes.any.isRequired,
+
+    /** Optional: A description of this parameter to help the translators understand what it is */
+    "description": PropTypes.string,
+
+    /** Optional: wrap the output in this html tag */
+    "wrapper": PropTypes.string,
+
+    /** Optional: if the output is wrapped in an html tag, use this as the CSS class name */
+    "className": PropTypes.string
 };

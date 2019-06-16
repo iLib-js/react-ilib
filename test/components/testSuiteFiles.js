@@ -23,5 +23,6 @@ module.exports.files = [
     "testTranslate.jsx",
     "testLocaleContext.jsx",
     "testAddressFmt.jsx",
-    "testListFmt.jsx"
+    "testListFmt.jsx",
+    "testParam.jsx"
 ];
