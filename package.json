@@ -1,6 +1,6 @@
 {
   "name": "react-ilib",
-  "version": "1.0.0",
+  "version": "0.0.5",
   "main": "react-ilib.js",
   "description": "A set of React components that wrap iLib classes",
   "keywords": [
