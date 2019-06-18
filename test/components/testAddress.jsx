@@ -29,26 +29,34 @@ import ilib from 'ilib-es6';
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
 
+const expected = {
+    streetAddress: "123 Any St.",
+    locality: "Anytown",
+    region: "CA",
+    postalCode: "94065",
+    country: "United States of America",
+    countryCode: "US"
+};
+
 export let testAddress = {
     testAddressSimple: test => {
         test.expect(1);
-        const address = {
-            streetAddress: "123 Any St.",
-            locality: "Anytown",
-            region: "CA",
-            postalCode: "94065",
-            country: "United States of America",
-            countryCode: "US"
-        };
+        
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The address is: <br/>
-                <Address address={address} separator={<br/>} />
+                <Address locale="en-US"/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r337532118">123 Any St.<br>Anytown CA 94065<br>United States of America</span>');
+        const expected =
+            '<span>' +
+                '<label for="sa1" name="Street Address"><input id="sa1" class="address-street-address-1" placeholder="Enter street address"/><br>' +
+                '<label for="sa2" name="Street Address 2"><input id="sa2" class="address-street-address-2" placeholder="Additional street address"/><br>' +
+                '<label for="locality" name="City"><input id="locality" class="address-locality" placeholder="Enter City"/>, ' +
+                '<label for="state" name="State"><input id="state" class="address-state" placeholder="Enter State"/><br>' +
+                '<label for="postalCode" name="Zip Code"><input id="postalCode" class="address-postalCode" placeholder="Enter the Zip Code"/>' +
+            '</span>';
+        test.equal(span.html(), expected);
         test.done();
     },
 
