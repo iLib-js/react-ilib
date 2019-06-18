@@ -58,9 +58,9 @@
   },
   "dependencies": {
     "ilib": "^14.2.0",
-    "ilib-es6": "^2.0.0",
-    "ilib-tree-node": "^1.2.0",
-    "message-accumulator": "^2.1.1"
+    "ilib-es6": "^14.2.0",
+    "ilib-tree-node": "^1.2.2",
+    "message-accumulator": "^2.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
