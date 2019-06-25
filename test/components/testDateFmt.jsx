@@ -29,21 +29,34 @@ import ilib from 'ilib-es6';
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
 
+let testDate = new Date(2019, 5, 24, 9, 25, 34);
+
 export let testDateFmt = {
     testDateFmtSimple: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list}/>
+                <DateFmt locale="en-US" type="date" length="short" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r321838219">Peter, Paul, and Mary</span>');
+        test.equal(wrapper.text(), '6/24/19');
         test.done();
     },
 
+    testDateFmtWithLocale: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateFmt locale="de-DE" type="date" length="short" date={testDate}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '24.06.19');
+        test.done();
+    },
+
+    /*
     testDateFmtOne: test => {
         test.expect(1);
         const list = ["Peter"];
@@ -210,4 +223,5 @@ export let testDateFmt = {
         test.equal(div.html(), '<span id="asdf.asdf.asdf" class="foobar">岡田さん、鈴木さん、横山さん</span>');
         test.done();
     },
+    */
 };
