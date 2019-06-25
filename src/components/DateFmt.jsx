@@ -20,9 +20,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import DateFmt from 'ilib-es6/lib/DateFmt';
+import IlibDateFmt from 'ilib-es6/lib/DateFmt';
 
 import hashKey from '../utils/hash';
+import objectEquals from '../utils/utils';
 
 class DateFmt extends React.Component {
     static propTypes = {
@@ -38,7 +39,7 @@ class DateFmt extends React.Component {
         timeComponents: PropTypes.string,
         clock: PropTypes.string,
         template: PropTypes.string,
-        useNative: PropTypes.boolean,
+        useNative: PropTypes.bool,
         meridiems: PropTypes.string,
         children: PropTypes.any
     };
@@ -48,24 +49,66 @@ class DateFmt extends React.Component {
         const {
             locale,
             style,
-            length
-        } = props;
+            calendar,
+            timezone,
+            type,
+            length,
+            dateComponents,
+            timeComponents,
+            clock,
+            template,
+            useNative,
+            meridiems
+        } = props || {};
         
         this.state = {
-            formatter: new DateFmt({
+            formatter: new IlibDateFmt({
                 locale: locale,
                 style: style,
-                length: length
+                calendar: calendar,
+                timeZone: timezone,
+                type: type,
+                length: length,
+                date: dateComponents,
+                time: timeComponents,
+                clock: clock,
+                template: template,
+                useNative: useNative,
+                meridiems: meridiems
             })
         };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
-            return DateFmt.create({
-                locale: this.props.locale,
-                style: this.props.style,
-                length: this.props.length
+        if (!objectEquals(prevProps, this.props)) {
+            const {
+                locale,
+                style,
+                calendar,
+                timezone,
+                type,
+                length,
+                dateComponents,
+                timeComponents,
+                clock,
+                template,
+                useNative,
+                meridiems
+            } = props;
+
+            return IlibDateFmt.create({
+                locale: locale,
+                style: style,
+                calendar: calendar,
+                timeZone: timezone,
+                type: type,
+                length: length,
+                date: dateComponents,
+                time: timeComponents,
+                clock: clock,
+                template: template,
+                useNative: useNative,
+                meridiems: meridiems
             }).then(fmt => {
                 this.setState({
                     formatter: fmt
@@ -76,20 +119,21 @@ class DateFmt extends React.Component {
     
     render() {
         let {
-            list,
+            date,
             id,
             wrapper,
             className
-        } = this.props;
+        } = this.props || {};
 
-        wrapper = wrapper || (<span/>);
-        
-        let ret = this.state.formatter.format(list);
-
-        id = id || hashKey(list.join(" "));
-        let attrs = { key: id, id: id };
-        className && (attrs["className"] = className);
-        return React.cloneElement(wrapper, attrs, ret);
+        let ret = this.state.formatter.format(date);
+        if (wrapper) {
+            id = id || hashKey(ret);
+            let attrs = { key: id, id: id };
+            className && (attrs["className"] = className);
+            return React.cloneElement(wrapper, attrs, ret);
+        } else {
+            return ret;
+        }
     }
 }
 
