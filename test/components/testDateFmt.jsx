@@ -25,15 +25,26 @@ import Adapter from 'enzyme-adapter-react-16';
 import LocaleContext from '../../src/components/LocaleContext';
 import DateFmt from '../../src/components/DateFmt';
 import ilib from 'ilib-es6';
+import DateFactory from 'ilib-es6/lib/DateFactory';
 
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
 
-let testDate = new Date(2019, 5, 24, 9, 25, 34);
+let testDate = DateFactory({
+    locale: "en-US",
+    year: 2019,
+    month: 6,
+    day: 24,
+    hour: 21,
+    minute: 25,
+    second: 34,
+    timezone: "America/Los_Angeles"
+});
 
 export let testDateFmt = {
     testDateFmtSimple: test => {
         test.expect(1);
+        ilib.setTimeZone("America/Los_Angeles");
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 <DateFmt locale="en-US" type="date" length="short" date={testDate}/>
@@ -56,172 +67,160 @@ export let testDateFmt = {
         test.done();
     },
 
-    /*
-    testDateFmtOne: test => {
+    testDateFmtMedium: test => {
         test.expect(1);
-        const list = ["Peter"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list}/>
+                <DateFmt locale="en-US" type="date" length="medium" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r907224573">Peter</span>');
+        test.equal(wrapper.text(), '6/24/2019');
         test.done();
     },
 
-    testDateFmtTwo: test => {
+    testDateFmtLong: test => {
         test.expect(1);
-        const list = ["Peter", "Paul"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list}/>
+                <DateFmt locale="en-US" type="date" length="long" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r491155901">Peter and Paul</span>');
+        test.equal(wrapper.text(), 'Jun 24, 2019');
         test.done();
     },
 
-    testDateFmtFour: test => {
+    testDateFmtFull: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary", "Joseph"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list}/>
+                <DateFmt locale="en-US" type="date" length="full" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r858969903">Peter, Paul, Mary, and Joseph</span>');
+        test.equal(wrapper.text(), 'June 24, 2019');
         test.done();
     },
-    testDateFmtWithLocale: test => {
+
+    testDateFmtDateTime: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Maria"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt locale="de-DE" list={list}/>
+                <DateFmt locale="en-US" type="datetime" length="long" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r1058501694">Peter, Paul und Maria</span>');
+        test.equal(wrapper.text(), 'June 24, 2019 at 9:25 PM');
         test.done();
     },
 
-    testDateFmtWithId: test => {
+    testDateFmtDateComponents: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} id="foo.bar.asdf"/>
+                <DateFmt locale="en-US" type="date" length="full" dateComponents="dmw" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="foo.bar.asdf">Peter, Paul, and Mary</span>');
+        test.equal(wrapper.text(), 'Monday, June 24');
         test.done();
     },
 
-    testDateFmtWithWrapper: test => {
+    testDateFmtTimeComponents: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} wrapper={<div/>}/>
+                <DateFmt locale="en-US" type="time" length="full" timeComponents="hmaz" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('div');
-        test.equal(div.html(), '<div id="r321838219">Peter, Paul, and Mary</div>');
+        test.equal(wrapper.text(), '9:25 PM PST');
         test.done();
     },
 
-    testDateFmtWithWrapperAndId: test => {
+    testDateFmtClock: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} separator={<br/>} wrapper={<div/>} id="asdf.asdf.asdf"/>
+                <DateFmt locale="en-US" type="time" length="full" timeComponents="hma" clock="24" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('div');
-        test.equal(div.html(), '<div id="asdf.asdf.asdf">Peter, Paul, and Mary</div>');
+        test.equal(wrapper.text(), '21:25');
         test.done();
     },
 
-    testDateFmtWithClass: test => {
+    testDateFmtTemplate: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} className="foobar"/>
+                <DateFmt locale="en-US" type="datetime" length="long" template="DD-MM-YY'T'HH:mm" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let span = wrapper.find('span');
-        test.equal(span.html(), '<span id="r321838219" class="foobar">Peter, Paul, and Mary</span>');
+        test.equal(wrapper.text(), '24-06-2019T21:25');
         test.done();
     },
 
-    testDateFmtWithWrapperAndIdAndClass: test => {
+    testDateFmtUseNative: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} wrapper={<div/>} id="asdf.asdf.asdf" className="foobar"/>
+                <DateFmt useNative={true} locale="bn-IN" type="date" length="full" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('div');
-        test.equal(div.html(), '<div id="asdf.asdf.asdf" class="foobar">Peter, Paul, and Mary</div>');
+        test.equal(wrapper.text(), '২৫ জুন, ২০১৯');
         test.done();
     },
 
-    testDateFmtWithWrapperAndIdAndClass: test => {
+    testDateFmtMeridiems: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Mary"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt list={list} wrapper={<div/>} id="asdf.asdf.asdf" className="foobar"/>
+                <DateFmt locale="zh-Hans-CN" type="time" length="full" timeComponents="hma" meridiems="chinese" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('div');
-        test.equal(div.html(), '<div id="asdf.asdf.asdf" class="foobar">Peter, Paul, and Mary</div>');
+        test.equal(wrapper.text(), '晚上9:25');
         test.done();
     },
 
-    testDateFmtDEContext: test => {
+    testDateFmtCalendar: test => {
         test.expect(1);
-        const list = ["Peter", "Paul", "Maria"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt locale="de-DE" list={list} id="asdf.asdf.asdf" className="foobar"/>
+                <DateFmt locale="en-US" calendar="hebrew" type="date" length="full" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('span');
-        test.equal(div.html(), '<span id="asdf.asdf.asdf" class="foobar">Peter, Paul und Maria</span>');
+        test.equal(wrapper.text(), 'Sivan 21, 5779');
         test.done();
     },
 
-    testDateFmtJAContext: test => {
+    testDateFmtTimeZone: test => {
         test.expect(1);
-        const list = ["岡田さん", "鈴木さん", "横山さん"];
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                The list is: <DateFmt locale="ja-JP" list={list} id="asdf.asdf.asdf" className="foobar"/>
+                <DateFmt locale="en-US" timezone="America/New_York" type="time" length="full" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        let div = wrapper.find('span');
-        test.equal(div.html(), '<span id="asdf.asdf.asdf" class="foobar">岡田さん、鈴木さん、横山さん</span>');
+        test.equal(wrapper.text(), '12:25 AM');
         test.done();
     },
-    */
+
+    testDateFmtWrapper: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateFmt locale="en-US" type="date" length="full" wrapper="span" date={testDate}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r3453453" type="date">June 24, 2019</span>');
+        test.done();
+    },
+
 };
