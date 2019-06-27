@@ -75,7 +75,7 @@ export let testDateFmt = {
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '6/24/2019');
+        test.equal(wrapper.text(), 'Jun 24, 2019');
         test.done();
     },
 
@@ -87,7 +87,7 @@ export let testDateFmt = {
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), 'Jun 24, 2019');
+        test.equal(wrapper.text(), 'June 24, 2019');
         test.done();
     },
 
@@ -135,7 +135,7 @@ export let testDateFmt = {
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '9:25 PM PST');
+        test.equal(wrapper.text(), '9:25 PM PDT');
         test.done();
     },
 
@@ -155,7 +155,7 @@ export let testDateFmt = {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateFmt locale="en-US" type="datetime" length="long" template="DD-MM-YY'T'HH:mm" date={testDate}/>
+                <DateFmt locale="en-US" type="datetime" length="long" template="dd-MM-yyyy'T'HH:mm" date={testDate}/>
             </LocaleContext.Provider>
         );
 
@@ -171,7 +171,7 @@ export let testDateFmt = {
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '২৫ জুন, ২০১৯');
+        test.equal(wrapper.text(), '২৪ জুন, ২০১৯');
         test.done();
     },
 
@@ -191,11 +191,12 @@ export let testDateFmt = {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateFmt locale="en-US" calendar="hebrew" type="date" length="full" date={testDate}/>
+                <DateFmt locale="en-US" calendar="hebrew" timezone="America/Los_Angeles" type="date" length="full" date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), 'Sivan 21, 5779');
+        // the hebrew day starts at sundown, so this is Sivan 22 instead of 21
+        test.equal(wrapper.text(), 'Sivan 22, 5779');
         test.done();
     },
 
@@ -215,12 +216,35 @@ export let testDateFmt = {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateFmt locale="en-US" type="date" length="full" wrapper="span" date={testDate}/>
+                <DateFmt locale="en-US" type="date" length="full" wrapper={<span/>} date={testDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.html(), '<span id="r3453453" type="date">June 24, 2019</span>');
+        test.equal(wrapper.html(), '<span id="r916831373">June 24, 2019</span>');
         test.done();
     },
 
+    testDateFmtId: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateFmt locale="en-US" type="date" length="full" wrapper={<span/>} id="boogy-date" date={testDate}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="boogy-date">June 24, 2019</span>');
+        test.done();
+    },
+
+    testDateFmtClass: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateFmt locale="en-US" type="date" length="full" wrapper={<span/>} className="boogy-night" date={testDate}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r916831373" class="boogy-night">June 24, 2019</span>');
+        test.done();
+    }
 };

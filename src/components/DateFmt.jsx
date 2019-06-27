@@ -20,6 +20,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
+import ilib from 'ilib-es6';
 import IlibDateFmt from 'ilib-es6/lib/DateFmt';
 
 import hashKey from '../utils/hash';
@@ -60,13 +61,13 @@ class DateFmt extends React.Component {
             useNative,
             meridiems
         } = props || {};
-        
+
         this.state = {
             formatter: new IlibDateFmt({
                 locale: locale,
                 style: style,
                 calendar: calendar,
-                timeZone: timezone,
+                timezone: timezone || ilib.getTimeZone(),
                 type: type,
                 length: length,
                 date: dateComponents,
@@ -100,7 +101,7 @@ class DateFmt extends React.Component {
                 locale: locale,
                 style: style,
                 calendar: calendar,
-                timeZone: timezone,
+                timeZone: timezone || ilib.getTimeZone(),
                 type: type,
                 length: length,
                 date: dateComponents,
@@ -116,7 +117,7 @@ class DateFmt extends React.Component {
             });
         }
     }
-    
+
     render() {
         let {
             date,
