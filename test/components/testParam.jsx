@@ -35,7 +35,7 @@ export let testParam = {
         test.expect(1);
         const wrapper = render(
             <span>
-                <Param value="asdf"/>
+                <Param name="asdf" value="asdf"/>
             </span>,
         );
 
@@ -48,7 +48,7 @@ export let testParam = {
         const name = 'asdf';
         const wrapper = render(
             <span>
-                <Param value={name}/>
+                <Param name="asdf" value={name}/>
             </span>,
         );
 
@@ -60,7 +60,7 @@ export let testParam = {
         test.expect(1);
         const wrapper = render(
             <span>
-                <Param value={3}/>
+                <Param name="asdf" value={3}/>
             </span>,
         );
 
@@ -72,7 +72,7 @@ export let testParam = {
         test.expect(1);
         const wrapper = render(
             <span>
-                <Param value={undefined}/>
+                <Param name="asdf" value={undefined}/>
             </span>,
         );
 
@@ -84,7 +84,7 @@ export let testParam = {
         test.expect(1);
         const wrapper = render(
             <span>
-                <Param value={null}/>
+                <Param name="asdf" value={null}/>
             </span>,
         );
 
@@ -97,7 +97,7 @@ export let testParam = {
         const tmp = <b>foo!</b>;
         const wrapper = render(
             <span>
-                <Param value={tmp}/>
+                <Param name="asdf" value={tmp}/>
             </span>,
         );
 
@@ -112,7 +112,7 @@ export let testParam = {
         };
         const wrapper = render(
             <span>
-                <Param value={f}/>
+                <Param name="asdf" value={f}/>
             </span>,
         );
 
@@ -124,7 +124,7 @@ export let testParam = {
         test.expect(1);
         const wrapper = render(
             <span>
-                <Param value="asdf" description="foo"/>
+                <Param name="asdf" value="asdf" description="foo"/>
             </span>,
         );
 
