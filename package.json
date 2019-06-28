@@ -57,7 +57,7 @@
     "dist": "npm run build ; npm pack"
   },
   "dependencies": {
-    "ilib": "^14.3.0",
+    "ilib": "^14.2.0",
     "ilib-es6": "^14.2.0",
     "ilib-tree-node": "^1.2.2",
     "message-accumulator": "^2.2.1"
