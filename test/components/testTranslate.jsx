@@ -21,6 +21,7 @@ import React from 'react';
 import enzyme, { mount } from 'enzyme';
 import PropTypes from 'prop-types';
 import Adapter from 'enzyme-adapter-react-16';
+import TestErrorBoundary from '../TestErrorBoundary';
 
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
@@ -337,7 +338,7 @@ export let testTranslate = {
         test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value="asdf" description="asdf" />.
+                The string is <Param name="asdf" value="asdf" description="asdf" />.
             </Translate>
         );
 
@@ -352,8 +353,8 @@ export let testTranslate = {
         test.expect(2);
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value="asdf" description="foo" /> and the number is{' '}
-                <Param value={3} description="bar" />.
+                The string is <Param name="Asdf" value="asdf" description="foo" /> and the number is{' '}
+                <Param name="asdf" value={3} description="bar" />.
             </Translate>,
         );
 
@@ -369,7 +370,7 @@ export let testTranslate = {
         const str = 'a string';
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -385,7 +386,7 @@ export let testTranslate = {
         const str = undefined;
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -402,7 +403,7 @@ export let testTranslate = {
         const str = null;
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -419,7 +420,7 @@ export let testTranslate = {
         const str = true;
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -436,7 +437,7 @@ export let testTranslate = {
         const str = 123.456;
         const wrapper = mount(
             <Translate locale="ru-RU" id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -455,7 +456,7 @@ export let testTranslate = {
         };
         const wrapper = mount(
             <Translate id="test" description="asdf">
-                The string is <Param value={str} description="foo" />.
+                The string is <Param name="asdf" value={str} description="foo" />.
             </Translate>,
         );
 
@@ -474,7 +475,7 @@ export let testTranslate = {
             <Translate id="test" description="asdf">
                 some{' '}
                 <LinkButton url="https://foo.com/a/b">
-                    <Param value={name} description="foo" />
+                    <Param name="asdf" value={name} description="foo" />
                 </LinkButton>
                 text
             </Translate>,
@@ -495,7 +496,7 @@ export let testTranslate = {
             <Translate id="test" description="asdf">
                 some{' '}
                 <i>
-                    <Param value={name} description="foo" />
+                    <Param name="asdf" value={name} description="foo" />
                 </i>
             </Translate>,
         );
@@ -536,34 +537,35 @@ export let testTranslate = {
 
     testTranslateThrowWhenCountButNoOnePlural: test => {
         test.expect(1);
-        function testPlural() {
+        // TestErrorBoundary will pass one assertion if the test throws
+        const wrapper =
             mount(
-                <Translate id="asdf" description="asdf" count="23">
-                    <Plural category="other">
-                        some <b>bold</b> text
-                    </Plural>
-                </Translate>,
+                <TestErrorBoundary test={test}>
+                    <Translate id="asdf" description="asdf" count="23">
+                        <Plural category="other">
+                            some <b>bold</b> text
+                        </Plural>
+                    </Translate>
+                </TestErrorBoundary>,
             );
-        }
 
-        test.throws(testPlural);
-        
         test.done();
     },
 
     testTranslateThrowWhenCountButNoOtherPlural: test => {
         test.expect(1);
-        function testPlural() {
+        // TestErrorBoundary will pass one assertion if the test throws
+        const wrapper =
             mount(
-                <Translate id="asdf" description="asdf" count="23">
-                    <Plural category="one">
-                        some <b>bold</b> text
-                    </Plural>
-                </Translate>,
+                <TestErrorBoundary test={test}>
+                    <Translate id="asdf" description="asdf" count="23">
+                        <Plural category="one">
+                            some <b>bold</b> text
+                        </Plural>
+                    </Translate>
+                </TestErrorBoundary>,
             );
-        }
 
-        test.throws(testPlural);
         test.done();
     }
 };
