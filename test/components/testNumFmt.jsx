@@ -90,6 +90,42 @@ export let testNumFmt = {
         test.done();
     },
 
+    testNumFmtMaxFractionDigits: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt maxFractionDigits="4" number={45.4467534}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '45.4468');
+        test.done();
+    },
+
+    testNumFmtMinFractionDigits: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt minFractionDigits="4" number={45.44}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '45.4400');
+        test.done();
+    },
+
+    testNumFmtSignificantDigits: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt significantDigits="6" number={45.4467534}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '45.4468');
+        test.done();
+    },
+
     /*
     testNumFmtOne: test => {
         test.expect(1);
