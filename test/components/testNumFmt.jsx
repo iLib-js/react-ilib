@@ -42,6 +42,54 @@ export let testNumFmt = {
         test.done();
     },
 
+    testNumFmtLocale: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt locale="de-DE" number={453434.453}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '453.434,453');
+        test.done();
+    },
+
+    testNumFmtCurrency: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt locale="nl-NL" type="currency" currency="EUR" style="common" number={12345.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '€ 12.345,40');
+        test.done();
+    },
+
+    testNumFmtPercentage: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt locale="tr-TR" type="percentage" number={45.5}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '%45,5');
+        test.done();
+    },
+
+    testNumFmtScientific: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt style="scientific" number={453242.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '4.532424E+5');
+        test.done();
+    },
+
     /*
     testNumFmtOne: test => {
         test.expect(1);
