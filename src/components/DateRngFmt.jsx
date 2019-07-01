@@ -23,6 +23,7 @@ import PropTypes from 'prop-types';
 import DateRangeFormatter from 'ilib-es6/lib/DateRngFmt';
 
 import hashKey from '../utils/hash';
+import objectEquals from '../utils/utils';
 
 class DateRngFmt extends React.Component {
     static propTypes = {
@@ -34,8 +35,8 @@ class DateRngFmt extends React.Component {
             PropTypes.string,
             PropTypes.number
         ]),
-        from: PropTypes.any.isRequired,
-        to: PropTypes.any.isRequired,
+        start: PropTypes.any.isRequired,
+        end: PropTypes.any.isRequired,
         id: PropTypes.string,
         wrapper: PropTypes.oneOfType([
             PropTypes.string,
@@ -52,7 +53,7 @@ class DateRngFmt extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
+        if (!objectEquals(prevProps, this.props, ["from", "start", "end", "wrapper", "className"])) {
             return DateRangeFormatter.create(props).then(fmt => {
                 this.setState({
                     formatter: fmt
@@ -64,17 +65,18 @@ class DateRngFmt extends React.Component {
     render() {
         const {
             className,
-            number
+            start,
+            end
         } = this.props || {};
         let {
             id,
             wrapper
         } = this.props || {};
 
-        const ret = this.state.formatter.format(number);
+        const ret = this.state.formatter.format(start, end);
 
         if (wrapper) {
-            id = id || String(number);
+            id = id || hashKey(ret);
             let attrs = { key: id, id: id };
             className && (attrs["className"] = className);
             return typeof(wrapper) === "string" ?

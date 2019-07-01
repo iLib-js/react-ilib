@@ -25,200 +25,139 @@ import Adapter from 'enzyme-adapter-react-16';
 import LocaleContext from '../../src/components/LocaleContext';
 import DateRngFmt from '../../src/components/DateRngFmt';
 import ilib from 'ilib-es6';
+import DateFactory from 'ilib-es6/lib/DateFactory';
 
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
+
+const startDate = DateFactory({
+    year: 2019,
+    month: 6,
+    day: 27,
+    hour: 21,
+    minute: 54,
+    second: 33,
+    timezone: 'America/Los_Angeles'
+});
+
+const endDate = DateFactory({
+    year: 2019,
+    month: 7,
+    day: 2,
+    hour: 11,
+    minute: 21,
+    second: 6,
+    timezone: 'America/Los_Angeles'
+});
 
 export let testDateRngFmt = {
     testDateRngFmtSimple: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt number={45.4}/>
+                <DateRngFmt length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '45.4');
+        test.equal(wrapper.text(), '6/27/19 – 7/2/19');
         test.done();
     },
-
+    
     testDateRngFmtLocale: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt locale="de-DE" number={453434.453}/>
+                <DateRngFmt locale="de-DE" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '453.434,453');
+        test.equal(wrapper.text(), '27.06 – 02.07.19');
         test.done();
     },
 
-    testDateRngFmtCurrency: test => {
+    testDateRngFmtCalendar: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt locale="nl-NL" type="currency" currency="EUR" style="common" number={12345.4}/>
+                <DateRngFmt calendar="hebrew" length="short" start={DateFactory({type: "hebrew", julianday: startDate.getJulianDay()})} end={DateFactory({type: "hebrew", julianday: endDate.getJulianDay()})}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '€ 12.345,40');
+        test.equal(wrapper.text(), '3/25/79 – 3/29/79');
         test.done();
     },
 
-    testDateRngFmtPercentage: test => {
+    testDateRngFmtTimeZone: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt locale="tr-TR" type="percentage" number={45.5}/>
+                <DateRngFmt timezone="America/Honolulu" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '%45,5');
+        test.equal(wrapper.text(), '6/28/19 – 7/2/19');
         test.done();
     },
 
-    testDateRngFmtScientific: test => {
+    testDateRngFmtLength: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt style="scientific" number={453242.4}/>
+                <DateRngFmt length="full" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '4.532424E+5');
+        test.equal(wrapper.text(), 'June 27 – July 2, 2019');
         test.done();
     },
 
-    testDateRngFmtMaxFractionDigits: test => {
+    testDateRngFmtWrapper: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt maxFractionDigits="4" number={45.4467534}/>
+                <DateRngFmt wrapper={<span/>} length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '45.4468');
+        test.equal(wrapper.html(), '<span id="r190271918">6/27/19 – 7/2/19</span>');
         test.done();
     },
 
-    testDateRngFmtMinFractionDigits: test => {
+    testDateRngFmtWrapperAsString: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt minFractionDigits="4" number={45.44}/>
+                <DateRngFmt wrapper="span" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '45.4400');
+        test.equal(wrapper.html(), '<span id="r190271918">6/27/19 – 7/2/19</span>');
         test.done();
     },
 
-    testDateRngFmtSignificantDigits: test => {
+    testDateRngFmtWrapperWithId: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt significantDigits="6" number={45.4467534}/>
+                <DateRngFmt wrapper={<span/>} id="asdfasdf" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '45.4468');
+        test.equal(wrapper.html(), '<span id="asdfasdf">6/27/19 – 7/2/19</span>');
         test.done();
     },
 
-    testDateRngFmtUseNativeDigits: test => {
+
+    testDateRngFmtWrapperWithClass: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt locale="bn-IN" number={123.456}/>
+                <DateRngFmt wrapper={<span/>} id="asdfasdf" className="asdfasdf" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), "১২৩.৪৫৬");
+        test.equal(wrapper.html(), '<span id="asdfasdf" class="asdfasdf">6/27/19 – 7/2/19</span>');
         test.done();
     },
 
-    testDateRngFmtRoundingMode: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt roundingMode="halfeven" maxFractionDigits="1" number={45.45}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.text(), '45.4');
-        test.done();
-    },
-
-    testDateRngFmtCurrencyStyle: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt type="currency" style="iso" currency="CAD" number={45.45}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.text(), 'CAD45.45');
-        test.done();
-    },
-
-    testDateRngFmtNumberStyle: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt style="nogrouping" number={12345678.45}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.text(), '12345678.45');
-        test.done();
-    },
-
-    testDateRngFmtWrapperString: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt wrapper="span" number={45.4}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.html(), '<span id="45.4">45.4</span>');
-        test.done();
-    },
-
-    testDateRngFmtWrapperComponent: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt wrapper={<span/>} number={45.4}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.html(), '<span id="45.4">45.4</span>');
-        test.done();
-    },
-
-    testDateRngFmtCustomId: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt wrapper="span" id="foobarfoo" number={45.4}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.html(), '<span id="foobarfoo">45.4</span>');
-        test.done();
-    },
-
-    testDateRngFmtClass: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt wrapper="span" className="number" id="foobarfoo" number={45.4}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.html(), '<span id="foobarfoo" class="number">45.4</span>');
-        test.done();
-    },
 };
