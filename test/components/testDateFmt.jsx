@@ -212,11 +212,23 @@ export let testDateFmt = {
         test.done();
     },
 
-    testDateFmtWrapper: test => {
+    testDateFmtWrapperComponent: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 <DateFmt locale="en-US" type="date" length="full" wrapper={<span/>} date={testDate}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r916831373">June 24, 2019</span>');
+        test.done();
+    },
+
+    testDateFmtWrapperString: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateFmt locale="en-US" type="date" length="full" wrapper="span" date={testDate}/>
             </LocaleContext.Provider>
         );
 
