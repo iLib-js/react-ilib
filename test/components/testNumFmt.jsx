@@ -137,4 +137,77 @@ export let testNumFmt = {
         test.equal(wrapper.text(), "১২৩.৪৫৬");
         test.done();
     },
+
+    testNumFmtRoundingMode: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt roundingMode="halfeven" maxFractionDigits="1" number={45.45}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '45.4');
+        test.done();
+    },
+
+    testNumFmtCurrencyStyle: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt type="currency" style="iso" currency="CAD" number={45.45}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), 'CAD45.45');
+        test.done();
+    },
+
+    testNumFmtNumberStyle: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt style="nogrouping" number={12345678.45}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '12345678.45');
+        test.done();
+    },
+
+    testNumFmtWrapper: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt wrapper="span" number={45.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="45.4">45.4</span>');
+        test.done();
+    },
+
+    testNumFmtCustomId: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt wrapper="span" id="foobarfoo" number={45.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="foobarfoo">45.4</span>');
+        test.done();
+    },
+
+    testNumFmtClass: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt wrapper="span" className="number" id="foobarfoo" number={45.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="foobarfoo" class="number">45.4</span>');
+        test.done();
+    },
+
 };
