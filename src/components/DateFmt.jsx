@@ -30,7 +30,10 @@ class DateFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         id: PropTypes.string,
-        wrapper: PropTypes["object"],
+        wrapper: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes["object"]
+        ]),
         date: PropTypes.any.isRequired,
         calendar: PropTypes.string,
         timezone: PropTypes.string,
