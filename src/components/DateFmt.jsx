@@ -84,7 +84,7 @@ class DateFmt extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!objectEquals(prevProps, this.props)) {
+        if (!objectEquals(prevProps, this.props, ["date", "id", "wrapper", "className"])) {
             const {
                 locale,
                 style,
