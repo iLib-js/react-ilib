@@ -174,11 +174,23 @@ export let testNumFmt = {
         test.done();
     },
 
-    testNumFmtWrapper: test => {
+    testNumFmtWrapperString: test => {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 <NumFmt wrapper="span" number={45.4}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="45.4">45.4</span>');
+        test.done();
+    },
+
+    testNumFmtWrapperComponent: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <NumFmt wrapper={<span/>} number={45.4}/>
             </LocaleContext.Provider>
         );
 
@@ -209,5 +221,4 @@ export let testNumFmt = {
         test.equal(wrapper.html(), '<span id="foobarfoo" class="number">45.4</span>');
         test.done();
     },
-
 };
