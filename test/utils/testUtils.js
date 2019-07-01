@@ -282,5 +282,24 @@ module.exports.hash = {
         }));
 
         test.done();
-    }
+    },
+    
+    testObjectEqualsIgnoreProps: function(test) {
+        test.expect(1);
+
+        test.ok(objectEquals({
+            a: "b",
+            c: 1,
+            d: false,
+            e: 1
+        }, {
+            d: true,
+            a: "b",
+            c: 1,
+            f: "asdf"
+        }, ["d", "e", "f"]));
+
+        test.done();
+    },
+
 };
