@@ -32,12 +32,18 @@ class NumFmt extends React.Component {
         maxFractionDigits: PropTypes.any,
         minFractionDigits: PropTypes.any,
         significantDigits: PropTypes.any,
-        useNative: PropTypes.boolean,
+        useNative: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.boolean
+        ]),
         roundingMode: PropTypes.string,
         style: PropTypes.string,
         number: PropTypes.any.isRequired,
         id: PropTypes.string,
-        wrapper: PropTypes["object"]
+        wrapper: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes["object"]
+        ])
     };
 
     constructor(props) {
@@ -74,7 +80,7 @@ class NumFmt extends React.Component {
             id = id || String(number);
             let attrs = { key: id, id: id };
             className && (attrs["className"] = className);
-            return React.cloneElement(wrapper, attrs, ret);
+            return typeof(wrapper) === "string" ? React.createElement(wrapper, attrs, ret) : React.cloneElement(wrapper, attrs, ret);
         } else {
             return ret;
         }
