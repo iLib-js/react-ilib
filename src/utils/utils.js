@@ -23,10 +23,11 @@
  *
  * @param {Object} left the left object to compare
  * @param {Object} right the right object to compare
+ * @param {Array.<string>} ignoreProps ignore any differences in this list of properties
  * @return {boolean} true when the two objects have the same values when
  * compared in a shallow fashion
  */
-export function objectEquals(left, right) {
+export function objectEquals(left, right, ignoreProps) {
     if (typeof(left) !== typeof(right)) return false;
     if (!left && !right) return true;
     if (!left || !right) return false;
@@ -36,7 +37,7 @@ export function objectEquals(left, right) {
         if (keys.length !== Object.keys(right).length) return false;
 
         return Object.keys(left).every(property => {
-            return left[property] === right[property];
+            return (ignoreProps && ignoreProps.indexOf(property) > -1) || left[property] === right[property];
         });
     } else {
         return left === right;
