@@ -134,7 +134,9 @@ class DateFmt extends React.Component {
             id = id || hashKey(ret);
             let attrs = { key: id, id: id };
             className && (attrs["className"] = className);
-            return React.cloneElement(wrapper, attrs, ret);
+            return typeof(wrapper) === "string" ?
+                React.createElement(wrapper, attrs, ret) :
+                React.cloneElement(wrapper, attrs, ret);
         } else {
             return ret;
         }
