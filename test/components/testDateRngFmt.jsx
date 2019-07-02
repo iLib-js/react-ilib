@@ -91,7 +91,7 @@ export let testDateRngFmt = {
         test.expect(1);
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt timezone="America/Honolulu" length="short" start={startDate} end={endDate}/>
+                <DateRngFmt timezone="Europe/London" length="short" start={startDate} end={endDate}/>
             </LocaleContext.Provider>
         );
 
@@ -158,6 +158,5 @@ export let testDateRngFmt = {
 
         test.equal(wrapper.html(), '<span id="asdfasdf" class="asdfasdf">6/27/19 – 7/2/19</span>');
         test.done();
-    },
-
+    }
 };
