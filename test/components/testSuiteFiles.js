@@ -18,6 +18,7 @@
  */
 
 module.exports.files = [
+    "testDurationFmt.jsx",
     "testNumFmt.jsx",
     "testUnitFmt.jsx",
     "testPlural.jsx",
