@@ -24,7 +24,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import LocaleContext from '../../src/components/LocaleContext';
 import DurationFmt from '../../src/components/DurationFmt';
-import ilib from 'ilib-es6';
 
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
@@ -42,4 +41,108 @@ export let testDurationFmt = {
         test.equal(wrapper.text(), '3 hours, 3 minutes, 3 seconds');
         test.done();
     },
+    
+    testDurationFmtLocale: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt locale="de-DE" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '3 Stunden, 3 Minuten und 3 Sekunden');
+        test.done();
+    },
+
+    testDurationFmtLength: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt length="short" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '3h 3m 3s');
+        test.done();
+    },
+
+    testDurationFmtStyle: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt style="clock" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '3:03:03');
+        test.done();
+    },
+
+    testDurationFmtUseNative: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt useNative="true" locale="bn-IN" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '৩ ঘন্টা, ৩ মিনিট, ৩ সেকেন্ড');
+        test.done();
+    },
+
+    testDurationFmtWrapperString: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt wrapper="span" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r580831455">3 hours, 3 minutes, 3 seconds</span>');
+        test.done();
+    },
+
+    testDurationFmtWrapperComponent: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt wrapper={<span/>} length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r580831455">3 hours, 3 minutes, 3 seconds</span>');
+        test.done();
+    },
+
+    testDurationFmtWrapperWithId: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt wrapper="span" id="fooasdf" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="fooasdf">3 hours, 3 minutes, 3 seconds</span>');
+        test.done();
+    },
+
+    testDurationFmtWrapperWithClass: test => {
+        test.expect(1);
+        const duration = {hour: 3, minute: 3, second:3};
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DurationFmt wrapper="span" className="duration" length="full" duration={duration}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.html(), '<span id="r580831455" class="duration">3 hours, 3 minutes, 3 seconds</span>');
+        test.done();
+    }
 };
