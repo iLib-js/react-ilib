@@ -32,14 +32,14 @@ require("../assertExtras");
 export let testDurationFmt = {
     testDurationFmtSimple: test => {
         test.expect(1);
-        const duration = {hours: 3, minutes: 3, seconds:3};
+        const duration = {hour: 3, minute: 3, second:3};
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 <DurationFmt length="full" duration={duration}/>
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.text(), '3 hours, 3 minutes, and 3 seconds');
+        test.equal(wrapper.text(), '3 hours, 3 minutes, 3 seconds');
         test.done();
     },
 };

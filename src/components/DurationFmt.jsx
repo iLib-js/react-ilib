@@ -69,7 +69,7 @@ class DurationFmt extends React.Component {
             wrapper
         } = this.props || {};
 
-        const ret = this.state.formatter.format(duration);
+        const ret = this.state.formatter.format(duration).toString();
 
         if (wrapper) {
             id = id || hashKey(Object.keys(duration).map(name => duration[name]).join("_"));
