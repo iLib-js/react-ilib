@@ -53,7 +53,7 @@ class PhoneFmt extends React.Component {
     }
     
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
+        if (prevProps.locale !== this.props.locale || prevProps.mcc !== this.props.mcc || prevProps.style !== this.props.style) {
             PhoneFormatter.create(this.props).then(fmt => {
                 this.setState({
                     formatter: fmt
@@ -74,7 +74,7 @@ class PhoneFmt extends React.Component {
         } = this.props || {};
 
         phone = typeof(number) === "string" ?
-            new PhoneNumber(number, {locale: this.state.locale}) :
+            new PhoneNumber(number, {locale: this.state.locale || this.state.formatter.locale}) :
             number;
         
         const ret = this.state.formatter.format(phone);

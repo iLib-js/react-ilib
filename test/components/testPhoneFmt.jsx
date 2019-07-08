@@ -24,6 +24,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import LocaleContext from '../../src/components/LocaleContext';
 import PhoneFmt from '../../src/components/PhoneFmt';
+import PhoneNumber from 'ilib-es6/lib/PhoneNumber';
 
 enzyme.configure({ adapter: new Adapter() });
 require("../assertExtras");
@@ -40,7 +41,20 @@ export let testPhoneFmt = {
         test.equal(wrapper.text(), '(650) 555-1212');
         test.done();
     },
-    
+
+    testPhoneFmtPhoneNumberObject: test => {
+        test.expect(1);
+        let pn = new PhoneNumber("6505551212");
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <PhoneFmt number={pn}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '(650) 555-1212');
+        test.done();
+    },
+
     testPhoneFmtLocale: test => {
         test.expect(1);
         const wrapper = mount(
@@ -67,6 +81,7 @@ export let testPhoneFmt = {
 
     testPhoneFmtMcc: test => {
         test.expect(1);
+        // MCC number is in France
         const wrapper = mount(
             <LocaleContext.Provider value={{locale: "en-US"}}>
                 <PhoneFmt mcc="208" number="0142218442"/>
@@ -109,7 +124,7 @@ export let testPhoneFmt = {
             </LocaleContext.Provider>
         );
 
-        test.equal(wrapper.html(), '<span id="foorbarfoo">(650) 555-1212</span>');
+        test.equal(wrapper.html(), '<span id="foobarfoo">(650) 555-1212</span>');
         test.done();
     },
 
