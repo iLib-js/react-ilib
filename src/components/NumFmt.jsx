@@ -34,7 +34,7 @@ class NumFmt extends React.Component {
         significantDigits: PropTypes.any,
         useNative: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.boolean
+            PropTypes.bool
         ]),
         roundingMode: PropTypes.string,
         style: PropTypes.string,
@@ -42,7 +42,7 @@ class NumFmt extends React.Component {
         id: PropTypes.string,
         wrapper: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes["object"]
+            PropTypes.object
         ])
     };
 
