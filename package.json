@@ -1,9 +1,8 @@
 {
   "name": "react-ilib",
   "version": "0.1.0",
-  "main": "react-ilib.js",
-  "main": "./ilib.js",
-  "main-es6": "./ilib-es6.js",
+  "main": "./lib/index-es6.js",
+  "main-es6": "./src/index-es6.js",
   "description": "A set of React components that wrap iLib classes",
   "keywords": [
     "internationalization",
@@ -36,7 +35,6 @@
     }
   ],
   "files": [
-    "ilib.js.map",
     "lib",
     "src/components",
     "src/utils",
@@ -52,13 +50,11 @@
     "node": ">= 4.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "build-dev": "node scripts/buildDev.js",
+    "build:lib": "babel src/components src/utils src/index-es6.js --out-dir lib --source-maps",
     "test": "node test/testSuite.js --env=jsdom",
     "debug": "node --inspect-brk test/testSuite.js --env=jsdom",
     "clean": "git clean -f -d src test public config build",
-    "dist": "npm run build ; npm pack"
+    "dist": "npm run build:lib ; npm pack"
   },
   "dependencies": {
     "ilib": "^14.3.0",
