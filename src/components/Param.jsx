@@ -86,7 +86,7 @@ Param.propTypes = {
     "name": PropTypes.string.isRequired,
 
     /** The value of this parameter */
-    "value": PropTypes.any.isRequired,
+    "value": PropTypes.any,
 
     /** Optional: A description of this parameter to help the translators understand what it is */
     "description": PropTypes.string,
