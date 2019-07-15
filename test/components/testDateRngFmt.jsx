@@ -75,18 +75,6 @@ export let testDateRngFmt = {
         test.done();
     },
 
-    testDateRngFmtCalendar: test => {
-        test.expect(1);
-        const wrapper = mount(
-            <LocaleContext.Provider value={{locale: "en-US"}}>
-                <DateRngFmt calendar="hebrew" length="short" start={DateFactory({type: "hebrew", julianday: startDate.getJulianDay()})} end={DateFactory({type: "hebrew", julianday: endDate.getJulianDay()})}/>
-            </LocaleContext.Provider>
-        );
-
-        test.equal(wrapper.text(), '3/25/79 – 3/29/79');
-        test.done();
-    },
-
     testDateRngFmtTimeZone: test => {
         test.expect(1);
         const wrapper = mount(
@@ -96,6 +84,18 @@ export let testDateRngFmt = {
         );
 
         test.equal(wrapper.text(), '6/28/19 – 7/2/19');
+        test.done();
+    },
+
+    testDateRngFmtCalendar: test => {
+        test.expect(1);
+        const wrapper = mount(
+            <LocaleContext.Provider value={{locale: "en-US"}}>
+                <DateRngFmt calendar="hebrew" length="short" timezone="America/Los_Angeles" start={DateFactory({type: "hebrew", julianday: startDate.getJulianDay(), timezone: "America/Los_Angeles"})} end={DateFactory({type: "hebrew", julianday: endDate.getJulianDay(), timezone: "America/Los_Angeles"})}/>
+            </LocaleContext.Provider>
+        );
+
+        test.equal(wrapper.text(), '3/25/79 – 3/29/79');
         test.done();
     },
 
