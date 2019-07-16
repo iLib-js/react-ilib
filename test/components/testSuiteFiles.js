@@ -19,12 +19,14 @@
 
 module.exports.files = [
     "testPhoneFmt.jsx",
+    "testDateRngFmt.jsx",
     "testNumFmt.jsx",
     "testUnitFmt.jsx",
     "testPlural.jsx",
     "testTranslate.jsx",
     "testLocaleContext.jsx",
     "testAddressFmt.jsx",
+    "testDateFmt.jsx",
     "testListFmt.jsx",
     "testParam.jsx"
 ];

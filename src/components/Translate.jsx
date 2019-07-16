@@ -167,8 +167,7 @@ Translate.propTypes = {
     count: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
-    ]),
-    values: PropTypes["object"]
+    ])
 };
 
 export default withLocale(Translate);

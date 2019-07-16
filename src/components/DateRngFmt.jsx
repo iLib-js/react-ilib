@@ -1,5 +1,5 @@
 /*
- * NumFmt.jsx - component to format a list number
+ * DateRngFmt.jsx - component to format a list number
  *
  * Copyright © 2019, JEDLSoft
  *
@@ -20,29 +20,27 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import NumberFormatter from 'ilib-es6/lib/NumFmt';
+import DateRangeFormatter from 'ilib-es6/lib/DateRngFmt';
 
 import hashKey from '../utils/hash';
+import objectEquals from '../utils/utils';
 
-class NumFmt extends React.Component {
+class DateRngFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        type: PropTypes.string,
-        currency: PropTypes.string,
-        maxFractionDigits: PropTypes.any,
-        minFractionDigits: PropTypes.any,
-        significantDigits: PropTypes.any,
-        useNative: PropTypes.oneOfType([
+        calendar: PropTypes.string,
+        timezone: PropTypes.string,
+        length: PropTypes.string,
+        clock: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.bool
+            PropTypes.number
         ]),
-        roundingMode: PropTypes.string,
-        style: PropTypes.string,
-        number: PropTypes.any.isRequired,
+        start: PropTypes.any.isRequired,
+        end: PropTypes.any.isRequired,
         id: PropTypes.string,
         wrapper: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.object
+            PropTypes["object"]
         ])
     };
 
@@ -50,13 +48,13 @@ class NumFmt extends React.Component {
         super(props);
         
         this.state = {
-            formatter: new NumberFormatter(props)
+            formatter: new DateRangeFormatter(props)
         };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.length !== this.props.length || prevProps.style !== this.props.style) {
-            return NumberFormatter.create(props).then(fmt => {
+        if (!objectEquals(prevProps, this.props, ["from", "start", "end", "wrapper", "className"])) {
+            return DateRangeFormatter.create(props).then(fmt => {
                 this.setState({
                     formatter: fmt
                 });
@@ -67,17 +65,18 @@ class NumFmt extends React.Component {
     render() {
         const {
             className,
-            number
+            start,
+            end
         } = this.props || {};
         let {
             id,
             wrapper
         } = this.props || {};
 
-        const ret = this.state.formatter.format(number);
+        const ret = this.state.formatter.format(start, end);
 
         if (wrapper) {
-            id = id || String(number);
+            id = id || hashKey(ret);
             let attrs = { key: id, id: id };
             className && (attrs["className"] = className);
             return typeof(wrapper) === "string" ?
@@ -89,4 +88,4 @@ class NumFmt extends React.Component {
     }
 }
 
-export default NumFmt;
+export default DateRngFmt;
