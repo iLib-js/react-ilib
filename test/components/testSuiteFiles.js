@@ -19,6 +19,7 @@
 
 module.exports.files = [
     "testDurationFmt.jsx",
+    "testDateRngFmt.jsx",
     "testNumFmt.jsx",
     "testUnitFmt.jsx",
     "testPlural.jsx",
