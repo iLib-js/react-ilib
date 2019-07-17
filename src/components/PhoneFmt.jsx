@@ -1,7 +1,7 @@
 /*
  * PhoneFmt.jsx - component to format a phone number
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,23 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import Phone from 'ilib-es6/lib/Phone';
+import PhoneNumber from 'ilib-es6/lib/PhoneNumber';
 import PhoneFormatter from 'ilib-es6/lib/PhoneFmt';
 
 class PhoneFmt extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
         style: PropTypes.string,
-        phone: PropTypes["object"].isRequired,
-        children: PropTypes.any
+        mcc: PropTypes.string,
+        number: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ]).isRequired,
+        id: PropTypes.string,
+        wrapper: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ])
     };
 
     constructor(props) {
@@ -39,33 +47,48 @@ class PhoneFmt extends React.Component {
         } = props;
         
         this.state = {
-            formatter: new PhoneFormatter({
-                locale: locale,
-                style: style
-            })
+            formatter: new PhoneFormatter(props),
+            locale: locale
         };
     }
     
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.locale !== this.props.locale || prevProps.style !== this.props.style) {
-            new PhoneFormatter({
-                locale: this.props.locale,
-                style: this.props.style,
-                sync: false,
-                onLoad: function(fmt) {
-                    this.setState({
-                        formatter: fmt
-                    });
-                }.bind(this)
+        if (prevProps.locale !== this.props.locale || prevProps.mcc !== this.props.mcc || prevProps.style !== this.props.style) {
+            PhoneFormatter.create(this.props).then(fmt => {
+                this.setState({
+                    formatter: fmt
+                });
             });
         }
     }
     
     render() {
-        var phone = typeof(this.props.phone) === "string" ?
-            new Phone(this.props.phone, {locale: this.props.locale}) :
-            this.props.phone;
-        return this.state.formatter.format(phone);
+        const {
+            className,
+            number
+        } = this.props || {};
+        let {
+            id,
+            wrapper,
+            phone
+        } = this.props || {};
+
+        phone = typeof(number) === "string" ?
+            new PhoneNumber(number, {locale: this.state.locale || this.state.formatter.locale}) :
+            number;
+        
+        const ret = this.state.formatter.format(phone);
+
+        if (wrapper) {
+            id = id || String(number);
+            let attrs = { key: id, id: id };
+            className && (attrs["className"] = className);
+            return typeof(wrapper) === "string" ?
+                React.createElement(wrapper, attrs, ret) :
+                React.cloneElement(wrapper, attrs, ret);
+        } else {
+            return ret;
+        }
     }
 }
 
