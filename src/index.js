@@ -18,6 +18,9 @@
  */
 
 export { AddressFmt } from './components/AddressFmt';
+export { DateFmt } from './components/DateFmt';
+export { DateRngFmt } from './components/DateRngFmt';
+export { DurationFmt } from './components/DurationFmt';
 export { ListFmt } from './components/ListFmt';
 export { NameFmt } from './components/NameFmt';
 export { NumFmt } from './components/NumFmt';
