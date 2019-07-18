@@ -20,8 +20,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import Address from 'ilib-es6/lib/Address';
-import AddressFormatter from 'ilib-es6/lib/Address';
+import IlibAddress from 'ilib-es6/lib/Address';
+import AddressFormatter from 'ilib-es6/lib/AddressFmt';
 
 import hashKey from '../utils/hash';
 
@@ -79,7 +79,7 @@ class Address extends React.Component {
         separator = separator || (<br/>);
         wrapper = wrapper || (<span/>);
         let add = typeof(address) === "string" ?
-            new Address(this.props.address, {locale: locale}) :
+            new IlibAddress(this.props.address, {locale: locale}) :
             address;
         let ret = this.state.formatter.format(add).split(/\n/).filter(line => {
             return line && line.trim() !== "";

@@ -23,7 +23,7 @@ it does not cover them all yet.
 The address formatter component is called `AddressFmt`.
 
 ```
-import AddressFmt from 'react-ilib/src/AddressFmt';
+import AddressFmt from 'react-ilib/lib/AddressFmt';
 
 <AddressFmt
     address={Address}
@@ -97,7 +97,7 @@ Format an iLib Address as a string. Props can contain:
 The list formatting component is called `ListFmt`.
 
 ```
-import ListFmt from 'react-ilib/src/ListFmt';
+import ListFmt from 'react-ilib/lib/ListFmt';
 
 <ListFmt
     list={Array.<string>}
@@ -130,7 +130,7 @@ The unit formatting component is called `UnitFmt`. This formats that sizes of va
 mass, digital storage size, etc.
 
 ```
-import UnitFmt from 'react-ilib/src/UnitFmt';
+import UnitFmt from 'react-ilib/lib/UnitFmt';
 
 <UnitFmt
     measure={Measurement}
@@ -192,8 +192,8 @@ Format an ilib Measurement as a string. Props can contain:
 An example of using this component to format a measurement:
 
 ```
-import MeasurementFactory from 'ilib-es6/src/MeasurementFactory';
-import UnitFmt from 'react-ilib/src/UnitFmt';
+import MeasurementFactory from 'ilib-es6/lib/MeasurementFactory';
+import UnitFmt from 'react-ilib/lib/UnitFmt';
 
 let m = MeasurementFactory({
     measure: 24,
@@ -236,9 +236,9 @@ To translate text to another language inside of your React app, you can use
 the `Translate` component.
 
 ```
-import Translate from 'react-ilib/src/Translate';
-import Plural from 'react-ilib/src/Plural';
-import Parameter from 'react-ilib/src/Parameter';
+import Translate from 'react-ilib/lib/Translate';
+import Plural from 'react-ilib/lib/Plural';
+import Parameter from 'react-ilib/lib/Parameter';
 
 <Translate
     id="string"

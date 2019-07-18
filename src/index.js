@@ -1,7 +1,7 @@
 /*
- * index.js - main js file for the react-ilib test app
+ * index.js - main js file for the react-ilib library
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
-import LocaleDataProvider from './components/LocaleDataProvider';
+export { AddressFmt } from './components/AddressFmt';
+export { DateFmt } from './components/DateFmt';
+export { DateRngFmt } from './components/DateRngFmt';
+export { DurationFmt } from './components/DurationFmt';
+export { ListFmt } from './components/ListFmt';
+export { NameFmt } from './components/NameFmt';
+export { NumFmt } from './components/NumFmt';
+export { PhoneFmt } from './components/PhoneFmt';
+export { UnitFmt } from './components/UnitFmt';
 
-ReactDOM.render(
-    <LocaleDataProvider locale="de-DE"/>,
-    document.getElementById('root'));
-registerServiceWorker();
+export { LocaleContext } from './components/LocaleContext';
+export { LocaleDataProvider } from './components/LocaleDataProvider';
+export { Param } from './components/Param';
+export { Plural } from './components/Plural';
+export { Translate } from './components/Translate';
