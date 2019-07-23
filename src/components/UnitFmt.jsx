@@ -20,14 +20,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import MeasurementFactory from 'ilib-es6/lib/MeasurementFactory';
-import UnitFormatter from 'ilib-es6/lib/UnitFmt';
+import { MeasurementFactory, UnitFmt as UnitFormatter } from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 
 class UnitFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         autoScale: PropTypes.bool,
         autoConvert: PropTypes.bool,
         usage: PropTypes.string,

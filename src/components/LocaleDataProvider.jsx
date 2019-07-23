@@ -22,14 +22,16 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import LocaleContext from './LocaleContext';
 
-import ilib from 'ilib-es6';
-import ResBundle from 'ilib-es6/lib/ResBundle';
+import ilib, { ResBundle } from 'ilib-es6';
 
 class LocaleDataProvider extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         translationsDir: PropTypes.string,
-        app: PropTypes.string.isRequired,
+        app: PropTypes.func.isRequired,
         bundleName: PropTypes.string
     };
 

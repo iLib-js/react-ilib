@@ -20,14 +20,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import DateRangeFormatter from 'ilib-es6/lib/DateRngFmt';
+import { DateRngFmt as DateRangeFormatter } from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 import objectEquals from '../utils/utils';
 
 class DateRngFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         calendar: PropTypes.string,
         timezone: PropTypes.string,
         length: PropTypes.string,

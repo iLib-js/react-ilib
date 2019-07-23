@@ -20,13 +20,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import NumberFormatter from 'ilib-es6/lib/NumFmt';
+import { NumFmt as NumberFormatter } from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 
 class NumFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         type: PropTypes.string,
         currency: PropTypes.string,
         maxFractionDigits: PropTypes.any,
