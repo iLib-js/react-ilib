@@ -2,7 +2,7 @@
  * LocaleDataProvider.jsx - provider to load ilib data asynchronously before
  * loading the rest of the app
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,9 @@ import ResBundle from 'ilib-es6/lib/ResBundle';
 class LocaleDataProvider extends React.Component {
     static propTypes = {
         locale: PropTypes.string,
-        translationsDir: PropTypes.string
+        translationsDir: PropTypes.string,
+        app: PropTypes.string.isRequired,
+        bundleName: PropTypes.string
     };
 
     constructor(props) {
@@ -41,54 +43,54 @@ class LocaleDataProvider extends React.Component {
         };
     }
 
-    loadMainApp() {
-        //  eslint-disable-next-line
-        System.import("../App.jsx").then(function(module) {
+    loadResBundle() {
+        ResBundle.create({
+            locale: this.props.locale,
+            name: this.props.bundleName,
+            type: "html",
+            loadParams: {
+                rootDir: this.translationsDir
+            }
+        }).then(rb => {
             console.log(`Main App loaded.`);
             this.setState({
+                locale: this.props.locale,
+                rb,
                 mainApp:
                     <LocaleContext.Provider value={{locale: this.state.locale, rb: this.state.rb}}>
-                        {React.createElement(module.default, {})}
+                        <this.props.app/>
                     </LocaleContext.Provider>
             });
-        }.bind(this));
+        });
     }
 
-    loadDataAndApp() {
+    loadLocaleData() {
         let locale = this.props.locale || ilib.getLocale();
         if (ilib.isDynData()) {
             // under dynamic data, we have to ensure the data is loaded first before
             // we load the main app
             let webpackLoader = ilib._load;
-            webpackLoader.ensureLocale(locale, "./locale", function(results) {
+            webpackLoader.ensureLocale(locale, this.translationsDir, results => {
                 if (results) {
                     console.log(`Locale data for locale ${this.props.locale} loaded.`);
-                    this.loadMainApp(locale);
+                    this.loadResBundle();
                 } else {
                     console.log(`Locale data for locale ${locale} were NOT loaded`);
                 }
-            }.bind(this));
-        } else {
-            // data is already assembled and loaded, so just load the main app directly
-            this.setState({
-                locale: locale,
-                rb: new ResBundle({
-                    locale: this.props.locale,
-                    name: this.props.name,
-                    type: "html"
-                })
             });
-            this.loadMainApp(locale);
+        } else {
+            // data is already assembled and loaded, so just load the resources next
+            this.loadResBundle();
         }
     }
 
     componentDidMount() {
-        this.loadDataAndApp()
+        this.loadLocaleData()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.translationsDir !== this.props.translationsDir) {
-            this.loadDataAndApp();
+            this.loadLocaleData();
         }
     }
 
