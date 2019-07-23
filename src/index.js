@@ -17,18 +17,20 @@
  * limitations under the License.
  */
 
-export { AddressFmt } from './components/AddressFmt';
-export { DateFmt } from './components/DateFmt';
-export { DateRngFmt } from './components/DateRngFmt';
-export { DurationFmt } from './components/DurationFmt';
-export { ListFmt } from './components/ListFmt';
-export { NameFmt } from './components/NameFmt';
-export { NumFmt } from './components/NumFmt';
-export { PhoneFmt } from './components/PhoneFmt';
-export { UnitFmt } from './components/UnitFmt';
+export { default as AddressFmt } from './components/AddressFmt';
+export { default as DateFmt } from './components/DateFmt';
+export { default as DateRngFmt } from './components/DateRngFmt';
+export { default as DurationFmt } from './components/DurationFmt';
+export { default as ListFmt } from './components/ListFmt';
+export { default as NameFmt } from './components/NameFmt';
+export { default as NumFmt } from './components/NumFmt';
+export { default as PhoneFmt } from './components/PhoneFmt';
+export { default as UnitFmt } from './components/UnitFmt';
 
-export { LocaleContext } from './components/LocaleContext';
-export { LocaleDataProvider } from './components/LocaleDataProvider';
-export { Param } from './components/Param';
-export { Plural } from './components/Plural';
-export { Translate } from './components/Translate';
+export { default as LocaleContext } from './components/LocaleContext';
+export { default as LocaleDataProvider } from './components/LocaleDataProvider';
+export { default as Param } from './components/Param';
+export { default as Plural } from './components/Plural';
+export { default as Translate } from './components/Translate';
+
+export default "react-ilib";
