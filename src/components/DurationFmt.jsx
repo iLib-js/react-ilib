@@ -34,7 +34,7 @@ class DurationFmt extends React.Component {
         style: PropTypes.string,
         useNative: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.boolean
+            PropTypes.bool
         ]),
         duration: PropTypes.object.isRequired,
         id: PropTypes.string,
