@@ -59,7 +59,7 @@ class LocaleDataProvider extends React.Component {
                 locale: this.props.locale,
                 rb,
                 mainApp:
-                    <LocaleContext.Provider value={{locale: this.state.locale, rb: this.state.rb}}>
+                    <LocaleContext.Provider value={{locale: this.props.locale, rb: rb}}>
                         <this.props.app/>
                     </LocaleContext.Provider>
             });

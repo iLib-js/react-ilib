@@ -29,8 +29,8 @@ var rb = new ResBundle({
 });
 
 const LocaleContext = React.createContext({
-    locale: locale,
-    rb: rb
+    locale,
+    rb
 });
 
 export function withLocale(Component) {
