@@ -39,7 +39,7 @@ class LocaleDataProvider extends React.Component {
         super(props);
 
         this.state = {
-            locale: ilib.getLocale(),
+            locale: null,
             rb: null,
             mainApp: null
         };
@@ -54,7 +54,7 @@ class LocaleDataProvider extends React.Component {
                 rootDir: this.translationsDir
             }
         }).then(rb => {
-            console.log(`Main App loaded.`);
+            console.log(`Main App loaded. Settings state. Locale: ${this.props.locale} rb: ${rb.locale.getSpec()}`);
             this.setState({
                 locale: this.props.locale,
                 rb,
@@ -92,6 +92,7 @@ class LocaleDataProvider extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.translationsDir !== this.props.translationsDir) {
+            if (this.props.locale) ilib.setLocale(this.props.locale);
             this.loadLocaleData();
         }
     }
