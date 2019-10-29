@@ -36,8 +36,7 @@
   ],
   "files": [
     "lib",
-    "src/components",
-    "src/utils",
+    "src",
     "README.md",
     "package.json",
     "LICENSE"
@@ -59,8 +58,8 @@
     "dist": "npm run build:lib ; npm pack"
   },
   "dependencies": {
-    "ilib": "^14.3.0",
-    "ilib-es6": "^14.3.0",
+    "ilib": "^14.4.0",
+    "ilib-es6": "^14.4.0",
     "ilib-tree-node": "^1.2.2",
     "message-accumulator": "^2.2.1"
   },

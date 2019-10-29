@@ -1,7 +1,7 @@
 /*
- * testLocaleContext.jsx - test the LocaleContext.
+ * testLocaleDataProvider.jsx - test the LocaleDataProvider component.
  *
- * Copyright © 2018-2019, JEDLSoft
+ * Copyright © 2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import enzyme, { mount } from 'enzyme';
 import PropTypes from 'prop-types';
 import Adapter from 'enzyme-adapter-react-16';
 
+import LocaleDataProvider from '../../src/components/LocaleDataProvider';
 import Translate from '../../src/components/Translate';
 import Plural from '../../src/components/Plural';
 import LocaleContext, { withLocale } from '../../src/components/LocaleContext';
@@ -52,45 +53,47 @@ class Span extends React.Component {
 
 const Lspan = withLocale(Span);
 
-export let testLocaleContext = {
-    testLocaleContextProviderWithDefaultLocale: test => {
-        test.expect(2);
-        new ResBundle({
-            name: "localecontext",
-            sync: false,
-            onLoad: rb => {
-                const wrapper = mount(
-                    <LocaleContext.Provider value={{locale: "en-US", rb: rb}}>
-                        <Lspan>{rb.getStringJS("This is a test")}</Lspan>
-                    </LocaleContext.Provider>
-                );
+// just pretend we loaded everything
+ilib._load.ensureLocale = function mockEnsure(locale, dir, callback) {
+    callback(ilib.data);
+};
 
-                let span = wrapper.find('span');
-                test.equal(span.prop('x-locale'), 'en-US');
-                test.equal(span.prop('children'), 'This is a test');
-                test.done();
-            }
+export let testLocaleDataProvider = {
+    testLocaleContextSimple: test => {
+        test.expect(2);
+
+        const app = <Translate>This is a test</Translate>;
+
+        const wrapper = mount(
+            <LocaleDataProvider app={app} />
+        );
+
+        setTimeout(() => {
+            wrapper.update();
+
+            let span = wrapper.find('span');
+            test.equal(span.prop('x-locale'), 'en-US');
+            test.equal(span.prop('children'), 'This is a test');
+            test.done();
         });
     },
 
-    testLocaleContextProviderExplicitLocale: test => {
+    testLocaleContextWithTranslations: test => {
         test.expect(2);
-        new ResBundle({
-            locale: "ru-RU",
-            name: "localecontext",
-            sync: false,
-            onLoad: rb => {
-                const wrapper = mount(
-                    <LocaleContext.Provider value={{locale: "ru-RU", rb: rb}}>
-                        <Lspan>{rb.getStringJS("This is a test")}</Lspan>
-                    </LocaleContext.Provider>
-                );
 
-                let span = wrapper.find('span');
-                test.equal(span.prop('x-locale'), 'ru-RU');
-                test.equal(span.prop('children'), 'Это тест');
-                test.done();
-            }
+        const app = <Translate>This is a test</Translate>;
+
+        const wrapper = mount(
+            <LocaleDataProvider translationsDir="./res" bundleName="resources" locale="de-DE" app={app}/>
+        );
+
+        setTimeout(() => {
+            wrapper.update();
+
+            let span = wrapper.find('span');
+            test.equal(span.prop('x-locale'), 'de-DE');
+            test.equal(span.prop('children'), 'Dies ist eine Teste.');
+            test.done();
         });
     }
 };

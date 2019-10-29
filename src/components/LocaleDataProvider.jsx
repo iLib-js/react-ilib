@@ -31,7 +31,10 @@ class LocaleDataProvider extends React.Component {
              PropTypes.object
         ]),
         translationsDir: PropTypes.string,
-        app: PropTypes.func.isRequired,
+        app: PropTypes.oneOfType([
+             PropTypes.func,
+             PropTypes.object
+        ]).isRequired,
         bundleName: PropTypes.string
     };
 
@@ -50,17 +53,26 @@ class LocaleDataProvider extends React.Component {
             locale: this.props.locale,
             name: this.props.bundleName,
             type: "html",
-            loadParams: {
-                rootDir: this.translationsDir
-            }
+            baseDir: this.props.translationsDir
         }).then(rb => {
             console.log(`Main App loaded. Settings state. Locale: ${this.props.locale} rb: ${rb.locale.getSpec()}`);
+
+            let App;
+            const AppType = this.props.app ||
+                (this.props.children && React.children.count(this.props.children) === 1 && this.props.children);
+
+            if (typeof(AppType) === "function") {
+                App = <AppType/>
+            } else {
+                App = React.cloneElement(AppType, {key: "mainApp"});
+            }
+
             this.setState({
                 locale: this.props.locale,
                 rb,
                 mainApp:
                     <LocaleContext.Provider value={{locale: this.props.locale, rb: rb}}>
-                        <this.props.app/>
+                        {App}
                     </LocaleContext.Provider>
             });
         });
@@ -72,9 +84,9 @@ class LocaleDataProvider extends React.Component {
             // under dynamic data, we have to ensure the data is loaded first before
             // we load the main app
             let webpackLoader = ilib._load;
-            webpackLoader.ensureLocale(locale, this.translationsDir, results => {
+            webpackLoader.ensureLocale(locale, this.props.translationsDir, results => {
                 if (results) {
-                    console.log(`Locale data for locale ${this.props.locale} loaded.`);
+                    console.log(`Locale data for locale ${locale} loaded.`);
                     this.loadResBundle();
                 } else {
                     console.log(`Locale data for locale ${locale} were NOT loaded`);
@@ -98,7 +110,7 @@ class LocaleDataProvider extends React.Component {
     }
 
     render() {
-        return this.state.mainApp || <div>Loading...</div>;
+        return this.state.mainApp || <div key="mainApp">Loading...</div>;
     }
 }
 
