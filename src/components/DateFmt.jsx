@@ -20,15 +20,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import ilib from 'ilib-es6';
-import IlibDateFmt from 'ilib-es6/lib/DateFmt';
+import ilib, {DateFmt as IlibDateFmt} from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 import objectEquals from '../utils/utils';
 
 class DateFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         id: PropTypes.string,
         wrapper: PropTypes.oneOfType([
             PropTypes.string,

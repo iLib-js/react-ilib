@@ -46,7 +46,7 @@ class Translate extends React.Component {
 
         const sourceElements = children;
 
-        if (!children) {
+        if (React.Children.count(children) < 1) {
             throw new Error("Translate component with no child elements. Can't translate 'nothing!'");
         }
 
@@ -125,7 +125,7 @@ class Translate extends React.Component {
             '17',
             '18',
             '19',
-            ].filter(
+        ].filter(
             category => !!categories[category]
         ).map(
             category => `${category === "other" ? '' : category}#${categories[category]}`

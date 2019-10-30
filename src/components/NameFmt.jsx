@@ -1,7 +1,7 @@
 /*
  * NameFmt.jsx - component to format a person's name
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import Name from 'ilib-es6/lib/Name';
-import NameFormatter from 'ilib-es6/lib/NameFmt';
+import { Name, NameFmt as NameFormatter } from 'ilib-es6';
 
 class NameFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         style: PropTypes.string,
         components: PropTypes.string,
         name: PropTypes["object"].isRequired,

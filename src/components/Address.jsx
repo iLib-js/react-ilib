@@ -20,14 +20,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import IlibAddress from 'ilib-es6/lib/Address';
-import AddressFormatter from 'ilib-es6/lib/AddressFmt';
+import { Address as IlibAddress, AddressFmt as AddressFormatter } from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 
 class Address extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         style: PropTypes.string,
         id: PropTypes.string,
         wrapper: PropTypes["object"],

@@ -18,6 +18,7 @@
  */
 
 module.exports.files = [
+    "testLocaleDataProvider.jsx",
     "testDurationFmt.jsx",
     "testPhoneFmt.jsx",
     "testDateRngFmt.jsx",

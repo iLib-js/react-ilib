@@ -2,7 +2,7 @@
  * LocaleDataProvider.jsx - provider to load ilib data asynchronously before
  * loading the rest of the app
  *
- * Copyright © 2018, JEDLSoft
+ * Copyright © 2018-2019, JEDLSoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,78 +22,95 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import LocaleContext from './LocaleContext';
 
-import ilib from 'ilib-es6';
-import ResBundle from 'ilib-es6/lib/ResBundle';
+import ilib, { ResBundle } from 'ilib-es6';
 
 class LocaleDataProvider extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
-        translationsDir: PropTypes.string
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
+        translationsDir: PropTypes.string,
+        app: PropTypes.oneOfType([
+             PropTypes.func,
+             PropTypes.object
+        ]).isRequired,
+        bundleName: PropTypes.string
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            locale: ilib.getLocale(),
+            locale: null,
             rb: null,
             mainApp: null
         };
     }
 
-    loadMainApp() {
-        //  eslint-disable-next-line
-        System.import("../App.jsx").then(function(module) {
-            console.log(`Main App loaded.`);
+    loadResBundle() {
+        ResBundle.create({
+            locale: this.props.locale,
+            name: this.props.bundleName,
+            type: "html",
+            baseDir: this.props.translationsDir
+        }).then(rb => {
+            console.log(`Main App loaded. Settings state. Locale: ${this.props.locale} rb: ${rb.locale.getSpec()}`);
+
+            let App;
+            const AppType = this.props.app ||
+                (this.props.children && React.children.count(this.props.children) === 1 && this.props.children);
+
+            if (typeof(AppType) === "function") {
+                App = <AppType/>
+            } else {
+                App = React.cloneElement(AppType, {key: "mainApp"});
+            }
+
             this.setState({
+                locale: this.props.locale,
+                rb,
                 mainApp:
-                    <LocaleContext.Provider value={{locale: this.state.locale, rb: this.state.rb}}>
-                        {React.createElement(module.default, {})}
+                    <LocaleContext.Provider value={{locale: this.props.locale, rb: rb}}>
+                        {App}
                     </LocaleContext.Provider>
             });
-        }.bind(this));
+        });
     }
 
-    loadDataAndApp() {
+    loadLocaleData() {
         let locale = this.props.locale || ilib.getLocale();
         if (ilib.isDynData()) {
             // under dynamic data, we have to ensure the data is loaded first before
             // we load the main app
             let webpackLoader = ilib._load;
-            webpackLoader.ensureLocale(locale, "./locale", function(results) {
+            webpackLoader.ensureLocale(locale, this.props.translationsDir, results => {
                 if (results) {
-                    console.log(`Locale data for locale ${this.props.locale} loaded.`);
-                    this.loadMainApp(locale);
+                    console.log(`Locale data for locale ${locale} loaded.`);
+                    this.loadResBundle();
                 } else {
                     console.log(`Locale data for locale ${locale} were NOT loaded`);
                 }
-            }.bind(this));
-        } else {
-            // data is already assembled and loaded, so just load the main app directly
-            this.setState({
-                locale: locale,
-                rb: new ResBundle({
-                    locale: this.props.locale,
-                    name: this.props.name,
-                    type: "html"
-                })
             });
-            this.loadMainApp(locale);
+        } else {
+            // data is already assembled and loaded, so just load the resources next
+            this.loadResBundle();
         }
     }
 
     componentDidMount() {
-        this.loadDataAndApp()
+        this.loadLocaleData()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.locale !== this.props.locale || prevProps.translationsDir !== this.props.translationsDir) {
-            this.loadDataAndApp();
+            if (this.props.locale) ilib.setLocale(this.props.locale);
+            this.loadLocaleData();
         }
     }
 
     render() {
-        return this.state.mainApp || <div>Loading...</div>;
+        return this.state.mainApp || <div key="mainApp">Loading...</div>;
     }
 }
 

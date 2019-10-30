@@ -20,18 +20,21 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import DurationFormatter from 'ilib-es6/lib/DurationFmt';
+import { DurationFmt as DurationFormatter } from 'ilib-es6';
 
 import hashKey from '../utils/hash';
 
 class DurationFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         length: PropTypes.string,
         style: PropTypes.string,
         useNative: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.boolean
+            PropTypes.bool
         ]),
         duration: PropTypes.object.isRequired,
         id: PropTypes.string,

@@ -20,12 +20,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import PhoneNumber from 'ilib-es6/lib/PhoneNumber';
-import PhoneFormatter from 'ilib-es6/lib/PhoneFmt';
+import { PhoneNumber, PhoneFmt as PhoneFormatter } from 'ilib-es6';
 
 class PhoneFmt extends React.Component {
     static propTypes = {
-        locale: PropTypes.string,
+        locale: PropTypes.oneOfType([
+             PropTypes.string,
+             PropTypes.object
+        ]),
         style: PropTypes.string,
         mcc: PropTypes.string,
         number: PropTypes.oneOfType([
